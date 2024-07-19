@@ -1,0 +1,118 @@
+name: last nest build  # 현재 제목
+
+on:  # 이벤트를 등록
+  push:  # push 이벤트가 발생하면
+    branches:  # branches 어떤 브랜치에 이벤트가 일어났을 때 작업을 동작시킨다.
+      - main
+
+jobs:  # 작업의 단위
+  Build:  # 식별자 (이름 내 맘대로)
+    runs-on: ubuntu-latest  # 러너에서 사용할 os latest 최신 버전 사용하겠다.
+
+    steps:  # 작업의 가장 작은 단위
+      - name: checkout  # 작업의 작은 단위의 이름
+        uses: actions/checkout@v4  # 레파지토리를 체크아웃 할 수 있게 도와주는 라이브러리
+        # 브런치에 있는 내용을 클론해온다. workflow에 복사해온다.
+
+      - name: set up node  # uses 라이브러리를 사용할 것을 가져오고, with : 라이브러리의 속성 설정
+        uses: actions/setup-node@v4  # 노드 버전 가져오기
+        with:
+          node-version: '20'  # 20 버전의 노트 런타임 환경을 제공
+
+      - name: npm test  # 의존성을 설치하기 전에 폴더 구조 확인. pwd 현재 작업환경의 경로
+        run: |
+          ls
+          pwd
+
+      - name: npm install  # 의존성 설치
+        run: npm install
+
+      - name: build nestjs  # 빌드
+        run: npm run build
+        
+      - name: build test  # 빌드 파일 확인
+        run: |
+          ls
+          pwd
+          cd dist
+          ls
+          pwd
+      
+      # 러너에 빌드된 파일과 의존성들이 있는 상태 빌드 서버
+      # 운영 배포 서버에 전송해줘야 한다.
+
+      - name: upload build
+        uses: actions/upload-artifact@v4  # 빌드 결과물 저장, 빌드된 바이너리 패키지
+        with:
+          name: build-artifact
+          path: |  # path가 아티팩트에 저장할 폴더나 파일들의 경로
+            dist/
+            package.json
+            package-lock.json
+            system.config.js
+      # 운영 서버에 전송. EC2에 파일을 전송
+      # ssh
+      # > : 왼쪽의 출력 내용을 오른쪽의 파일을 생성하면서 내용을 저장한다. 기존 내용을 모두 지우고 덮어 씌운다.
+      # ssh-keyscan : SSH 호스트의 키를 가져와라. 명령어
+      # -H : 호스트 이름을 해시화 해서 출력하기 위해서
+      - name: ssh 접근할 키 파일 생성
+        run: |  # .ssh 폴더가 있어도 에러를 발생시키지 않는다. -p : 부모 디렉터리 생성. parents의 약어 
+          mkdir -p ~/.ssh
+          ls
+          pwd
+          echo "${{ secrets.AWS_SECRET_KEY }}" > ~/.ssh/aws_key
+          chmod 600 ~/.ssh/aws_key
+          ssh-keyscan -H ${{ secrets.HOST }} > ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
+
+      # 배포 준비 단계. 배포 하기 전에 생성할 폴더 및 파일 확인
+      # script는 EC2 운영 서버에서 실행시킬 쉘 스크립트 내용
+      # EC2 가상 서버에서 실행될 내용
+      - name: EC2 deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.AWS_SECRET_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu
+            rm -rf dist
+            mkdir dist
+            rm -rf package.json
+            rm -rf package-lock.json
+            rm -rf system.config.js
+            
+      # ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/dist/ : 원격 서버의 폴더에 파일을 복사한다.
+      - name: EC2에 아티팩트 복사
+        run: | # scp 파일을 복사하기 위한 명령. -r : 폴더를 재귀적으로 복사한다. -i : SSH 연결을 설정할 때 사용하는 키 파일을 지정한다.
+          scp -r -i ~/.ssh/aws_key ./dist/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/dist/
+          scp -i ~/.ssh/aws_key package.json ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/
+          scp -i ~/.ssh/aws_key package-lock.json ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/
+          scp -i ~/.ssh/aws_key system.config.js ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/
+      
+      - name: EC2 npm install
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.AWS_SECRET_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu
+            ls
+            pwd
+            npm install
+
+      - name: deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3 # 중단이 되버린다.
+        ## 무중단 배포
+        ## pm2 reload : 어플리케이션이 중단 없이 새로운 코드의 내용을 다시 가져온다.
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.AWS_SECRET_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu
+            pm2 reload system.config.js
