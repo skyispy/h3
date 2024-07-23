@@ -1,0 +1,29 @@
+#wrap > #purchase-box {
+    position: absolute;
+    top: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#purchase-box > div {
+    width: 60%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#purchase-box > div > .left {
+    width: 30%;
+    font-size: 26px;
+}
+
+#purchase-box > div > .right {
+    width: 40%;
+    background-color: black;
+    font-size: 20px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

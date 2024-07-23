@@ -1,0 +1,10 @@
+{
+  "include": [
+    "ts/**/*"
+  ],
+  "compilerOptions": {
+    "outDir": "./js",
+    "target": "ES6",
+    "removeComments": true
+  }
+}

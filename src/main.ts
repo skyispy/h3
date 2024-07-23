@@ -1,9 +1,12 @@
-import { NestFactory } from '@nestjs/core';
+import { NestApplication, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestApplication>(AppModule);
+  app.setBaseViewsDir(join(__dirname, "..", "page"));
+  app.setViewEngine("ejs");
 
   // swagger
   const config = new DocumentBuilder()
