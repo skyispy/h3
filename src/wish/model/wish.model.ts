@@ -1,5 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { User } from "../../user/model/user.model";
+import { Item } from "src/item/model/item.model";
 
 //////////////// wish 테이블 /////////////////
 
@@ -38,6 +39,6 @@ export class Wish extends Model {
     @BelongsTo(() => User, 'fk_userId')
     userId: User;
 
-    // @BelongsTo(() => Item, 'fk_itemId')
-    // itemId: Item;
+    @BelongsTo(() => Item, 'fk_itemId')
+    itemId: Item;
 }
