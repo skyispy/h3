@@ -7,12 +7,13 @@ async function bootstrap() {
 
   // swagger
   const config = new DocumentBuilder()
-  .setTitle("h3")
-  .setDescription("의류 중고 사이트입니당")
-  .addTag("회원")
-  .addTag("의류 마켓")
-  .addTag("판매자 스토어")
-  .build();
+    .setTitle("TEAM h3")
+    .setDescription("REHAND")
+    .addTag("유저")
+    .addTag("리뷰")
+    .addTag("위시")
+    .addTag("아이템")
+    .build();
 
   const document = SwaggerModule.createDocument(app, config);
   // api 적으면됨
