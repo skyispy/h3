@@ -11,8 +11,8 @@ import { ItemImageModule } from './item-image/item-image.module';
     host : "localhost",
     port : 3306,
     username : "root",
-    password : "930702",
-    database : "waffle",
+    // password : "930702",
+    // database : "waffle",
     autoLoadModels : true,
     synchronize : true,
     sync : {force : false}
@@ -20,4 +20,4 @@ import { ItemImageModule } from './item-image/item-image.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
