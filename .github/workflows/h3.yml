@@ -1,7 +1,7 @@
 name: last nest build  # 현재 제목
 
 on:  # 이벤트를 등록
-  push:  # push 이벤트가 발생하면
+  merge_group:  # push 이벤트가 발생하면
     branches:  # branches 어떤 브랜치에 이벤트가 일어났을 때 작업을 동작시킨다.
       - main
 
