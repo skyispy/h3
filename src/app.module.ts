@@ -8,6 +8,8 @@ import { UserModule } from './user/user.module';
 import { ReviewModule } from './review/review.module';
 import { AuthModule } from './auth/auth.module';
 import { WishModule } from './wish/wish.module';
+import {ServeStaticModule} from '@nestjs/serve-static'
+import { join } from 'path';
 
 @Module({
   imports: [SequelizeModule.forRoot({

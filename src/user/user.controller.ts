@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Render } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignInUserDTO, UpdateUserDTO } from './dto/user.dto';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -9,20 +9,33 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   ///////////////////// 회원가입 //////////////////////
+  @Get('signup')
+  @Render('signUp')
+  signUpRender() {
+    return;
+  }
+
+  @Get('login')
+  @Render('login')
+  loginRender() {
+    return;
+  }
+
   @ApiOperation({ summary: "회원가입" })
   @ApiBody({
     schema: {
       properties: { email: { type: "string" }, nickname: { type: "string" }, upw: { type: "string" }, profileImg: { type: "string" }, introduce: { type: "string" } }
     }
   })
-  @Post("/signin")
-  signIn(@Body() signInData: SignInUserDTO) {
+  @Post("/signUp")
+  signUp(@Body() signInData: SignInUserDTO) {
     return this.userService.signIn(signInData);
   }
 
   ///////////////////// 유저 선택 //////////////////////
   @ApiOperation({ summary: "유저 선택" })
   @Get("/:id")
+  @Render('profile')
   selectUser(@Param("id") getId: number) {
     return this.userService.selectUser(getId);
   }

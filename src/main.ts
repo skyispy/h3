@@ -1,10 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as hbs from 'hbs';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.setBaseViewsDir(join(__dirname, "..", "..", "public", "page"));
+  app.setViewEngine('hbs');
+
+  hbs.registerPartials(join(__dirname, '..', '..', 'public', 'page', 'partials'));
+
+  app.useStaticAssets(join(__dirname, '..', '..', 'public'))
+  
   // swagger
   const config = new DocumentBuilder()
     .setTitle("TEAM h3")

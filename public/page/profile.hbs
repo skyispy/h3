@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/topbottom.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        {{>header}}
+        <div id="content">
+            <div class="content-wrap">
+                <div class="profile-box">
+                    <img src="/img/views/Unknown.svg" alt="">
+                    <div class="img-box" style="border: 1px solid;">
+                        <img src="/img/login/image.png" alt="">
+                    </div>
+                    <div class="ifo-box">
+                        <h3>닉네임</h3>
+                        <textarea name="" id="" style="resize: none;"></textarea>
+                        {{#unless isSeller}}
+                            <button>편집</button>
+                        {{/unless}}
+                    </div>
+                </div>
+                <div class="controller">
+                    <span>Shop
+                        <div class="line"></div>
+                    </span>
+                    <span>Wishlist
+                        <div class="line"></div>
+                    </span>
+                    <span>Reviews
+                        <div class="line"></div>
+                    </span>
+                    
+                </div>
+                <div class="shop-box">
+                </div>
+                <div class="wishlist-box"></div>
+                <div class="review-box"></div>
+            </div>
+        </div>
+        {{>footer}}
+    </div>
+</body>
+<script src="/js/header.js"></script>
+</html>
