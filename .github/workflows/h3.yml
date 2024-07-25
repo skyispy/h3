@@ -1,10 +1,12 @@
 name: last nest build  # 현재 제목
 
 on:  # 이벤트를 등록
-  pull_request:
-    branches: [ "main" ]
   merge_group:  
-    types: [checks_requested]  # 아이 원투 겟
+    branches:
+      - main  # 아이 원투 겟
+  push:
+    branches:
+      - main
 
 jobs:  # 작업의 단위
   Build:  # 식별자 (이름 내 맘대로)
