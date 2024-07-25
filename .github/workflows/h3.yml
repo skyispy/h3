@@ -1,9 +1,11 @@
 name: last nest build  # 현재 제목
 
 on:  # 이벤트를 등록
+  pull_request:
+    branches: [ "main" ]
   merge_group:  # push 이벤트가 발생하면
     branches:  # branches 어떤 브랜치에 이벤트가 일어났을 때 작업을 동작시킨다.
-      - main
+      types: [checks_requested]
 
 jobs:  # 작업의 단위
   Build:  # 식별자 (이름 내 맘대로)
