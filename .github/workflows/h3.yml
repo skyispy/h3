@@ -108,6 +108,7 @@ jobs:  # 작업의 단위
         uses: appleboy/ssh-action@v1.0.3 # 중단이 되버린다.
         ## 무중단 배포
         ## pm2 reload : 어플리케이션이 중단 없이 새로운 코드의 내용을 다시 가져온다.
+        #  프로젝트 화이팅
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -116,3 +117,4 @@ jobs:  # 작업의 단위
           script: |
             cd /home/ubuntu
             pm2 reload system.config.js
+      
