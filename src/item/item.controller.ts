@@ -8,6 +8,11 @@ import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
+  @Get('sell')
+  @Render('assign')
+  sellRender() {
+    return;
+  }
 
   @ApiOperation({summary : "특정 아이디 아이템 데이터"})
   @Get("/:id")
@@ -41,8 +46,9 @@ export class ItemController {
   })
 
   @Post('registItem')
-  async createItem(@Body() itemBody : createItemDTO) {
-   await this.itemService.createItem(itemBody);
+  async createItem(@Body() itemBody) {
+    console.log(itemBody);
+    //  await this.itemService.createItem(itemBody);
   }
 
   

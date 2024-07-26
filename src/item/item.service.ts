@@ -42,4 +42,9 @@ export class ItemService {
     async deleteitem(id) {
         return await this.itemModel.destroy({where : { id }, force: true});
     }
+
+    async image(userId,dada) {
+        await this.itemModel.create({userId});
+        const data = await this.itemModel.findAll();
+    }
 }

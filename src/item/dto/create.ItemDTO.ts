@@ -6,4 +6,5 @@ export class createItemDTO {
     sold : boolean;
     // sellerId : number;
     // buyerId : number;
+    img: string;
 }
