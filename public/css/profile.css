@@ -68,3 +68,10 @@
     height: 8%;
     background-color: black;
 }
+
+
+.content-wrap > .shop-box {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
