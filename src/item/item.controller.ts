@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
 import { ItemService } from './item.service';
-import { createItemDTO } from './dto/create.ItemDTO';
+import { createItemDTO, updateItemDTO } from './dto/create.ItemDTO';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Request, Response} from 'express';
+import { ItemParamPipe } from './pipe/item.pipe';
 
 @ApiTags("아이템")
 @Controller('item')
@@ -32,20 +34,42 @@ export class ItemController {
   selectCategoryItem(@Param("category") category : string) {
     return this.itemService.selectCategoryItem(category)
   }
+  @ApiOperation({ summary : "아이템 삭제"})
+  @Delete('/delItem/:id')
+  async deleteItem(@Param("id") delId : number) {
+    await this.itemService.deleteItem(delId)
+  }
+
+  @ApiOperation({ summary : "아이템 수정"})
+  @ApiBody({
+    schema : {
+      properties: {title : {type : "string"},price : { type : "number" }, content : {type : "string"},category : {type : "string"},brand : { type : "string"}}
+    }
+  })
+  @Put("/update/:id")
+  async UpdateItem(@Body() ItemData :updateItemDTO, @Param("id") updateItemId : number ) {
+    await this.itemService.updateItem(updateItemId ,ItemData)
+  }
 
   @ApiOperation({summary: "아이템 등록"})
   @ApiBody({
     schema: {
-      properties: {title: { type: "string"}, content: { type: "string"}, category: {type :"string"}, brand: {type : "string"}, sold : {type : "boolean"}}
+      properties: {title: { type: "string"}, content: { type: "string"}, category: {type :"string"}, brand: {type : "string"}, sold : {type : "boolean"}, fk_sellerId : {type : "number"}, price : {type : "number"}}
     }
   })
-
   @Post('registItem')
-  async createItem(@Body() itemBody : createItemDTO) {
-   await this.itemService.createItem(itemBody);
+  async createItem(@Body() itemBody : createItemDTO, @Req() req: Request, @Res() res: Response) {
+    // const {userId} = req.user
+   const id = await this.itemService.createItem(itemBody, 1);
+   await this.itemService.createItemImagePath(id, "경로")
+   await console.log(id);
+   res.send(1);
   }
 
-  
-
-
+  @ApiOperation({ summary : "판매완료"}) // buyerId 가 들어가야함
+  @Post("view/:id") // 메인 페이지로 돌아가야함 
+  async sellItem(@Param("id", ItemParamPipe) itemId: number, @Res() res: Response) {
+     await this.itemService.soldoutItem(1, itemId);
+    res.redirect('/')
+  }
 }
