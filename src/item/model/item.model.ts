@@ -40,6 +40,12 @@ export class Item extends Model {
     })
     sold : boolean
 
+    @Column({
+        type : DataType.INTEGER,
+        allowNull : false
+    })
+    price : number
+
     
     @ForeignKey(() => User)
     @Column({
@@ -51,7 +57,7 @@ export class Item extends Model {
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER,
-        allowNull: false
+        allowNull: true
     })
     fk_buyerId: number;
     
