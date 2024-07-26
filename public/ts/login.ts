@@ -2,6 +2,7 @@ const loginBtn = document.getElementById("loginBtn") as HTMLButtonElement;
 loginBtn.onclick = () => {
     const emailInput = document.getElementById("emailInput") as HTMLInputElement;
     const upwInput = document.getElementById("upwInput") as HTMLInputElement;
+    axios.post('http://localhost:3000')
 }
 
 const google = document.getElementById("google") as HTMLDivElement;

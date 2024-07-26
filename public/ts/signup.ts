@@ -9,7 +9,7 @@ signupBtn.onclick = () => {
             upw: upwInput.value,
             nickName: nickNameInput.value
         }
-        axios.post("/", object).then((res) => {
+        axios.post("http://localhost:3000/user/signUp", object).then((res) => {
             console.log(res);
         }).catch((error) => {
             if (error.response) {
