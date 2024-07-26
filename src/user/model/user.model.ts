@@ -1,4 +1,5 @@
 import { Column, DataType, HasMany, Model, Table, Unique } from "sequelize-typescript";
+import { Item } from "src/item/model/item.model";
 import { Review } from "src/review/model/review.model";
 import { SellerReply } from "src/review/model/sellerReply.model";
 import { Wish } from "src/wish/model/wish.model";
@@ -44,6 +45,18 @@ export class User extends Model {
         allowNull: false
     })
     introduce: string;
+
+    @HasMany(() => Item, {
+        foreignKey: "fk_sellerId",
+        onDelete: "CASCADE"
+    })
+    sellingItem: Item[];
+
+    @HasMany(() => Item, {
+        foreignKey: "fk_buyerId",
+        onDelete: "CASCADE"
+    })
+    boughtItem: Item[];
 
     @HasMany(() => Review, {
         foreignKey: 'fk_sellerId',
