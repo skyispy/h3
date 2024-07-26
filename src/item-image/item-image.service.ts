@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { ItemImage } from 'src/item/model/itemImage.model';
 import { cerateItemImageDTO } from './dto/createitem-image';
+// dto 대문자 금지
 
 @Injectable()
 export class ItemImageService {
