@@ -16,8 +16,8 @@ export class UserController {
     }
   })
   @Post("/signin")
-  signIn(@Body() signInData: SignInUserDTO) {
-    return this.userService.signIn(signInData);
+  async signIn(@Body() signInData: SignInUserDTO) {
+    return await this.userService.signIn(signInData);
   }
 
   ///////////////////// 유저 선택 //////////////////////

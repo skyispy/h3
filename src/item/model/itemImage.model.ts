@@ -17,7 +17,7 @@ export class ItemImage extends Model {
 
     @ForeignKey(()=> Item)
     @Column
-    fk_itemId: number;
+    fk_sellerId: number;
 
     @BelongsTo(()=>Item)
     item: Item; 
