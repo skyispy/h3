@@ -51,11 +51,11 @@ export class UserService {
             include: [{
                 model: Item,
                 as: 'sellingItem',
-                order: [['createdAt', 'DESC']]
+                order: [['id', 'DESC']]
             }, {
                 model: Wish,
                 as: 'wishItems',
-                order: [['createdAt', 'DESC']]
+                order: [['id', 'DESC']]
             }, {
                 model: Review,
                 as: 'receiveReviews',
@@ -71,9 +71,9 @@ export class UserService {
                         as: "sellerId", // 대댓글 작성자의 정보
                         attributes: ['profileImg'] // 대댓글 작성자 이미지
                     }],
-                    order: [['createdAt', 'DESC']]
+                    order: [['id', 'DESC']]
                 }],
-                order: [['createdAt', 'DESC']]
+                order: [['id', 'DESC']]
             }]
         })
     }
