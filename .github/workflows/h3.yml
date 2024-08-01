@@ -1,8 +1,11 @@
 name: last nest build  # 현재 제목
 
 on:  # 이벤트를 등록
-  merge_group:  # push 이벤트가 발생하면
-    branches:  # branches 어떤 브랜치에 이벤트가 일어났을 때 작업을 동작시킨다.
+  merge_group:  
+    branches:
+      - main  # 아이 원투 겟
+  push:
+    branches:
       - main
 
 jobs:  # 작업의 단위
@@ -108,6 +111,7 @@ jobs:  # 작업의 단위
         uses: appleboy/ssh-action@v1.0.3 # 중단이 되버린다.
         ## 무중단 배포
         ## pm2 reload : 어플리케이션이 중단 없이 새로운 코드의 내용을 다시 가져온다.
+        #  프로젝트 화이팅
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -116,3 +120,4 @@ jobs:  # 작업의 단위
           script: |
             cd /home/ubuntu
             pm2 reload system.config.js
+      

@@ -13,9 +13,9 @@ export class ReviewService {
         private readonly sellerReplyModel: typeof SellerReply) { }
 
     ///////////////////// 스토어 리뷰 등록 //////////////////////
-    async registReview(reviewData: registReviewDTO): Promise<Review> {
-        const { reviewComment, star, fk_sellerId, fk_writerId } = reviewData
-        return await this.reviewModel.create({ reviewComment, star, fk_sellerId, fk_writerId })
+    async registReview(reviewData: registReviewDTO, id: number): Promise<Review> {
+        const { reviewComment, star, fk_sellerId } = reviewData
+        return await this.reviewModel.create({ reviewComment, star, fk_sellerId, fk_writerId: id })
     }
 
     ///////////////////// 스토어 리뷰 수정 //////////////////////
@@ -31,9 +31,9 @@ export class ReviewService {
 
 
     ///////////////////// 판매자 대댓글 등록 //////////////////////
-    async registReply(replyData: registReplyDTO): Promise<SellerReply> {
-        const { replyComment, fk_sellerId, fk_reviewId } = replyData
-        return await this.sellerReplyModel.create({ replyComment, fk_sellerId, fk_reviewId })
+    async registReply(replyData: registReplyDTO, id: number): Promise<SellerReply> {
+        const { replyComment, fk_reviewId } = replyData
+        return await this.sellerReplyModel.create({ replyComment, fk_reviewId, fk_sellerId: id })
     }
 
     ///////////////////// 판매자 대댓글 수정 //////////////////////

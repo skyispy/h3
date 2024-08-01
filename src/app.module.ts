@@ -8,19 +8,35 @@ import { UserModule } from './user/user.module';
 import { ReviewModule } from './review/review.module';
 import { AuthModule } from './auth/auth.module';
 import { WishModule } from './wish/wish.module';
+import { ConfigModule } from '@nestjs/config';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [SequelizeModule.forRoot({
-    dialect : 'mysql',
-    host : "localhost",
-    port : 3306,
-    username : "root",
-    password : "930702",
-    database : "waffle",
-    autoLoadModels : true,
-    synchronize : true,
-    sync : {force : false}
-  }), UserModule, ItemModule, ItemImageModule, ReviewModule, AuthModule, WishModule],
+    dialect: 'mysql',
+    host: "localhost",
+    port: 3306,
+    username: "root",
+    password: "5835",
+    database: "h3",
+    autoLoadModels: true,
+    synchronize: true,
+    sync: { force: false }
+  }),
+    UserModule,
+    ItemModule,
+    ItemImageModule,
+    ReviewModule,
+    AuthModule,
+    WishModule,
+    CommonModule,
+  ConfigModule.forRoot({ isGlobal: true }),
+  // ServeStaticModule.forRoot({ // 스태틱 파일 라우팅
+  //   rootPath: join(__dirname, "..", "..", "uploads")
+  // })
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

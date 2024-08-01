@@ -8,6 +8,6 @@ import { ItemImage } from './model/itemImage.model';
 @Module({
   imports: [SequelizeModule.forFeature([Item]), SequelizeModule.forFeature([ItemImage])],
   controllers: [ItemController],
-  providers: [ItemService],
+  providers: [ItemService]
 })
 export class ItemModule {}
