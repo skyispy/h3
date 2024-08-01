@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
@@ -36,6 +36,9 @@ export class AuthService {
     async login(loginData: LoginDTO): Promise<any> {
         const { email, upw: loginPw } = loginData;
         const data = await this.userService.selectUserByEmail(email) // 유저db 이메일로검색
+        if (!data) {
+            throw new UnauthorizedException("이메일 또는 비밀번호 오류")
+        }
         const { upw } = data;
         const pwTrue = await bcrypt.compare(loginPw, upw) // db비밀번호 가 맞는지 확인
         console.log(pwTrue);
@@ -48,7 +51,7 @@ export class AuthService {
             const token = this.jwtService.sign(payload)
             return token;
         } else {
-            // 비밀번호 안맞음
+            throw new UnauthorizedException("이메일 또는 비밀번호 오류")// 비밀번호 안맞음
         }
     }
 

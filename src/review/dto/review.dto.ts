@@ -3,7 +3,6 @@ export class registReviewDTO {
     reviewComment: string
     star: number
     fk_sellerId: number
-    fk_writerId: number
 }
 
 ///////////////////// 스토어 리뷰 수정 //////////////////////
@@ -15,7 +14,6 @@ export class updateReviewDTO {
 ///////////////////// 판매자 대댓글 등록 //////////////////////
 export class registReplyDTO {
     replyComment: string
-    fk_sellerId: number
     fk_reviewId: number
 }
 

@@ -36,7 +36,7 @@ import { CommonModule } from './common/common.module';
   // ServeStaticModule.forRoot({ // 스태틱 파일 라우팅
   //   rootPath: join(__dirname, "..", "..", "uploads")
   // })
-],
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

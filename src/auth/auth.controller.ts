@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
@@ -79,11 +79,15 @@ export class AuthController {
     }
   })
   async userlogin(@Body() loginData: LoginDTO, @Res() res: Response) {
-    const token = await this.authService.login(loginData) // 비밀번호맞으면 토큰 생성
-    const date = new Date()
-    const expireDate = new Date(date.setMinutes(date.getMinutes() + 60));
-    res.cookie('loginToken', token, { httpOnly: true, expires: expireDate }) // 쿠키로
-    res.send("인증성공");
+    try {
+      const token = await this.authService.login(loginData) // 비밀번호맞으면 토큰 생성
+      const date = new Date()
+      const expireDate = new Date(date.setMinutes(date.getMinutes() + 60));
+      res.cookie('loginToken', token, { httpOnly: true, expires: expireDate }) // 쿠키로
+      return res.status(200).end(); // 로그인 성공, 메인페이지로 리다이렉트 해야함
+    } catch (error) {
+      return res.status(401).end() // 로그인 실패 얼러트 띄워야함
+    }
   }
 
 

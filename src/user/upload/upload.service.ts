@@ -8,7 +8,7 @@ import { MulterOptionsFactory } from '@nestjs/platform-express';
 export class UploadService implements MulterOptionsFactory {
     dirPath: string;
     constructor() {
-        this.dirPath = path.join(process.cwd(), 'uploads'); // (루트경로) 에 uploads 있는지 확인
+        this.dirPath = path.join(process.cwd(), "public", 'uploads'); // (루트경로) 에 public / uploads
         this.mkdir();
     }
 
