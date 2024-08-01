@@ -45,9 +45,14 @@ export class UserController {
     if (!token) { // 토큰 없으면 그냥 데이터만 렌더
       return { data }
     } else { // 토큰 있으면 토큰 id값 전달
-      const loginUserId = this.jwtService.verify(token).id
-      console.log(loginUserId);
-      return { data, loginUserId };
+      try {
+        const loginUserId = this.jwtService.verify(token).id
+        console.log(loginUserId);
+        console.log(data.id);
+        return { data, loginUserId }
+      } catch (error) { // 쿠키에 토큰은 있으나 유효하지 않을 경우 예외 처리
+        return { data }
+      }
     }
   }
 
