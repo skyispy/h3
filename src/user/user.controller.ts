@@ -29,7 +29,7 @@ export class UserController {
     return;
   }
 
-  @Get('history')
+  @Get('history/:id')
   @Render('history')
   historyRender() {
     return;
@@ -37,8 +37,8 @@ export class UserController {
 
   ///////////////////// GET 유저 스토어 창 //////////////////////
   @ApiOperation({ summary: "유저 스토어" })
-  @Get("/:id")
-  // @Render('profile')
+  @Get(":id")
+  @Render('profile')
   async selectMyInclude(@Param("id") id: number, @Req() req) {
     const token = req.cookies.loginToken
     const data = await this.userService.selectMyInclude(id)
@@ -47,7 +47,7 @@ export class UserController {
     } else { // 토큰 있으면 토큰 id값 전달
       const loginUserId = this.jwtService.verify(token).id
       console.log(loginUserId);
-      return { data, loginUserId }
+      return { data, loginUserId };
     }
   }
 
@@ -64,13 +64,13 @@ export class UserController {
     return this.userService.signUp(signInData);
   }
 
-  ///////////////////// 유저 선택 //////////////////////
-  @ApiOperation({ summary: "유저 선택" })
-  @Get(":id")
-  @Render('profile')
-  selectUser(@Param("id") getId: number) {
-    return this.userService.selectUser(getId);
-  }
+  // ///////////////////// 유저 선택 //////////////////////
+  // @ApiOperation({ summary: "유저 선택" })
+  // @Get(":id")
+  // @Render('profile')
+  // selectUser(@Param("id") getId: number) {
+  //   return this.userService.selectUser(getId);
+  // }
 
   ///////////////////// 유저 비밀번호, 이미지, 소개 수정 (멀터)//////////////////////
   ///////////////////// PUT 유저 비밀번호, 이미지, 소개 수정 (멀터)//////////////////////

@@ -11,10 +11,16 @@ const slideAnimation = () => {
         el.parentElement.style.display = "flex";
         el.classList.add("slide-animation");
     });
+    const controllers = document.querySelectorAll(".slide-controller > span");
+    const grayController = document.getElementById(`stick-${(count + 1) % 6}`);
+    controllers.forEach((el: HTMLSpanElement) => {
+        el.style.backgroundColor = "black";
+    })
+    grayController.style.backgroundColor = "gray";
     count++;
 };
 
-let slide = setInterval(slideAnimation, 8000);
+let slide = setInterval(slideAnimation, 6000);
 
 const controllers = document.querySelectorAll(".slide-controller > span");
 console.log(controllers)
@@ -25,7 +31,7 @@ controllers.forEach((el: HTMLSpanElement) => {
         console.log(count);
         slideInit();
         slideAnimation();
-        slide = setInterval(slideAnimation, 8000);
+        slide = setInterval(slideAnimation, 6000);
         const controllers = document.querySelectorAll(".slide-controller > span");
         controllers.forEach((el: HTMLSpanElement) => {
             el.style.backgroundColor = "black";
