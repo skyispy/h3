@@ -21,10 +21,12 @@
                     <div class="ifo-box">
                         <h3>닉네임</h3>
                         <textarea name="" id="" style="resize: none;"></textarea>
-                        {{#unless isSeller}}
-                            <button>편집</button>
-                        {{/unless}}
+                        <div class="textarea-box"></div>
                     </div>
+                </div>
+                <div class="user-btn-box">
+                    <div id="historyBtn">구매내역</div>
+                    <div id="editBtn">편집</div>
                 </div>
                 <div class="controller">
                     <span>Shop
@@ -36,52 +38,189 @@
                     <span>Reviews
                         <div class="line"></div>
                     </span>
-                    
                 </div>
-                <div class="shop-box">
+                <div class="shop-box" style="display: none;">
                     <div class="product-box">
                         <div class="img-box">
-                            <img src="" alt="">
+                            <img src="../img/login/image.png" alt="">
                         </div>
-                        <p>Belier</p>
-                        <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
-                        <p>78,000원</p>
+                        <div class="ifo-box">
+                            <p>Belier</p>
+                            <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
+                            <p>78,000원</p>
+                        </div>
                     </div>
                     <div class="product-box">
                         <div class="img-box">
-                            <img src="" alt="">
+                            <img src="../img/login/image.png" alt="">
                         </div>
-                        <p>Belier</p>
-                        <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
-                        <p>78,000원</p>
+                        <div class="ifo-box">
+                            <p>Belier</p>
+                            <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
+                            <p>78,000원</p>
+                        </div>
                     </div>
                     <div class="product-box">
                         <div class="img-box">
-                            <img src="" alt="">
+                            <img src="../img/login/image.png" alt="">
                         </div>
-                        <p>Belier</p>
-                        <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
-                        <p>78,000원</p>
+                        <div class="ifo-box">
+                            <p>Belier</p>
+                            <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
+                            <p>78,000원</p>
+                        </div>
                     </div>
                     <div class="product-box">
                         <div class="img-box">
-                            <img src="" alt="">
+                            <img src="../img/login/image.png" alt="">
                         </div>
-                        <p>Belier</p>
-                        <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
-                        <p>78,000원</p>
+                        <div class="ifo-box">
+                            <p>Belier</p>
+                            <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
+                            <p>78,000원</p>
+                        </div>
                     </div>
                     <div class="product-box">
                         <div class="img-box">
-                            <img src="" alt="">
+                            <img src="../img/login/image.png" alt="">
                         </div>
-                        <p>Belier</p>
-                        <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
-                        <p>78,000원</p>
+                        <div class="ifo-box">
+                            <p>Belier</p>
+                            <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
+                            <p>78,000원</p>
+                        </div>
                     </div>
                 </div>
-                <div class="wishlist-box"></div>
-                <div class="review-box"></div>
+                <div class="wishlist-box" style="display: none;">
+                    <div class="product-box">
+                        <div class="img-box">
+                            <img src="../img/topbottom/ico-instagram.png" alt="">
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-box">
+                            <img src="../img/topbottom/ico-instagram.png" alt="">
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-box">
+                            <img src="../img/topbottom/ico-instagram.png" alt="">
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-box">
+                            <img src="../img/topbottom/ico-instagram.png" alt="">
+                        </div>
+                    </div>
+                    <div class="product-box">
+                        <div class="img-box">
+                            <img src="../img/topbottom/ico-instagram.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="review-box">
+                    <div class="input-box">
+                        <select name="" id="">
+                            <option value="">별점 선택</option>
+                            <option value="1">★☆☆☆☆</option>
+                            <option value="2">★★☆☆☆</option>
+                            <option value="3">★★★☆☆</option>
+                            <option value="4">★★★★☆</option>
+                            <option value="4">★★★★★</option>
+                            <option value="5"></option>
+                        </select>
+                        <input type="text">
+                        <button>작성</button>
+                    </div>
+                    <div class="reply-box">
+                        <div class="left">
+                            <div class="reviewer-box">
+                                <h6>
+                                    <img src="../img/login/image.png" alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                            </div>
+                            <div class="rating-box">
+                                <div class="flex-box">
+                                    <h6>★☆★☆★</h6>
+                                    <h6>2024. 7. 16</h6>   
+                                </div>
+                                <h6>좋은 배송 감사합니다~</h6>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="img-box">
+                                <img src="../img/login/image.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reply-box">
+                        <div class="left">
+                            <div class="reviewer-box">
+                                <h6>
+                                    <img src="../img/login/image.png" alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                            </div>
+                            <div class="rating-box">
+                                <div class="flex-box">
+                                    <h6>★☆★☆★</h6>
+                                    <h6>2024. 7. 16</h6>   
+                                </div>
+                                <h6>좋은 배송 감사합니다~</h6>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="img-box">
+                                <img src="../img/login/image.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reply-box">
+                        <div class="left">
+                            <div class="reviewer-box">
+                                <h6>
+                                    <img src="../img/login/image.png" alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                            </div>
+                            <div class="rating-box">
+                                <div class="flex-box">
+                                    <h6>★☆★☆★</h6>
+                                    <h6>2024. 7. 16</h6>   
+                                </div>
+                                <h6>좋은 배송 감사합니다~</h6>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="img-box">
+                                <img src="../img/login/image.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reply-box">
+                        <div class="left">
+                            <div class="reviewer-box">
+                                <h6>
+                                    <img src="../img/login/image.png" alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                            </div>
+                            <div class="rating-box">
+                                <div class="flex-box">
+                                    <h6>★☆★☆★</h6>
+                                    <h6>2024. 7. 16</h6>   
+                                </div>
+                                <h6>좋은 배송 감사합니다~</h6>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="img-box">
+                                <img src="../img/login/image.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         {{>footer}}

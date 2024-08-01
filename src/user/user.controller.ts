@@ -4,6 +4,7 @@ import { SignInUserDTO, UpdateUserDTO } from './dto/user.dto';
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { ItemService } from 'src/item/item.service';
 
 @ApiTags("유저")
 @Controller('user')
@@ -25,20 +26,26 @@ export class UserController {
     return;
   }
 
+  @Get('history')
+  @Render('history')
+  historyRender() {
+    return;
+  }
+
   @ApiOperation({ summary: "회원가입" })
   @ApiBody({
     schema: {
       properties: { email: { type: "string" }, nickname: { type: "string" }, upw: { type: "string" } }
     }
   })
-  @Post("/signUp")
+  @Post("signUp")
   signUp(@Body() signInData: SignInUserDTO) {
     return this.userService.signUp(signInData);
   }
 
   ///////////////////// 유저 선택 //////////////////////
   @ApiOperation({ summary: "유저 선택" })
-  @Get("/:id")
+  @Get(":id")
   @Render('profile')
   selectUser(@Param("id") getId: number) {
     return this.userService.selectUser(getId);
@@ -54,7 +61,7 @@ export class UserController {
       properties: { nickname: { type: "string" }, upw: { type: "string" }, profileImg: { type: "string", format: "binary" }, introduce: { type: "string" } }
     }
   })
-  @Put("/mod/:id")
+  @Put("mod/:id")
   @UseInterceptors(FileInterceptor("profileImg")) // 파일 인터셉터
   async updateUser(@Body() updateData: UpdateUserDTO, @Param("id") updateUserId: number, @UploadedFile() file: Express.Multer.File) {
     console.log(updateData);
@@ -63,21 +70,21 @@ export class UserController {
 
   ///////////////////// 회원 탈퇴(force) //////////////////////
   @ApiOperation({ summary: "회원 탈퇴(force)" })
-  @Delete("/del/:id")
+  @Delete("del/:id")
   deleteUser(@Param("id") DelId: number) {
     return this.userService.deleteUser(DelId);
   }
 
   ///////////////////// 로그 아웃 //////////////////////
   @ApiOperation({ summary: "로그아웃" })
-  @Post('/logout')
+  @Post('logout')
   logout(@Res() res: Response) {
     res.clearCookie('loginToken')
     return res.redirect("/")
   }
 
   /// test 마이 스토어
-  @Get('/test/:id')
+  @Get('test/:id')
   selectMyInclude(@Param("id") id: number) {
     return this.userService.selectMyInclude(id)
   }
