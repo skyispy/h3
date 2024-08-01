@@ -9,6 +9,6 @@ const google = document.getElementById("google") as HTMLDivElement;
 const kakao = document.getElementById("kakao") as HTMLDivElement;
 const email = document.getElementById("email") as HTMLDivElement;
 
-google.onclick = () => location.href = "";
-kakao.onclick = () => location.href = "";
-email.onclick = () => location.href = "";
+google.onclick = () => location.href = "http://localhost:3000/auth/google";
+kakao.onclick = () => location.href = "http://localhost:3000/auth/kakao";
+email.onclick = () => location.href = "http://localhost:3000/user/signup";

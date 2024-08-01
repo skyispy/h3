@@ -10,6 +10,12 @@ import { ItemParamPipe } from './pipe/item.pipe';
 export class ItemController {
   constructor(private readonly itemService: ItemService) { }
 
+  @Get('')
+  @Render('market')
+  marketRender() {
+    return;
+  }
+
   @Get('sell')
   @Render('assign')
   sellRender() {

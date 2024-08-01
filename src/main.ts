@@ -19,6 +19,7 @@ async function bootstrap() {
   hbs.registerPartials(join(__dirname, '..', '..', 'public', 'page', 'partials'));
 
   app.useStaticAssets(join(__dirname, '..', '..', 'public'))
+
   
   // swagger
   const config = new DocumentBuilder()

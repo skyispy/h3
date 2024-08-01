@@ -9,7 +9,8 @@ signupBtn.onclick = () => {
             upw: upwInput.value,
             nickName: nickNameInput.value
         }
-        axios.post("http://localhost:3000/user/signUp", object).then((res) => {
+        axios.post("http://localhost:3000/user/signUp", object)
+        .then((res) => {
             console.log(res);
         }).catch((error) => {
             if (error.response) {
@@ -52,11 +53,12 @@ checks.forEach((el: HTMLInputElement) => {
 
 const duplicateCheckBtn = document.getElementById("duplicateCheckBtn") as HTMLButtonElement;
 duplicateCheckBtn.onclick = () => {
-    axios.post("/", {email: (document.getElementById("emailInput") as HTMLInputElement).value}).then((res) => {
+    axios.post("/", {email: (document.getElementById("emailInput") as HTMLInputElement).value})
+    .then((res) => {
         console.log(res);
         if(true) {
             (document.getElementById("emailInput") as HTMLInputElement).classList.add("sucess");
-            alert("사용 가능한 아이디입니다.")
+            // alert("사용 가능한 아이디입니다.")
         }else if(false) {
             alert("중복이야!");
         }

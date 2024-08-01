@@ -4,15 +4,87 @@
 /* slide */
 #content > .content-box1 {
     width: 100%;
-    height: 66vh;
+    height: 60vh;
     position: relative;
     display: flex;
     justify-content: center;
 }
 
-.content-box1 > .slide-box {
+.content-box1 > .slide-boxes {
+    min-width: 100%;
     width: 100%;
     height: 100%;
+    display: flex;
+}
+
+.slide-box {
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+        display: none;
+    }
+}
+
+.slide-box:nth-child(1) {
+    background-image: url(/img/a10685627.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.slide-box:nth-child(2) {
+    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#slide-1 > .slide-box:nth-child(1) {
+    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+}
+#slide-1 > .slide-box:nth-child(2) {
+    background-image: url(/img/thumb_d_398D2558C2751C55DAB3094C7C67AE66.jpg);
+}
+
+#slide-2 > .slide-box:nth-child(1) {
+    background-image: url(/img/thumb_d_398D2558C2751C55DAB3094C7C67AE66.jpg);
+}
+#slide-2 > .slide-box:nth-child(2) {
+    background-image: url(/img/thumb_d_67889CC3785F8BF598E9C3F1FE04229E.jpg);
+}
+
+#slide-3 > .slide-box:nth-child(1) {
+    background-image: url(/img/thumb_d_67889CC3785F8BF598E9C3F1FE04229E.jpg);
+}
+#slide-3 > .slide-box:nth-child(2) {
+    background-image: url(/img/a10685627.jpg); 
+}
+
+#slide-4 > .slide-box:nth-child(1) {
+    background-image: url(/img/a10685627.jpg);
+}
+#slide-4 > .slide-box:nth-child(2) {
+    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+}
+
+#slide-5 > .slide-box:nth-child(1) {
+    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+}
+#slide-5 > .slide-box:nth-child(2) {
+    background-image: url(/img/thumb_d_398D2558C2751C55DAB3094C7C67AE66.jpg);
+}
+
+.slide-animation {
+    animation-name: slide;
+    animation-duration: 2s;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
 }
 
 .content-box1 > .slide-controller {
