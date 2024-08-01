@@ -20,7 +20,9 @@ export class ItemService {
     }
 
     async readItemAll() {
-        return await this.itemModel.findAll();
+        return await this.itemModel.findAll(
+        { order : [['createdAt','DESC']]}
+        );
     }
 
     async selectItem(id) {
@@ -60,5 +62,6 @@ export class ItemService {
     async soldoutItem(fk_buyerId: number, id: number) {
         return await this.itemModel.update({fk_buyerId, sold : true }, { where : { id }})
     }
+
 }
  

@@ -10,6 +10,12 @@ import { ItemParamPipe } from './pipe/item.pipe';
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
+  @ApiOperation({ summary :"아이템 전체 데이터"})
+  @Get("/market")
+    async readItemAll() {
+    const data = await this.itemService.readItemAll()
+    return data
+  }
 
   @ApiOperation({summary : "특정 아이디 아이템 데이터"})
   @Get("/:id")
@@ -34,12 +40,12 @@ export class ItemController {
   selectCategoryItem(@Param("category") category : string) {
     return this.itemService.selectCategoryItem(category)
   }
+  
   @ApiOperation({ summary : "아이템 삭제"})
   @Delete('/delItem/:id')
   async deleteItem(@Param("id") delId : number) {
     await this.itemService.deleteItem(delId)
   }
-
   @ApiOperation({ summary : "아이템 수정"})
   @ApiBody({
     schema : {
@@ -57,6 +63,7 @@ export class ItemController {
       properties: {title: { type: "string"}, content: { type: "string"}, category: {type :"string"}, brand: {type : "string"}, sold : {type : "boolean"}, fk_sellerId : {type : "number"}, price : {type : "number"}}
     }
   })
+
   @Post('registItem')
   async createItem(@Body() itemBody : createItemDTO, @Req() req: Request, @Res() res: Response) {
     // const {userId} = req.user
