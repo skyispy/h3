@@ -33,9 +33,10 @@ import { CommonModule } from './common/common.module';
     WishModule,
     CommonModule,
   ConfigModule.forRoot({ isGlobal: true }),
-  ServeStaticModule.forRoot({ // 스태틱 파일 라우팅
-    rootPath: join(__dirname, "..", "uploads")
-  })],
+    // ServeStaticModule.forRoot({ // 스태틱 파일 라우팅
+    //   rootPath: join(__dirname, "..", "..", "public")
+    // })
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

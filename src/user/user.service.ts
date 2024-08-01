@@ -4,6 +4,9 @@ import { User } from './model/user.model';
 import { SignInUserDTO, UpdateUserDTO } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
 import { Item } from 'src/item/model/item.model';
+import { Wish } from 'src/wish/model/wish.model';
+import { Review } from 'src/review/model/review.model';
+import { SellerReply } from 'src/review/model/sellerReply.model';
 
 @Injectable()
 export class UserService {
@@ -47,7 +50,30 @@ export class UserService {
             where: { id },
             include: [{
                 model: Item,
-                as: 'sellingItem'
+                as: 'sellingItem',
+                order: [['createdAt', 'DESC']]
+            }, {
+                model: Wish,
+                as: 'wishItems',
+                order: [['createdAt', 'DESC']]
+            }, {
+                model: Review,
+                as: 'receiveReviews',
+                include: [{
+                    model: User,
+                    as: 'writerId', // 댓글 작성자의 정보
+                    attributes: ['profileImg'] // 댓글 작성자의 이미지
+                }, {
+                    model: SellerReply,
+                    as: 'receiveReply',
+                    include: [{
+                        model: User,
+                        as: "sellerId", // 대댓글 작성자의 정보
+                        attributes: ['profileImg'] // 대댓글 작성자 이미지
+                    }],
+                    order: [['createdAt', 'DESC']]
+                }],
+                order: [['createdAt', 'DESC']]
             }]
         })
     }
