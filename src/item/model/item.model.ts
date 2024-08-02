@@ -4,49 +4,49 @@ import { User } from "src/user/model/user.model";
 import { Wish } from "src/wish/model/wish.model";
 
 @Table({
-    tableName : "item",
-    timestamps : true,
-    paranoid : true
+    tableName: "item",
+    timestamps: true,
+    paranoid: true
 })
 
 export class Item extends Model {
     @Column({
-        type : DataType.STRING,
-        allowNull : false
+        type: DataType.STRING,
+        allowNull: false
     })
-    title : string
+    title: string
 
     @Column({
-        type : DataType.STRING,
-        allowNull : false
+        type: DataType.STRING,
+        allowNull: false
     })
-    content : string
+    content: string
 
     @Column({
-        type : DataType.STRING,
-        allowNull : false
+        type: DataType.STRING,
+        allowNull: false
     })
-    category : string
+    category: string
 
     @Column({
-        type : DataType.STRING,
-        allowNull : false
+        type: DataType.STRING,
+        allowNull: false
     })
-    brand : string
+    brand: string
 
     @Column({
-        type : DataType.BOOLEAN,
-        allowNull : false
+        type: DataType.BOOLEAN,
+        allowNull: false
     })
-    sold : boolean
+    sold: boolean
 
     @Column({
-        type : DataType.INTEGER,
-        allowNull : false
+        type: DataType.INTEGER,
+        allowNull: false
     })
-    price : number
+    price: number
 
-    
+
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER,
@@ -60,10 +60,10 @@ export class Item extends Model {
         allowNull: true
     })
     fk_buyerId: number;
-    
+
     @BelongsTo(() => User, "fk_sellerId")
     sellerId: User;
-    
+
     @BelongsTo(() => User, "fk_buyerId")
     buyerId: User;
 
@@ -71,7 +71,7 @@ export class Item extends Model {
     @HasMany(() => ItemImage, {
         onDelete: "CASCADE"
     })
-    items: ItemImage[];
+    imgs: ItemImage[];
 
     @HasMany(() => Wish, {
         foreignKey: "fk_itemId",

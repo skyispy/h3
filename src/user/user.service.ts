@@ -7,6 +7,7 @@ import { Item } from 'src/item/model/item.model';
 import { Wish } from 'src/wish/model/wish.model';
 import { Review } from 'src/review/model/review.model';
 import { SellerReply } from 'src/review/model/sellerReply.model';
+import { ItemImage } from 'src/item/model/itemImage.model';
 
 @Injectable()
 export class UserService {
@@ -21,10 +22,11 @@ export class UserService {
         return await this.userModel.create({ email, nickname, upw: hashed, profileImg: "default.png", introduce: "" })
     }
 
-    ///////////////////// 유저 선택 //////////////////////
+    ///////////////////// 아이디로 유저 선택 //////////////////////
     async selectUser(id: number): Promise<User> {
         return await this.userModel.findOne({ where: { id } })
     }
+
     ///////////////////// 이메일로 유저 선택 //////////////////////
     async selectUserByEmail(email: string): Promise<User> {
         return await this.userModel.findOne({ where: { email } })
@@ -44,25 +46,55 @@ export class UserService {
         return await this.userModel.destroy({ where: { id }, force: true })
     }
 
-    ///////////////////// id 값으로 내 정보들 조회 //////////////////////
-    async selectMyInclude(id: number): Promise<User> {
+    ///////////////////// id 값으로 내정보 + 판매아이템 + 이미지 조회 //////////////////////
+    async includeMyItem(id: number): Promise<User> {
         return await this.userModel.findOne({
             where: { id },
             include: [{
                 model: Item,
-                as: 'sellingItem',
+                as: 'sellingItem', // 내가 팔고 있는 아이템 rows
+                include: [{
+                    model: ItemImage, // 의 이미지
+                    as: 'imgs',
+                    // order: [['id', 'ASC']], // 순서대로
+                    attributes: ['imgPath'] // 이미지만
+                }],
                 order: [['id', 'DESC']]
-            }, {
+            }]
+        })
+    }
+    ///////////////////// id 값으로 내정보 + 내 위시 리스트 + 아이템 + 이미지 들 조회 //////////////////////
+    async includeMyWish(id: number): Promise<User> {
+        return await this.userModel.findOne({
+            where: { id },
+            include: [{
                 model: Wish,
-                as: 'wishItems',
+                as: 'wishItems', // 내가 좋아요 눌러논 rows
+                include: [{
+                    model: Item,
+                    as: 'itemId', // rows들의 item
+                    include: [{
+                        model: ItemImage,
+                        as: 'imgs', // item들의 imgs
+                        attributes: ['imgPath']
+                    }],
+                    order: [['id', 'DESC']]
+                }],
                 order: [['id', 'DESC']]
-            }, {
-                model: Review,
-                as: 'receiveReviews',
+            }]
+        })
+    }
+    ///////////////////// id 값으로 내정보 + 내 댓글, 대댓글들 + 쓴 유저 이미지 조회 //////////////////////
+    async includeMyReview(id: number): Promise<User> {
+        return await this.userModel.findOne({
+            where: { id },
+            include: [{
+                model: Review, // 리뷰 테이블
+                as: 'receiveReviews', // 나에게 쓰여진 리뷰들 rows
                 include: [{
                     model: User,
-                    as: 'writerId', // 댓글 작성자의 정보
-                    attributes: ['profileImg'] // 댓글 작성자의 이미지
+                    as: 'writerId', // 리뷰 단 댓글 작성자의 정보
+                    attributes: ['profileImg'] // 댓글 작성자 이미지
                 }, {
                     model: SellerReply,
                     as: 'receiveReply',

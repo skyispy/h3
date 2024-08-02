@@ -2,24 +2,24 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize
 import { Item } from "./item.model";
 
 
-@Table ({
-    tableName : "itemImage",
-    timestamps : true,
-    paranoid : true
+@Table({
+    tableName: "itemImage",
+    timestamps: true,
+    paranoid: true
 })
 
 export class ItemImage extends Model {
     @Column({
-        type : DataType.TEXT,
-        allowNull : false
+        type: DataType.TEXT,
+        allowNull: false
     })
-    imgPath : string
+    imgPath: string
 
-    @ForeignKey(()=> Item)
+    @ForeignKey(() => Item)
     @Column
-    fk_sellerId: number;
+    fk_itemId: number;
 
-    @BelongsTo(()=>Item)
-    item: Item; 
+    @BelongsTo(() => Item)
+    item: Item;
 
 }

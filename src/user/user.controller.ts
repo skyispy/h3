@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { SignInUserDTO, UpdateUserDTO } from './dto/user.dto';
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { ItemService } from 'src/item/item.service';
 import { JwtService } from '@nestjs/jwt';
 
@@ -15,19 +15,21 @@ export class UserController {
     private readonly jwtService: JwtService
   ) { }
 
-  ///////////////////// GET 회원가입 창 //////////////////////
+  ///////////////////// RENDER 회원가입 창 //////////////////////
   @Get('signup')
   @Render('signUp')
   signUpRender() {
     return;
   }
 
-  ///////////////////// GET 로그인 창 //////////////////////
+  ///////////////////// RENDER 로그인 창 //////////////////////
   @Get('login')
   @Render('login')
   loginRender() {
     return;
   }
+
+  ///////////////////// RENDER 구매 목록 창 //////////////////////
 
   @Get('history/:id')
   @Render('history')
@@ -35,23 +37,29 @@ export class UserController {
     return;
   }
 
-  ///////////////////// GET 유저 스토어 창 //////////////////////
+  ///////////////////// 중 요 /////////////////
+  ///////////////////// RENDER 유저 스토어 창 //////////////////////
   @ApiOperation({ summary: "유저 스토어" })
   @Get(":id")
-  @Render('profile')
-  async selectMyInclude(@Param("id") id: number, @Req() req) {
+  // @Render('profile')
+  async selectMyInclude(@Param("id") id: number, @Req() req: Request) {
     const token = req.cookies.loginToken
-    const data = await this.userService.selectMyInclude(id)
+    const itemData = await this.userService.includeMyItem(id)
+    const wishData = await this.userService.includeMyWish(id)
+    // wish -> 위시아이템 로우들[i번째] -> 아이템 -> 이미지[0번째] -> 이미지데이터
+    // const a = (wishData.wishItems[i].itemId.imgs[0].imgPath) // 가 이미지 정보
+    const reviewData = await this.userService.includeMyReview(id)
+
     if (!token) { // 토큰 없으면 그냥 데이터만 렌더
-      return { data }
+      return { itemData, wishData, reviewData }
     } else { // 토큰 있으면 토큰 id값 전달
       try {
         const loginUserId = this.jwtService.verify(token).id
-        console.log(loginUserId);
-        console.log(data.id);
-        return { data, loginUserId }
-      } catch (error) { // 쿠키에 토큰은 있으나 유효하지 않을 경우 예외 처리
-        return { data }
+        console.log(`현재 접속중인 아이디 = ${loginUserId}`);
+        console.log(`보내는 데이터의 아이디 = ${id}`);
+        return { itemData, wishData, reviewData, loginUserId }
+      } catch (error) { // 쿠키에 토큰은 있으나 유효하지 않을 경우 그냥 데이터만 렌더
+        return { itemData, wishData, reviewData }
       }
     }
   }
@@ -69,15 +77,6 @@ export class UserController {
     return this.userService.signUp(signInData);
   }
 
-  // ///////////////////// 유저 선택 //////////////////////
-  // @ApiOperation({ summary: "유저 선택" })
-  // @Get(":id")
-  // @Render('profile')
-  // selectUser(@Param("id") getId: number) {
-  //   return this.userService.selectUser(getId);
-  // }
-
-  ///////////////////// 유저 비밀번호, 이미지, 소개 수정 (멀터)//////////////////////
   ///////////////////// PUT 유저 비밀번호, 이미지, 소개 수정 (멀터)//////////////////////
   @ApiOperation({ summary: "회원정보 수정" })
   @ApiConsumes('multipart/form-data')
@@ -108,10 +107,4 @@ export class UserController {
     res.clearCookie('loginToken')
     return res.redirect("/")
   }
-
-  // /// test 마이 스토어
-  // @Get('test/:id')
-  // selectMyInclude(@Param("id") id: number) {
-  //   return this.userService.selectMyInclude(id)
-  // }
 }

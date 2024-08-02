@@ -19,8 +19,8 @@ import { CommonModule } from './common/common.module';
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "5835",
-    database: "h3",
+    password: "....",
+    database: "test",
     autoLoadModels: true,
     synchronize: true,
     sync: { force: false }
@@ -33,9 +33,9 @@ import { CommonModule } from './common/common.module';
     WishModule,
     CommonModule,
   ConfigModule.forRoot({ isGlobal: true }),
-  // ServeStaticModule.forRoot({ // 스태틱 파일 라우팅
-  //   rootPath: join(__dirname, "..", "..", "uploads")
-  // })
+    // ServeStaticModule.forRoot({ // 스태틱 파일 라우팅
+    //   rootPath: join(__dirname, "..", "..", "uploads")
+    // })
   ],
   controllers: [AppController],
   providers: [AppService],
