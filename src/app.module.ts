@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ItemModule } from './item/item.module';
@@ -12,6 +12,8 @@ import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { CommonModule } from './common/common.module';
+import { HbsHelpers } from './01hbsHelper/hbsHelper.service';
+import * as Handlebars from 'handlebars';
 
 @Module({
   imports: [SequelizeModule.forRoot({
@@ -19,8 +21,8 @@ import { CommonModule } from './common/common.module';
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "....",
-    database: "test",
+    password: "5835",
+    database: "h3",
     autoLoadModels: true,
     synchronize: true,
     sync: { force: false }
@@ -38,6 +40,10 @@ import { CommonModule } from './common/common.module';
     // })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, HbsHelpers],
 })
-export class AppModule { }
+export class AppModule implements OnModuleInit {
+  onModuleInit() {
+    Handlebars.registerHelper('concat', HbsHelpers.concat);
+  }
+ }

@@ -17,12 +17,11 @@ export class ItemController {
     private readonly wishService: WishService,
   ) { }
 
-
-  //////////////////////////// RENDER 판매 상품 목록 페이지 네이션 ////////////////////////////
-  @Get('')
-  @Render('market')
-  marketRender() {
-    return;
+  @ApiOperation({ summary :"아이템 전체 데이터"})
+  @Get("/market")
+    async readItemAll() {
+    const data = await this.itemService.readItemAll()
+    return data
   }
 
   //////////////////////////// RENDER 상품 작성 페이지 ////////////////////////////
@@ -130,19 +129,6 @@ export class ItemController {
     return
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   @ApiOperation({ summary: "특정 타이틀 아이템 데이터" })
   @Get("/title/:title")
   selectTitleItem(@Param("title") title: string) {
@@ -160,4 +146,11 @@ export class ItemController {
   selectCategoryItem(@Param("category") category: string) {
     return this.itemService.selectCategoryItem(category)
   }
+
+  // @ApiOperation({ summary: "판매완료" }) // buyerId 가 들어가야함
+  // @Post("view/:id") // 메인 페이지로 돌아가야함 
+  // async sellItem(@Param("id", ItemParamPipe) itemId: number, @Res() res: Response) {
+  //   await this.itemService.soldoutItem(1, itemId);
+  //   res.redirect('/')
+  // }
 }

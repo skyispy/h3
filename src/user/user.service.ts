@@ -48,6 +48,22 @@ export class UserService {
 
     ///////////////////// id 값으로 내정보 + 판매아이템 + 이미지 조회 //////////////////////
     async includeMyItem(id: number): Promise<User> {
+        return
+    }
+    ///////////////////// id 값으로 구매내역 조회 //////////////////
+    async historyRender(id : number) : Promise<User> {
+        return await this.userModel.findOne({
+            where : { id },
+            include : [{
+                model : Item,
+                as : 'boughtItem',
+                order : [['updatedAt','DESC']]
+            }]
+        })
+    }
+
+    ///////////////////// id 값으로 내 정보들 조회 //////////////////////
+    async selectMyInclude(id: number): Promise<User> {
         return await this.userModel.findOne({
             where: { id },
             include: [{
@@ -108,5 +124,16 @@ export class UserService {
                 order: [['id', 'DESC']]
             }]
         })
+    }
+
+    async checkDuplicateEmail(email) {
+        const data = await this.userModel.findOne({where: {email}});
+        if(data) return false;
+        return true;
+    }
+    async checkDuplicateNickName(nickname) {
+        const data = await this.userModel.findOne({where: {nickname}});
+        if(data) return false;
+        return true;
     }
 }

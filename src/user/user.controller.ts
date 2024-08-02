@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UploadedFile, UseGuards, UseInterceptors, Render } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UploadedFile, UseGuards, UseInterceptors, Render, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignInUserDTO, UpdateUserDTO } from './dto/user.dto';
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -6,6 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import { ItemService } from 'src/item/item.service';
 import { JwtService } from '@nestjs/jwt';
+import { TokenGuard } from 'src/common/guard/token.guard';
 
 @ApiTags("유저")
 @Controller('user')
@@ -18,8 +19,8 @@ export class UserController {
   ///////////////////// RENDER 회원가입 창 //////////////////////
   @Get('signup')
   @Render('signUp')
-  signUpRender() {
-    return;
+  signUpRender(@Param('true') compare: string) {
+    return {compare};
   }
 
   ///////////////////// RENDER 로그인 창 //////////////////////
@@ -33,12 +34,20 @@ export class UserController {
 
   @Get('history/:id')
   @Render('history')
-  historyRender() {
-    return;
+  @UseGuards(TokenGuard)
+  async historyRender(@Param("id") id : number, @Req() req) {
+    if (req.user.id === id) {
+      const data = await this.userService.historyRender(id)
+      return {data}
+    } else {
+      throw new UnauthorizedException
+    }
   }
 
   ///////////////////// 중 요 /////////////////
   ///////////////////// RENDER 유저 스토어 창 //////////////////////
+  
+  ///////////////////// GET 유저 스토어 창 //////////////////////
   @ApiOperation({ summary: "유저 스토어" })
   @Get(":id")
   // @Render('profile')
@@ -106,5 +115,27 @@ export class UserController {
   logout(@Res() res: Response) {
     res.clearCookie('loginToken')
     return res.redirect("/")
+  }
+
+  // /// test 마이 스토어
+  // @Get('test/:id')
+  // selectMyInclude(@Param("id") id: number) {
+  //   return this.userService.selectMyInclude(id)
+  // }
+
+  // 증복확인
+  @Post('duplicate')
+  async checkDuplicate(@Body('email') email: string, @Res() res: Response) {
+    const result = await this.userService.checkDuplicateEmail(email);
+    // 중복이 false 아니면 true
+    await console.log(result)
+    return await res.send(result)
+  }
+  @Post('duplicate2')
+  async checkDuplicate2(@Body('nickname') nickname: string, @Res() res: Response) {
+    const result = await this.userService.checkDuplicateNickName(nickname);
+    // 중복이 false 아니면 true
+    await console.log(result)
+    return await res.send(result)
   }
 }

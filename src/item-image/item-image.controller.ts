@@ -7,7 +7,6 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 export class ItemImageController {
   constructor(private readonly itemImageService: ItemImageService) {}
 
-  // @ApiOperation({summary :""})
               
   
 }

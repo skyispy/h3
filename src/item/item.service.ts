@@ -59,20 +59,6 @@ export class ItemService {
         return await this.itemModel.destroy({ where: { id }, force: true });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     async readItemAll() {
         return await this.itemModel.findAll();
     }
