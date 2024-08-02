@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UploadedFile, UseGuards, UseInterceptors, Render } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UploadedFile, UseGuards, UseInterceptors, Render, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignInUserDTO, UpdateUserDTO } from './dto/user.dto';
 import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -6,6 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { ItemService } from 'src/item/item.service';
 import { JwtService } from '@nestjs/jwt';
+import { TokenGuard } from 'src/common/guard/token.guard';
 
 @ApiTags("유저")
 @Controller('user')
@@ -31,10 +32,16 @@ export class UserController {
 
   @Get('history/:id')
   @Render('history')
-  historyRender() {
-    return;
+  @UseGuards(TokenGuard)
+  async historyRender(@Param("id") id : number, @Req() req) {
+    if (req.user.id === id) {
+      const data = await this.userService.historyRender(id)
+      return {data}
+    } else {
+      throw new UnauthorizedException
+    }
   }
-
+  
   ///////////////////// GET 유저 스토어 창 //////////////////////
   @ApiOperation({ summary: "유저 스토어" })
   @Get(":id")

@@ -19,8 +19,8 @@ import { CommonModule } from './common/common.module';
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "5835",
-    database: "h3",
+    password: "930702",
+    database: "waffle",
     autoLoadModels: true,
     synchronize: true,
     sync: { force: false }

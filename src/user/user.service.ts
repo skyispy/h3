@@ -44,6 +44,18 @@ export class UserService {
         return await this.userModel.destroy({ where: { id }, force: true })
     }
 
+    ///////////////////// id 값으로 구매내역 조회 //////////////////
+    async historyRender(id : number) : Promise<User> {
+        return await this.userModel.findOne({
+            where : { id },
+            include : [{
+                model : Item,
+                as : 'boughtItem',
+                order : [['updatedAt','DESC']]
+            }]
+        })
+    }
+
     ///////////////////// id 값으로 내 정보들 조회 //////////////////////
     async selectMyInclude(id: number): Promise<User> {
         return await this.userModel.findOne({
