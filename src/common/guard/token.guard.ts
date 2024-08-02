@@ -8,7 +8,7 @@ export class TokenGuard implements CanActivate {
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const { cookies: { loginToken } } = context.switchToHttp().getRequest();
         if (!loginToken) {
-            throw new UnauthorizedException('쿠키에 토큰 없음')
+            throw new UnauthorizedException('쿠키에 토큰 없음') // 401
         }
 
         try {

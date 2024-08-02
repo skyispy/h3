@@ -1,29 +1,27 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { WishService } from './wish.service';
-import { registWishDTO } from './dto/wish.dto';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { TokenGuard } from 'src/common/guard/token.guard';
 
 @ApiTags("위시")
 @Controller('wish')
 export class WishController {
   constructor(private readonly wishService: WishService) { }
 
-  ///////////////////// 위시리스트 등록 //////////////////////
+  ///////////////////// POST 위시리스트 토글 눌렀을때 //////////////////////
   @ApiOperation({ summary: "위시리스트 등록" })
-  @ApiBody({
-    schema: {
-      properties: { onOff: { type: "boolean" }, fk_userId: { type: "number" }, fk_itemId: { type: "number" } }
-    }
-  })
-  @Post('/regist')
-  registWish(@Body() wishData: registWishDTO) {
-    return this.wishService.registWish(wishData);
-  }
-
-  ///////////////////// 위시리스트 삭제(force) //////////////////////
-  @ApiOperation({ summary: "위시리스트 삭제(force)" })
-  @Delete('/delWish/:id')
-  deleteWish(@Param("id") delWishItemId: number) {
-    return this.wishService.deleteWish(delWishItemId);
+  @Post('/regist/:itemId')
+  @UseGuards(TokenGuard) // 로그인 필요 !
+  // @ApiBody({
+  //   schema: {
+  //     properties: { itemId: { type: "number" } }
+  //   }
+  // })
+  async toggleWish(@Param('itemId') itemId: number, @Req() req) {
+    const wisher = req.user.id
+    const result = await this.wishService.toggleWish(itemId, wisher)
+    console.log(`Wish작업 결과 = ${result}`)
+    return
+    // 등록되면 true 삭제되면 false로 갈거임
   }
 }

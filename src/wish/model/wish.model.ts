@@ -12,14 +12,6 @@ import { Item } from "src/item/model/item.model";
 
 export class Wish extends Model {
 
-
-    @Column({
-        type: DataType.BOOLEAN,
-        allowNull: false
-    })
-    onOff: boolean;
-
-
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER,
@@ -28,7 +20,7 @@ export class Wish extends Model {
     fk_userId: number;
 
 
-    // @ForeignKey(() => Item)
+    @ForeignKey(() => Item)
     @Column({
         type: DataType.INTEGER,
         allowNull: true
