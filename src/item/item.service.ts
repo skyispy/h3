@@ -49,6 +49,10 @@ export class ItemService {
         return await this.itemModel.destroy({where : { id }, force: true});
     }
 
+    async selectPriceItem(price) {
+        return await this.itemModel.findAll({ where :{price}})
+    }
+
     // async sellItem()
     async createItemImagePath(fk_itemId, imgPath) {
         await this.itemImageModel.create({

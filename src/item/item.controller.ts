@@ -29,6 +29,12 @@ export class ItemController {
     return this.itemService.selectItem(id)
   }
 
+  @ApiOperation({ summary : "특정 가격 아이텤 데이터" })
+  @Get("/price/:price")
+  selectPriceItem(@Param("price") price : number) {
+    return this.itemService.selectPriceItem(price)
+  }
+
   @ApiOperation({ summary: "특정 타이틀 아이템 데이터" })
   @Get("/title/:title")
   selectTitleItem(@Param("title") title: string) {
