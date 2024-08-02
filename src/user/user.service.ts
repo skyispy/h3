@@ -46,24 +46,25 @@ export class UserService {
         return await this.userModel.destroy({ where: { id }, force: true })
     }
 
-    ///////////////////// id 값으로 내정보 + 판매아이템 + 이미지 조회 //////////////////////
-    async includeMyItem(id: number): Promise<User> {
-        return
-    }
-    ///////////////////// id 값으로 구매내역 조회 //////////////////
-    async historyRender(id : number) : Promise<User> {
+    ///////////////////// id 값으로 구매내역 아이템 정보 + 판매자 닉네임 조회 //////////////////
+    async historyRender(id: number): Promise<User> {
         return await this.userModel.findOne({
-            where : { id },
-            include : [{
-                model : Item,
-                as : 'boughtItem',
-                order : [['updatedAt','DESC']]
+            where: { id },
+            include: [{
+                model: Item,
+                as: 'boughtItem',
+                include: [{
+                    model: User,
+                    as: "sellerId",
+                    attributes: ["nickname"]// 판매자 닉네임만
+                }],
+                order: [['updatedAt', 'DESC']]
             }]
         })
     }
 
-    ///////////////////// id 값으로 내 정보들 조회 //////////////////////
-    async selectMyInclude(id: number): Promise<User> {
+    ///////////////////// id 값으로 내 정보들 + 내가 판매중인 아이템 + 이미지 //////////////////////
+    async includeMyItem(id: number): Promise<User> {
         return await this.userModel.findOne({
             where: { id },
             include: [{
@@ -117,7 +118,7 @@ export class UserService {
                     include: [{
                         model: User,
                         as: "sellerId", // 대댓글 작성자의 정보
-                        attributes: ['profileImg'] // 대댓글 작성자 이미지
+                        attributes: ['profileImg', 'nickname'] // 대댓글 작성자 이미지
                     }],
                     order: [['id', 'DESC']]
                 }],
@@ -127,13 +128,13 @@ export class UserService {
     }
 
     async checkDuplicateEmail(email) {
-        const data = await this.userModel.findOne({where: {email}});
-        if(data) return false;
+        const data = await this.userModel.findOne({ where: { email } });
+        if (data) return false;
         return true;
     }
     async checkDuplicateNickName(nickname) {
-        const data = await this.userModel.findOne({where: {nickname}});
-        if(data) return false;
+        const data = await this.userModel.findOne({ where: { nickname } });
+        if (data) return false;
         return true;
     }
 }

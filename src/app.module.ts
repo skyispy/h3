@@ -21,8 +21,8 @@ import * as Handlebars from 'handlebars';
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "5835",
-    database: "h3",
+    password: "....",
+    database: "test",
     autoLoadModels: true,
     synchronize: true,
     sync: { force: false }
@@ -46,4 +46,4 @@ export class AppModule implements OnModuleInit {
   onModuleInit() {
     Handlebars.registerHelper('concat', HbsHelpers.concat);
   }
- }
+}

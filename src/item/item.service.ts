@@ -4,6 +4,7 @@ import { Item } from './model/item.model';
 import { createItemDTO, updateItemDTO } from './dto/create.ItemDTO';
 import { ItemImage } from './model/itemImage.model';
 import { User } from 'src/user/model/user.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ItemService {
@@ -59,9 +60,30 @@ export class ItemService {
         return await this.itemModel.destroy({ where: { id }, force: true });
     }
 
-    async readItemAll() {
-        return await this.itemModel.findAll();
+    //////////////////////////// RENDER 상품 전체 페이지(페이지네이션) ////////////////////////////
+    async readItemAll(page: number, limit: number, search: string, itemCategory: string) {
+        const offset = (page - 1) * limit; // 데이터를 가져올 시작 인덱스 0, 12, 24
+
+        // 검색 조건 설정 :{}
+        const searchSetting: any = {};
+        if (search) {
+            searchSetting[Op.or] = [
+                { title: { [Op.like]: `%${search}%` } }, // 필드에 키워드 포함하는 항목
+                { content: { [Op.like]: `%${search}%` } }
+            ]
+        }
+        if (itemCategory) {
+            searchSetting.category = itemCategory;
+        }
+
+        const { rows, count } = await this.itemModel.findAndCountAll({
+            where: searchSetting, limit, offset, order: [['id', 'DESC']],
+        })
+        return { rows, count, totalPages: Math.ceil(count / limit), currentPage: page }
     }
+
+
+
 
 
     async selectBrandItem(brand) {
@@ -75,9 +97,4 @@ export class ItemService {
     async selectTitleItem(title) {
         return await this.itemModel.findAll({ where: { title } })
     }
-
-    async readItemOne2(fk_sellerId) {
-        return await this.itemModel.findOne({ where: { fk_sellerId } })
-    }
-
 }

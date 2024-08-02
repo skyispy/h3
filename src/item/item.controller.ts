@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, Render, UseGuards, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, Render, UseGuards, BadRequestException, UnauthorizedException, Query } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { createItemDTO, updateItemDTO } from './dto/create.ItemDTO';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -17,12 +17,19 @@ export class ItemController {
     private readonly wishService: WishService,
   ) { }
 
-  @ApiOperation({ summary :"아이템 전체 데이터"})
-  @Get("/market")
-    async readItemAll() {
-    const data = await this.itemService.readItemAll()
-    return data
+  //////////////////////////// RENDER 상품 전체 페이지/검색 요청 (페이지네이션) ////////////////////////////
+  @Get('market')
+  // @Render('')
+  async marketMain(
+    @Query('page') page: number = 1, // 기본보여질 페이지 번호
+    @Query('limit') limit: number = 12, // 12개씩 보여줌
+    @Query('search') search: string,
+    @Query('category') itemCategory: string) {
+    console.log(page, limit, search, itemCategory)
+    return await this.itemService.readItemAll(page, limit, search, itemCategory)
   }
+  // 카테고리 요청 -> /item/market?category=상의
+  // 검색 요청 -> /item/market?search= 검색어!
 
   //////////////////////////// RENDER 상품 작성 페이지 ////////////////////////////
   @Get('sell')
@@ -57,7 +64,7 @@ export class ItemController {
     }
   }
 
-  //////////////////////////// PUT 구매 버튼 눌렀을때 ////////////////////////////
+  //////////////////////////// PUT 구매 버튼 눌렀을때(판매완료) ////////////////////////////
   @ApiOperation({ summary: "구매 시" })
   @Put("/purchase/:id") // 아이템 id로 요청
   @UseGuards(TokenGuard) // 로그인 필요 !
@@ -125,9 +132,13 @@ export class ItemController {
   @ApiOperation({ summary: "아이템 삭제" })
   @Delete('/delItem/:id')
   async deleteItem(@Param("id") delId: number) {
-    await this.itemService.deleteItem(delId)
-    return
+    return await this.itemService.deleteItem(delId)
   }
+
+
+
+
+
 
   @ApiOperation({ summary: "특정 타이틀 아이템 데이터" })
   @Get("/title/:title")
@@ -146,11 +157,4 @@ export class ItemController {
   selectCategoryItem(@Param("category") category: string) {
     return this.itemService.selectCategoryItem(category)
   }
-
-  // @ApiOperation({ summary: "판매완료" }) // buyerId 가 들어가야함
-  // @Post("view/:id") // 메인 페이지로 돌아가야함 
-  // async sellItem(@Param("id", ItemParamPipe) itemId: number, @Res() res: Response) {
-  //   await this.itemService.soldoutItem(1, itemId);
-  //   res.redirect('/')
-  // }
 }
