@@ -2,7 +2,9 @@ const loginBtn = document.getElementById("loginBtn") as HTMLButtonElement;
 loginBtn.onclick = () => {
     const emailInput = document.getElementById("emailInput") as HTMLInputElement;
     const upwInput = document.getElementById("upwInput") as HTMLInputElement;
-    axios.post('http://localhost:3000')
+    axios.post('http://localhost:3000/auth/login', {email: emailInput.value, upw: upwInput.value}).then((res) => {
+        location.href = "http://localhost:3000/";
+    })
 }
 
 const google = document.getElementById("google") as HTMLDivElement;

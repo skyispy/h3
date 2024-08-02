@@ -1,17 +1,19 @@
 const signupBtn = document.getElementById("signupBtn") as HTMLButtonElement;
 signupBtn.onclick = () => {
-    if(((document.getElementById("checkAll") as HTMLInputElement).checked) && ((document.getElementById("emailInput") as HTMLInputElement).classList.contains("sucess"))) {
+    if(((document.getElementById("checkAll") as HTMLInputElement).checked) && ((document.getElementById("emailInput") as HTMLInputElement).classList.contains("sucess")) && ((document.getElementById("nickNameInput") as HTMLInputElement).classList.contains("sucess"))) {
         const emailInput = document.getElementById("emailInput") as HTMLInputElement;
         const upwInput = document.getElementById("upwInput") as HTMLInputElement;
         const nickNameInput = document.getElementById("nickNameInput") as HTMLInputElement;
         const object = {
             email: emailInput.value,
             upw: upwInput.value,
-            nickName: nickNameInput.value
+            nickname: nickNameInput.value
         }
+        console.log(object);
         axios.post("http://localhost:3000/user/signUp", object)
         .then((res) => {
             console.log(res);
+            location.href = "http://localhost:3000/user/login";
         }).catch((error) => {
             if (error.response) {
                 // 서버가 응답을 했지만 상태 코드가 2xx 범위를 벗어남
@@ -27,6 +29,8 @@ signupBtn.onclick = () => {
               }
               console.error('Error config:', error.config);
         })
+    }else {
+        alert("다시 해주세영")
     }
 }
 
@@ -52,15 +56,36 @@ checks.forEach((el: HTMLInputElement) => {
 })
 
 const duplicateCheckBtn = document.getElementById("duplicateCheckBtn") as HTMLButtonElement;
-duplicateCheckBtn.onclick = () => {
-    axios.post("/", {email: (document.getElementById("emailInput") as HTMLInputElement).value})
-    .then((res) => {
-        console.log(res);
-        if(true) {
-            (document.getElementById("emailInput") as HTMLInputElement).classList.add("sucess");
-            // alert("사용 가능한 아이디입니다.")
-        }else if(false) {
-            alert("중복이야!");
-        }
-    });
+if(duplicateCheckBtn) {
+    duplicateCheckBtn.onclick = (e) => {
+        axios.post("http://localhost:3000/user/duplicate", {email: (document.getElementById("emailInput") as HTMLInputElement).value})
+        .then((res) => {
+            console.log(res.data);
+            if(res.data) {
+                (document.getElementById("emailInput") as HTMLInputElement).classList.add("sucess");
+                (document.getElementById("emailInput") as HTMLInputElement).readOnly = true;
+                (e.target as HTMLButtonElement).remove();
+                alert("사용 가능!");
+            }else if(!res.data) {
+                alert("중복이야!");
+            }
+        });
+    }
+}
+const duplicateCheckBtn2 = document.getElementById("duplicateCheckBtn2") as HTMLButtonElement;
+if(duplicateCheckBtn2) {
+    duplicateCheckBtn2.onclick = (e) => {
+        axios.post("http://localhost:3000/user/duplicate2", {nickname: (document.getElementById("nickNameInput") as HTMLInputElement).value})
+        .then((res) => {
+            console.log(res.data);
+            if(res.data) {
+                (document.getElementById("nickNameInput") as HTMLInputElement).classList.add("sucess");
+                (document.getElementById("nickNameInput") as HTMLInputElement).readOnly = true;
+                (e.target as HTMLButtonElement).remove();
+                alert("사용 가능!");
+            }else if(!res.data) {
+                alert("중복이야!");
+            }
+        });
+    }
 }
