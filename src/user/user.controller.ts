@@ -19,8 +19,8 @@ export class UserController {
   ///////////////////// GET 회원가입 창 //////////////////////
   @Get('signup')
   @Render('signUp')
-  signUpRender() {
-    return;
+  signUpRender(@Param('true') compare: string) {
+    return {compare};
   }
 
   ///////////////////// GET 로그인 창 //////////////////////
@@ -121,4 +121,20 @@ export class UserController {
   // selectMyInclude(@Param("id") id: number) {
   //   return this.userService.selectMyInclude(id)
   // }
+
+  // 증복확인
+  @Post('duplicate')
+  async checkDuplicate(@Body('email') email: string, @Res() res: Response) {
+    const result = await this.userService.checkDuplicateEmail(email);
+    // 중복이 false 아니면 true
+    await console.log(result)
+    return await res.send(result)
+  }
+  @Post('duplicate2')
+  async checkDuplicate2(@Body('nickname') nickname: string, @Res() res: Response) {
+    const result = await this.userService.checkDuplicateNickName(nickname);
+    // 중복이 false 아니면 true
+    await console.log(result)
+    return await res.send(result)
+  }
 }

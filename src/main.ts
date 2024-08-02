@@ -6,6 +6,7 @@ import { LogInterceptor } from './common/interceptor/logging.interceptor';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as hbs from 'hbs';
+import { HbsHelpers } from './01hbsHelper/hbsHelper.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -17,6 +18,8 @@ async function bootstrap() {
   app.setViewEngine('hbs');
 
   hbs.registerPartials(join(__dirname, '..', '..', 'public', 'page', 'partials'));
+
+  hbs.registerHelper('concat', HbsHelpers.concat);
 
   app.useStaticAssets(join(__dirname, '..', '..', 'public'))
 

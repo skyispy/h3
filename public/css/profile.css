@@ -123,6 +123,7 @@
 
 .shop-box > .product-box {
     width: 100%;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;

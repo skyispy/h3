@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/topbottom.css">
+    <link rel="stylesheet" href="/css/assign.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        {{>header}}
+        <!-- content -->
+        <div id="content">
+            <div class="sell-box">
+                <div class="add-img-box">
+                    <h3>이미지 추가</h3>
+                    <div class="img-box">
+                        <img id="preview" style="display: none;">
+                        <div class="example-box"></div>
+                    </div>
+                    <div class="ex-box">
+                        <div class="img-boxes">
+                            {{!-- <div class="img-box">
+                                <img src="/img/topbottom/logo.png" alt="">
+                            </div>
+                            <div class="img-box">
+                                <img src="/img/views/ic_minus.75f8b38e.svg" alt="">
+                            </div>
+                            <div class="img-box">
+                                <img src="/img/views/ic_minus.75f8b38e.svg" alt="">
+                            </div>
+                            <div class="img-box">
+                                <img src="/img/views/ic_minus.75f8b38e.svg" alt="">
+                            </div>
+                            <div class="img-box">
+                                <img src="/img/views/ic_minus.75f8b38e.svg" alt="">
+                            </div> --}}
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <input type="file" id="previewInput" onchange="readURL(this);">
+                        <button id="addImgBtn">추가</button>
+                        <h3 id="max-count">최대 0 / 5 개</h3>
+                    </div>
+                </div>
+                <div class="post-box">
+                    <div class="input-box">
+                        <h3>제목</h3>
+                        <textarea name="" id="titleInput" placeholder="제목을 입력해주세요"></textarea>
+                        <h3>내용</h3>
+                        <textarea name="" id="contentInput"></textarea>
+                    </div>
+                    <div class="select-box">
+                        <div class="select-brand">
+                            <h3 class="h3">브랜드</h3>
+                            <select name="" id="brand" class="select-size">
+                                <option value="">브랜드 선택</option>
+                                <option value="CHROME_HEARTS">CHROME HEARTS</option>
+                                <option value="BAPE">BAPE</option>
+                                <option value="KAPITAL">KAPITAL</option>
+                                <option value="SUPREME">SUPREME</option>
+                                <option value="VIVIENNE_WESTWOOD">VIVIENNE_WESTWOOD</option>
+                                <option value="ADIDAS">ADIDAS</option>
+                                <option value="STUSSY">STUSSY</option>
+                                <option value="BALENCIAGA">BALENCIAGA</option>
+                                <option value="COMME_DES_GARCONS">COMME_DES_GARCONS</option>
+                                <option value="HYSTERIC_GLAMOUR">HYSTERIC_GLAMOUR</option>
+                            </select>
+                        </div>
+                        <div class="select-tag">
+                            <h3 class="h3">카테고리</h3>
+                            <select name="" id="category" class="select-size">
+                                <option value="">카테고리 선택</option>
+                                <option value="상의">상의</option>
+                                <option value="아우터">아우터</option>
+                                <option value="하의">하의</option>
+                                <option value="신발">신발</option>
+                                <option value="가방">가방</option>
+                                <option value="모자">모자</option>
+                                <option value="엑세서리">엑세서리</option>
+                                <option value="주얼리">주얼리</option>
+                                <option value="치마">치마</option>
+                                <option value="원피스">원피스</option>
+                                <option value="향수">향수</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </div>
+                        <div class="price-box">
+                            <h3 class="h3">가격</h3>
+                            <textarea name="" id="priceInput" placeholder="가격을 입력해주세요"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="assignBtn">등록</div>
+        </div>
+        {{>footer}}
+    </div>
+</body>
+<script src="/js/header.js"></script>
+<script src="/js/assign.js"></script>
+</html>

@@ -23,8 +23,15 @@ export class ItemController {
     return;
   }
 
+  @Get('modify/:id')
+  @Render('modify')
+  modifyRender() {
+    return;
+  }
+
   @ApiOperation({ summary: "특정 아이디 아이템 데이터" })
   @Get("/:id")
+  @Render('view')
   selectItem(@Param("id") id: number) {
     return this.itemService.selectItem(id)
   }

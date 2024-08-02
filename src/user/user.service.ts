@@ -89,4 +89,15 @@ export class UserService {
             }]
         })
     }
+
+    async checkDuplicateEmail(email) {
+        const data = await this.userModel.findOne({where: {email}});
+        if(data) return false;
+        return true;
+    }
+    async checkDuplicateNickName(nickname) {
+        const data = await this.userModel.findOne({where: {nickname}});
+        if(data) return false;
+        return true;
+    }
 }
