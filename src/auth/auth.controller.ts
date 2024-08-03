@@ -84,7 +84,7 @@ export class AuthController {
       const date = new Date()
       const expireDate = new Date(date.setMinutes(date.getMinutes() + 60));
       res.cookie('loginToken', token, { httpOnly: true, expires: expireDate }) // 쿠키로
-      return res.status(200).end(); // 로그인 성공, 메인페이지로 리다이렉트 해야함
+      return res.status(200).end() // 로그인 성공, 메인페이지로 리다이렉트 해야함
     } catch (error) {
       return res.status(401).end() // 로그인 실패 얼러트 띄워야함
     }
@@ -106,6 +106,7 @@ export class AuthController {
 
   /////////////////// 소셜 회원가입창 렌더 //////////////////////
   @Get("/signSns") // 쿼리
+  // @Render('')
   async signSnsRender(@Query('signToken') signToken: string) {
     // 렌더 하면서 쿼리에 signToken값 같이 줘야함
     return

@@ -20,7 +20,7 @@ export class UserController {
   @Get('signup')
   @Render('signUp')
   signUpRender(@Param('true') compare: string) {
-    return {compare};
+    return { compare };
   }
 
   ///////////////////// RENDER 로그인 창 //////////////////////
@@ -31,14 +31,13 @@ export class UserController {
   }
 
   ///////////////////// RENDER 구매 목록 창 //////////////////////
-
   @Get('history/:id')
   @Render('history')
   @UseGuards(TokenGuard)
-  async historyRender(@Param("id") id : number, @Req() req) {
+  async historyRender(@Param("id") id: number, @Req() req) {
     if (req.user.id === id) {
       const data = await this.userService.historyRender(id)
-      return {data}
+      return { data }
     } else {
       throw new UnauthorizedException
     }
@@ -46,8 +45,6 @@ export class UserController {
 
   ///////////////////// 중 요 /////////////////
   ///////////////////// RENDER 유저 스토어 창 //////////////////////
-  
-  ///////////////////// GET 유저 스토어 창 //////////////////////
   @ApiOperation({ summary: "유저 스토어" })
   @Get(":id")
   // @Render('profile')
@@ -98,7 +95,7 @@ export class UserController {
   @Put("mod/:id")
   @UseInterceptors(FileInterceptor("profileImg")) // 파일 인터셉터
   async updateUser(@Body() updateData: UpdateUserDTO, @Param("id") updateUserId: number, @UploadedFile() file: Express.Multer.File) {
-    console.log(updateData);
+    // console.log(updateData);
     return this.userService.updateUser(updateData, updateUserId, file.filename);
   }
 
