@@ -1,12 +1,12 @@
-const historyBtn = document.getElementById("historyBtn");
-historyBtn.onclick = () => {
-    location.href = "http://localhost:3000/user/history";
-}
+// const historyBtn = document.getElementById("historyBtn");
+// historyBtn.onclick = () => {
+//     location.href = "http://localhost:3000/user/history";
+// }
 
-const editBtn = document.getElementById("editBtn");
-editBtn.onclick = () => {
+// const editBtn = document.getElementById("editBtn");
+// editBtn.onclick = () => {
     
-}
+// }
 
 const swapBtn = document.querySelectorAll(".controller > span");
 swapBtn.forEach((el: HTMLSpanElement) => {

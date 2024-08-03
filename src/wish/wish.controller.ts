@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Param, Post, Req, UseGuards } from '@nestjs/c
 import { WishService } from './wish.service';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { TokenGuard } from 'src/common/guard/token.guard';
+import { ItemParamPipe } from 'src/item/pipe/item.pipe';
 
 @ApiTags("위시")
 @Controller('wish')
@@ -17,7 +18,9 @@ export class WishController {
   //     properties: { itemId: { type: "number" } }
   //   }
   // })
-  async toggleWish(@Param('itemId') itemId: number, @Req() req) {
+  async toggleWish(@Param('itemId', ItemParamPipe) itemId: number, @Req() req) {
+    console.log(itemId)
+    console.log(itemId)
     const wisher = req.user.id
     const result = await this.wishService.toggleWish(itemId, wisher)
     console.log(`Wish작업 결과 = ${result}`)

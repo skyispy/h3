@@ -7,6 +7,7 @@ import { Request, Response } from 'express';
 import { ItemService } from 'src/item/item.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenGuard } from 'src/common/guard/token.guard';
+import { ItemParamPipe } from 'src/item/pipe/item.pipe';
 
 @ApiTags("유저")
 @Controller('user')
@@ -34,7 +35,7 @@ export class UserController {
   @Get('history/:id')
   @Render('history')
   @UseGuards(TokenGuard)
-  async historyRender(@Param("id") id: number, @Req() req) {
+  async historyRender(@Param("id", ItemParamPipe) id : number, @Req() req) {
     if (req.user.id === id) {
       const data = await this.userService.historyRender(id)
       return { data }
@@ -47,7 +48,7 @@ export class UserController {
   ///////////////////// RENDER 유저 스토어 창 //////////////////////
   @ApiOperation({ summary: "유저 스토어" })
   @Get(":id")
-  // @Render('profile')
+  @Render('profile')
   async selectMyInclude(@Param("id") id: number, @Req() req: Request) {
     const token = req.cookies.loginToken
     const itemData = await this.userService.includeMyItem(id)

@@ -21,25 +21,21 @@
                         <span>구매 금액</span>
                         <span>판매자</span>
                     </div>
-                    <div class="history-box">
-                        <span>1</span>
-                        <span>상품입니다</span>
-                        <span>2024. 7. 1</span>
-                        <span>20,000</span>
-                        <span></span>
-                    </div>
-                    <div class="history-box">
-                        <span>1</span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                    {{#each data.dataValues.boughtItem}}
+                        <div class="history-box">
+                            <span>{{dataValues.id}}</span>
+                            <span>{{dataValues.title}}</span>
+                            <span>{{formDate dataValues.createdAt}}</span>
+                            <span>{{dataValues.price}}</span>
+                            <span>{{dataValues.fk_sellerId}}</span>
+                        </div>
+                    {{/each}}
                 </div>
             </div>
         </div>
         {{>footer}}
     </div>
 </body>
+<script src="/js/header.js"></script>
 <script src="/js/profile.js"></script>
 </html>
