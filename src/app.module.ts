@@ -44,6 +44,11 @@ import * as Handlebars from 'handlebars';
 })
 export class AppModule implements OnModuleInit {
   onModuleInit() {
+    //  이거 필수 아님! 필요하면 쓰는거!
     Handlebars.registerHelper('concat', HbsHelpers.concat);
+    Handlebars.registerHelper('formDate', HbsHelpers.formDate);
+    Handlebars.registerHelper('starCount', HbsHelpers.starCount);
+    Handlebars.registerHelper('compareUser', HbsHelpers.compareUser);
+    Handlebars.registerHelper('priceComma', HbsHelpers.priceComma);
   }
  }

@@ -19,9 +19,10 @@ export class ItemController {
 
   @ApiOperation({ summary :"아이템 전체 데이터"})
   @Get("/market")
+  @Render('market')
     async readItemAll() {
     const data = await this.itemService.readItemAll()
-    return data
+    return {data}
   }
 
   //////////////////////////// RENDER 상품 작성 페이지 ////////////////////////////
@@ -36,8 +37,8 @@ export class ItemController {
 
   //////////////////////////// RENDER 상품 상세 페이지 ////////////////////////////
   @ApiOperation({ summary: "특정 아이디 아이템 데이터" })
-  @Get("/:id")
-  // @Render('') // 상세페이지 렌더 해야 함 !!!
+  @Get(":id")
+  @Render('view') // 상세페이지 렌더 해야 함 !!!
   async selectItem(@Param("id") id: number, @Req() req: Request) {
     const token = req.cookies.loginToken
     const data = await this.itemService.selectItem(id)

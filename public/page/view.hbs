@@ -6,44 +6,59 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/topbottom.css">
     <link rel="stylesheet" href="/css/view.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="wrap">
         {{>header}}
-        <div id="purchase-box">
-            <div>
-                <div class="left">가격</div>
-                <div class="right">안전결제</div>
-            </div>
-        </div>
         <div id="content">
+            <div id="purchase-box">
+                <div>
+                    <div class="left">{{priceComma data.dataValues.price}} 원</div>
+                    <div class="right">결제</div>
+                </div>
+            </div>
             <div class="content-wrap">
                 <div class="product-box">
-                    <div class="left"></div>
-                    <div class="right"></div>
-                </div>
-                <div class="ifo-box">
-                    <div class="guide-box">
-                        <div class="left"></div>
-                        <div class="right"></div>
-                        <ul class="ifo-cotent">
-                            <li>상품</li>
-                            <li>배송</li>
-                            <li>판매자</li>
-                        </ul>
+                    <div class="left">
+                        <div class="img-box">
+                            {{#each data.dataValues.imgs}}
+                                {{#if @first}}
+                                    <img src={{dataValues.imgPath}} id="preview" alt="">
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                        <div class="small-img-boxes">
+                            {{#each data.dataValues.imgs}}
+                                    <div class="small-img-box">
+                                        <img src={{dataValues.imgPath}} alt="">
+                                    </div>
+                            {{/each}}
+                        </div>
                     </div>
-                    <div class="guide-box">
-                        <div class="left"></div>
-                        <div class="right"></div>
-                        <ul class="ifo-cotent">
-                            <li>상품</li>
-                            <li>배송</li>
-                            <li>판매자</li>
-                        </ul>
-                    </div>
-                    <div class="brand-box">
-                        <h3>뭐 모아 보기</h3>
-                        <div class="product-box"></div>
+                    <div class="right">
+                        <div class="brand-box">
+                            <h3>{{data.dataValues.brand}}</h3>
+                            <div class="img-box">
+                                <img src="/img/views/Unknown.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="title-box">{{data.dataValues.title}}</div>
+                        <textarea class="content-box" readonly>{{data.dataValues.content}}</textarea>
+                        <div class="category-box">
+                            <h4>{{data.dataValues.category}}</h4>
+                            <h4>{{formDate data.dataValues.createdAt}}</h4>
+                        </div>
+                        <h3>판매자 정보</h3>
+                        <div class="seller-ifo-box">
+                            <a href={{concat "/user/"data.dataValues.fk_sellerId}} class="img-box">
+                                <img src={{concat "/uploads/" data.dataValues.sellerId.dataValues.profileImg}} alt="">
+                            </a>
+                            <p>{{data.dataValues.sellerId.dataValues.nickname}}</p>
+                        </div>
+                        <div class="like-btn-box">
+                            <span id="likeBtn" data-item={{data.dataValues.id}}>♡</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,4 +67,5 @@
     </div>
 </body>
 <script src="/js/header.js"></script>
+<script src="/js/view.js"></script>
 </html>

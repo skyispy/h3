@@ -20,6 +20,10 @@ async function bootstrap() {
   hbs.registerPartials(join(__dirname, '..', '..', 'public', 'page', 'partials'));
 
   hbs.registerHelper('concat', HbsHelpers.concat);
+  hbs.registerHelper('formDate', HbsHelpers.formDate);
+  hbs.registerHelper('starCount', HbsHelpers.starCount);
+  hbs.registerHelper('compareUser', HbsHelpers.compareUser);
+  hbs.registerHelper('priceComma', HbsHelpers.priceComma);
 
   app.useStaticAssets(join(__dirname, '..', '..', 'public'))
 

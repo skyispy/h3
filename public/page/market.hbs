@@ -53,16 +53,19 @@
                 </li>
             </ul>
             <div class="product-boxes">
-                <div class="product-box">
-                    <div class="img-box">
-                        <img src="../img/login/image.png" alt="">
-                    </div>
-                    <div class="ifo-box">
-                        <p>Belier</p>
-                        <p>새상ㅍ무임ㅇ에ㅓㄹㅁ얾ㄴ;ㅁㄴ머림ㄴ</p>
-                        <p>78,000원</p>
-                    </div>
-                </div>
+                    {{log data}}
+                {{#each data}}
+                    <a class="product-box" href={{concat "/item/" dataValues.id}}>
+                        <div class="img-box">
+                            <img src="../img/login/image.png" alt="">
+                        </div>
+                        <div class="ifo-box">
+                            <p>{{dataValues.brand}}</p>
+                            <p>{{dataValues.title}}</p>
+                            <p>{{dataValues.price}}</p>
+                        </div>
+                    </a>
+                {{/each}}
                 <div class="product-box">
                     <div class="img-box">
                         <img src="../img/login/image.png" alt="">
