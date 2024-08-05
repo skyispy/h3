@@ -42,9 +42,6 @@ jobs:  # 작업의 단위
         run: |
           ls
           pwd
-          cd dist
-          ls
-          pwd
           cd src
           ls
       
