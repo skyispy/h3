@@ -70,7 +70,7 @@ export class AuthController {
     }
   }
 
-  /////////////////////////// 일반 로그인 //////////////////////////////
+  /////////////////////////// POST 일반 로그인 //////////////////////////////
   @ApiOperation({ summary: "일반 로그인" })
   @Post('/login')
   @ApiBody({
@@ -91,20 +91,20 @@ export class AuthController {
   }
 
 
-  /////////////////////////// 페이로드 확인 //////////////////////////////
-  @ApiOperation({ summary: "페이로드 확인" })
-  @Get('/profile')
-  async getPayload(@Req() req) {
-    const token = req.cookies.loginToken
-    if (!token) {
-      console.log("토큰없어")
-    } else {
-      const payload = await this.authService.getPayload(token);
-      console.log(payload);
-    }
-  }
+  // /////////////////////////// 페이로드 확인 //////////////////////////////
+  // @ApiOperation({ summary: "페이로드 확인" })
+  // @Get('/profile')
+  // async getPayload(@Req() req) {
+  //   const token = req.cookies.loginToken
+  //   if (!token) {
+  //     console.log("토큰없어")
+  //   } else {
+  //     const payload = await this.authService.getPayload(token);
+  //     console.log(payload);
+  //   }
+  // }
 
-  /////////////////// 소셜 회원가입창 렌더 //////////////////////
+  /////////////////// RENDER 소셜 회원가입창 렌더 //////////////////////
   @Get("/signSns") // 쿼리
   // @Render('')
   async signSnsRender(@Query('signToken') signToken: string) {
@@ -112,7 +112,7 @@ export class AuthController {
     return
   }
 
-  /////////////////// 소셜 회원가입 완료 //////////////////////
+  /////////////////// POST 소셜 회원가입 완료 //////////////////////
   @ApiOperation({ summary: "소셜 회원가입 완료" })
   @ApiBody({
     schema: {

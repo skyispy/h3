@@ -35,10 +35,11 @@ export class UserController {
   @Get('history/:id')
   @Render('history')
   @UseGuards(TokenGuard)
-  async historyRender(@Param("id", ItemParamPipe) id : number, @Req() req) {
-    if (req.user.id === id) {
+  async historyRender(@Param("id", ItemParamPipe) id: number, @Req() req) {
+    const loginUserId = req.user.id
+    if (loginUserId === id) {
       const data = await this.userService.historyRender(id)
-      return { data }
+      return { data, loginUserId }
     } else {
       throw new UnauthorizedException
     }
@@ -63,7 +64,7 @@ export class UserController {
       try {
         const loginUserId = this.jwtService.verify(token).id
         console.log(`현재 접속중인 아이디 = ${loginUserId}`);
-        console.log(`보내는 데이터의 아이디 = ${id}`);
+        console.log(`렌더하는 데이터의 아이디 = ${id}`);
         return { itemData, wishData, reviewData, loginUserId }
       } catch (error) { // 쿠키에 토큰은 있으나 유효하지 않을 경우 그냥 데이터만 렌더
         return { itemData, wishData, reviewData }

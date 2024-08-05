@@ -65,6 +65,7 @@ export class UserService {
 
     ///////////////////// id 값으로 내 정보들 + 내가 판매중인 아이템 + 이미지 //////////////////////
     async includeMyItem(id: number): Promise<User> {
+        console.log(id)
         return await this.userModel.findOne({
             where: { id },
             include: [{
@@ -73,7 +74,7 @@ export class UserService {
                 include: [{
                     model: ItemImage, // 의 이미지
                     as: 'imgs',
-                    // order: [['id', 'ASC']], // 순서대로
+                    order: [['id', 'ASC']], // 순서대로
                     attributes: ['imgPath'] // 이미지만
                 }],
                 order: [['id', 'DESC']]
@@ -82,6 +83,7 @@ export class UserService {
     }
     ///////////////////// id 값으로 내정보 + 내 위시 리스트 + 아이템 + 이미지 들 조회 //////////////////////
     async includeMyWish(id: number): Promise<User> {
+        console.log(id)
         return await this.userModel.findOne({
             where: { id },
             include: [{
@@ -103,6 +105,7 @@ export class UserService {
     }
     ///////////////////// id 값으로 내정보 + 내 댓글, 대댓글들 + 쓴 유저 이미지 조회 //////////////////////
     async includeMyReview(id: number): Promise<User> {
+        console.log(id)
         return await this.userModel.findOne({
             where: { id },
             include: [{

@@ -77,7 +77,14 @@ export class ItemService {
         }
 
         const { rows, count } = await this.itemModel.findAndCountAll({
-            where: searchSetting, limit, offset, order: [['id', 'DESC']],
+            where: searchSetting, limit, offset,
+            order: [['id', 'DESC']],
+            include: [{
+                model: ItemImage,
+                as: "imgs",
+                order: [['id', 'ASC']],
+                attributes: ['imgPath']
+            }]
         })
         return { rows, count, totalPages: Math.ceil(count / limit), currentPage: page }
     }

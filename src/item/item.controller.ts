@@ -24,10 +24,23 @@ export class ItemController {
     @Query('page') page: number = 1, // 기본보여질 페이지 번호
     @Query('limit') limit: number = 12, // 12개씩 보여줌
     @Query('search') search: string,
-    @Query('category') itemCategory: string) {
+    @Query('category') itemCategory: string,
+    @Req() req: Request) {
     console.log(page, limit, search, itemCategory)
+    const token = req.cookies.loginToken
     const data = await this.itemService.readItemAll(page, limit, search, itemCategory)
-    return {data};
+    if (!token) {
+      return { data };
+    } else {
+      try {
+        const loginUserId = this.jwtService.verify(token).id
+        return { data, loginUserId }
+      } catch (error) {
+        return { data };
+      }
+    }
+
+
   }
   // 카테고리 요청 -> /item/market?category=상의
   // 검색 요청 -> /item/market?search= 검색어!
@@ -37,9 +50,9 @@ export class ItemController {
   @Render('assign')
   @UseGuards(TokenGuard) // 토큰 없으면 거부
   sellRender(@Req() req) {
-    const loginId = req.user.id
-    console.log(loginId); // 현재접속 유저 id
-    return { loginId };
+    const loginUserId = req.user.id
+    console.log(loginUserId); // 현재접속 유저 id
+    return { loginUserId };
   }
 
   //////////////////////////// RENDER 상품 상세 페이지 ////////////////////////////
@@ -101,8 +114,9 @@ export class ItemController {
   // @Render('') // 수정 페이지 렌더 해야 함 !!!
   async modPageRender(@Param("id") id: number, @Req() req) {
     const data = await this.itemService.selectItem(id)
-    if (data.fk_sellerId === req.user.id) {
-      return { data }
+    const loginUserId = req.user.id
+    if (data.fk_sellerId === loginUserId) {
+      return { data, loginUserId }
     } else {
       throw new UnauthorizedException // 내가 쓴 글 아니면 접근권한 x 401
     }
