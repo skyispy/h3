@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="/css/topbottom.css">
     <link rel="stylesheet" href="/css/market.css">
 </head>
+
 <body>
     <div id="wrap">
         {{>header}}
@@ -54,20 +56,20 @@
             </ul>
             <div class="product-boxes">
                 {{#each data.rows}}
-                    <a class="product-box" href={{concat "/item/" dataValues.id}}>
-                        <div class="img-box">
-                            <img src="../img/login/image.png" alt="">
-                        </div>
-                        <div class="ifo-box">
-                            <p>{{dataValues.brand}}</p>
-                            <p>{{dataValues.title}}</p>
-                            <p>{{priceComma dataValues.price}}</p>
-                        </div>
-                    </a>
+                <a class="product-box" href={{concat "/item/" dataValues.id}}>
+                    <div class="img-box">
+                        <img src="../img/login/image.png" alt="">
+                    </div>
+                    <div class="ifo-box">
+                        <p>{{dataValues.brand}}</p>
+                        <p>{{dataValues.title}}</p>
+                        <p>{{priceComma dataValues.price}}</p>
+                    </div>
+                </a>
                 {{/each}}
             </div>
             <div class="page-controller">
-                {{log data.rows}}
+                {{!-- {{log data.rows}} --}}
             </div>
         </div>
         {{>footer}}
@@ -85,33 +87,34 @@
     preBtn.style.transform = 'rotate(-90deg)';
     nextBtn.innerHTML = svg;
     nextBtn.style.transform = 'rotate(90deg)';
-    const totalPage = {{data.totalPages}};
-    const currentPage = parseInt({{data.currentPage}});
+    const totalPage = {{ data.totalPages }};
+    const currentPage = parseInt({{ data.currentPage }});
     pageController.append(preBtn);
     const pageArr = [];
-    for(let i = 1; i <= totalPage; i++) {
+    for (let i = 1; i <= totalPage; i++) {
         pageArr.push(i);
     }
     console.log(pageArr)
-    if(pageArr.length < 5) {
-        for(let i = 0; i < pageArr.length; i++) {
+    if (pageArr.length < 5) {
+        for (let i = 0; i < pageArr.length; i++) {
             const pageButton = document.createElement('button');
             pageButton.classList.add('page-btn');
             pageButton.innerHTML = `${pageArr[i]}`
             pageButton.onclick = () => {
                 location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
             }
-            if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
+            if (pageArr[i] === currentPage) { pageButton.classList.add('current'); }
             pageController.append(pageButton);
         }
-    }else {
-        if(currentPage + 2 <= pageArr.length) {
+    } else {
+        if (currentPage + 2 <= pageArr.length) {
             // 버튼 5개 제한 마지막 페이지일 때도 5개 출력
-        }else {
+        } else {
 
         }
     }
 
     pageController.append(nextBtn);
 </script>
+
 </html>
