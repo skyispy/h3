@@ -23,7 +23,6 @@ const slideAnimation = () => {
 let slide = setInterval(slideAnimation, 6000);
 
 const controllers = document.querySelectorAll(".slide-controller > span");
-console.log(controllers)
 controllers.forEach((el: HTMLSpanElement) => {
     el.onclick = () => {
         clearInterval(slide);
