@@ -18,11 +18,11 @@ import * as Handlebars from 'handlebars';
 @Module({
   imports: [SequelizeModule.forRoot({
     dialect: 'mysql',
-    host: "ec2-3-37-41-253.ap-northeast-2.compute.amazonaws.com",
+    host: "localhost",
     port: 3306,
-    username: "choco",
+    username: "root",
     password: "5835",
-    database: "test",
+    database: "h3",
     autoLoadModels: true,
     synchronize: true,
     sync: { force: false }
