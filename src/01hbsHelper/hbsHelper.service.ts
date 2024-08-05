@@ -43,15 +43,26 @@ export class HbsHelpers {
   }
 
   static priceComma(num) {
-    const count = Math.floor(num / 1000);
-    console.log(count)
+    const stringNum = `${num}`;
+    const numArr = [];
+    for(let i = 0; i < stringNum.length; i++) {
+      stringNum.slice(i, i+1);
+      numArr.push(stringNum.slice(i, i+1));
+    }
+    const numArrLength = numArr.length;
+    const count = Math.floor(numArrLength / 3);
     if(count > 0) {
-      const stringNum = `${num}`;
-      for(let i = 0; i < stringNum.length; i++) {
-        console.log(stringNum.slice(0, stringNum.length));
+      for(let i = 1; i < count + 1; i++) {
+        numArr.splice(numArrLength - i * 3, 0, ",");
       }
-      console.log(stringNum);
-      return `${num}`;
+      let text = "";
+      for(let i = 0; i < numArr.length; i++) {
+        if(numArr[0] === ",") {
+          numArr.splice(0, 1);
+        }
+        text += numArr[i];
+      }
+      return text;
     }
   }
 }

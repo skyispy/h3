@@ -21,8 +21,8 @@ import * as Handlebars from 'handlebars';
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "....",
-    database: "test",
+    password: "5835",
+    database: "h3",
     autoLoadModels: true,
     synchronize: true,
     sync: { force: false }

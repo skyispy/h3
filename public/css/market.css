@@ -64,3 +64,8 @@
 .tags > li:hover {
     background-color: #888;
 }
+
+
+.current {
+    color: blue;
+}

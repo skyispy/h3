@@ -19,14 +19,15 @@ export class ItemController {
 
   //////////////////////////// RENDER 상품 전체 페이지/검색 요청 (페이지네이션) ////////////////////////////
   @Get('market')
-  // @Render('')
+  @Render('market')
   async marketMain(
     @Query('page') page: number = 1, // 기본보여질 페이지 번호
     @Query('limit') limit: number = 12, // 12개씩 보여줌
     @Query('search') search: string,
     @Query('category') itemCategory: string) {
     console.log(page, limit, search, itemCategory)
-    return await this.itemService.readItemAll(page, limit, search, itemCategory)
+    const data = await this.itemService.readItemAll(page, limit, search, itemCategory)
+    return {data};
   }
   // 카테고리 요청 -> /item/market?category=상의
   // 검색 요청 -> /item/market?search= 검색어!
