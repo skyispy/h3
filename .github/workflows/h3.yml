@@ -91,7 +91,6 @@ jobs:  # 작업의 단위
             rm -rf package.json
             rm -rf package-lock.json
             rm -rf system.config.js
-            rm -rf .env
             
       # ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/dist/ : 원격 서버의 폴더에 파일을 복사한다.
       - name: EC2에 아티팩트 복사
@@ -100,7 +99,7 @@ jobs:  # 작업의 단위
           scp -i ~/.ssh/aws_key package.json ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/
           scp -i ~/.ssh/aws_key package-lock.json ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/
           scp -i ~/.ssh/aws_key system.config.js ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/
-          scp -i ~/.ssh/aws_key .env ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/
+          scp -i ~/.ssh/aws_key .env ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/ubuntu/dist
 
       - name: EC2 npm install
         uses: appleboy/ssh-action@v1.0.3
