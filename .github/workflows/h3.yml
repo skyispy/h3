@@ -29,7 +29,8 @@ jobs:  # 작업의 단위
 
       - name: .env 생성
         run: |
-          echo "${{ secrets.ENV }}" > ~/.env
+          echo "${{ secrets.ENV }}" > .env
+
 
       - name: npm install  # 의존성 설치
         run: npm install
