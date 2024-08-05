@@ -69,3 +69,24 @@
 .current {
     color: blue;
 }
+
+.page-btn {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    background-color: #efefef;
+}
+
+.page-controller {
+    width: 14%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+#preBtn, #nextBtn {
+    width: 30px;
+    height: 30px;
+    background-color: #efefef;
+    border: 2px solid gray;
+}

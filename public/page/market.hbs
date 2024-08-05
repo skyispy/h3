@@ -13,43 +13,43 @@
         <div id="content">
             <ul class="tags">
                 <li>
-                    <a href="/item/">전체</a>
+                    <a href="/item/market">전체</a>
                 </li>
                 <li>
-                    <a href="/item/상의">상의</a>
+                    <a href="/item/market?category=상의">상의</a>
                 </li>
                 <li>
-                    <a href="/item/아우터">아우터</a>
+                    <a href="/item/market?category=아우터">아우터</a>
                 </li>
                 <li>
-                    <a href="/item/하의">하의</a>
+                    <a href="/item/market?category=하의">하의</a>
                 </li>
                 <li>
-                    <a href="/item/신발">신발</a>
+                    <a href="/item/market?category=신발">신발</a>
                 </li>
                 <li>
-                    <a href="/item/가방">가방</a>
+                    <a href="/item/market?category=가방">가방</a>
                 </li>
                 <li>
-                    <a href="/item/모자">모자</a>
+                    <a href="/item/market?category=모자">모자</a>
                 </li>
                 <li>
-                    <a href="/item/엑세서리">엑세서리</a>
+                    <a href="/item/market?category=엑세서리">엑세서리</a>
                 </li>
                 <li>
-                    <a href="/item/주얼리">주얼리</a>
+                    <a href="/item/market?category=주얼리">주얼리</a>
                 </li>
                 <li>
-                    <a href="/item/치마">치마</a>
+                    <a href="/item/market?category=치마">치마</a>
                 </li>
                 <li>
-                    <a href="/item/원피스">원피스</a>
+                    <a href="/item/market?category=원피스">원피스</a>
                 </li>
                 <li>
-                    <a href="/item/향수">향수</a>
+                    <a href="/item/market?category=향수">향수</a>
                 </li>
                 <li>
-                    <a href="/item/기타">기타</a>
+                    <a href="/item/market?category=기타">기타</a>
                 </li>
             </ul>
             <div class="product-boxes">
@@ -75,6 +75,12 @@
 </body>
 <script src="/js/header.js"></script>
 <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let text = "";
+    if(urlParams.has('category')) {
+        text = urlParams.get('category');
+    }
+    console.log(urlParams.has('category'));
     const pageController = document.querySelector(".page-controller");
     const preBtn = document.createElement("button")
     const nextBtn = document.createElement("button")
@@ -85,6 +91,8 @@
     preBtn.style.transform = 'rotate(-90deg)';
     nextBtn.innerHTML = svg;
     nextBtn.style.transform = 'rotate(90deg)';
+    preBtn.id = 'preBtn';
+    nextBtn.id = 'nextBtn';
     const totalPage = {{data.totalPages}};
     const currentPage = parseInt({{data.currentPage}});
     pageController.append(preBtn);
@@ -92,23 +100,84 @@
     for(let i = 1; i <= totalPage; i++) {
         pageArr.push(i);
     }
-    console.log(pageArr)
     if(pageArr.length < 5) {
         for(let i = 0; i < pageArr.length; i++) {
             const pageButton = document.createElement('button');
             pageButton.classList.add('page-btn');
             pageButton.innerHTML = `${pageArr[i]}`
             pageButton.onclick = () => {
-                location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                if(urlParams.has('category')) {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                }else {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                }
             }
             if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
             pageController.append(pageButton);
         }
     }else {
         if(currentPage + 2 <= pageArr.length) {
-            // 버튼 5개 제한 마지막 페이지일 때도 5개 출력
+            if(currentPage - 2 > 0) {
+                // 23456
+                for(let i = currentPage - 3; i < currentPage + 2; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.classList.add('page-btn');
+                    pageButton.innerHTML = `${pageArr[i]}`;
+                    pageButton.onclick = () => {
+                        if(urlParams.has('category')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                        }else {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                        }
+                    }
+                    if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
+                    pageController.append(pageButton);
+                }
+            }else {
+                // 12345
+                for(let i = 0; i < 5; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.classList.add('page-btn');
+                    pageButton.innerHTML = `${pageArr[i]}`;
+                    pageButton.onclick = () => {
+                        if(urlParams.has('category')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                        }else {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                        }
+                    }
+                    if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
+                    pageController.append(pageButton);
+                }
+                nextBtn.style.boxShadow = '';
+                preBtn.style.boxShadow = 'black';
+                preBtn.onclick = () => {}
+            }
         }else {
-
+            // 끝
+            for(let i = pageArr.length-5; i < pageArr.length; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.classList.add('page-btn');
+                pageButton.innerHTML = `${pageArr[i]}`;
+                pageButton.onclick = () => {
+                    if(urlParams.has('category')) {
+                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                    }else {
+                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                    }
+                }
+                if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
+                pageController.append(pageButton);
+            }
+            nextBtn.style.textShadow = 'black';
+            nextBtn.onclick = () => {}
+            preBtn.onclick = () => {
+                if(urlParams.has('category')) {
+                    location.href = `http://localhost:3000/item/market?page=${currentPage - 5}&category=${text}`;
+                }else {
+                    location.href = `http://localhost:3000/item/market?page=${currentPage - 5}`;
+                }
+            }
         }
     }
 

@@ -86,21 +86,32 @@ assignBtn.onclick = () => {
         price: priceInput.value,
         img: imageArr
     }
-    axios.post<{title: string, content: string, brand: string, category: string, price: string, img: string[]}>("http://localhost:3000/item/registItem", object).then((res) => {
-        console.log(res);
-    }).catch((error) => {
-        if (error.response) {
-            // 서버가 응답을 했지만 상태 코드가 2xx 범위를 벗어남
-            console.error('Error data:', error.response.data);
-            console.error('Error status:', error.response.status);
-            console.error('Error headers:', error.response.headers);
-          } else if (error.request) {
-            // 요청이 만들어졌지만 응답을 받지 못함
-            console.error('Error request:', error.request);
-          } else {
-            // 요청을 설정하는 도중에 에러가 발생함
-            console.error('Error message:', error.message);
-          }
-          console.error('Error config:', error.config);
-    });
+    if(object.img.length !== 0 && object.title && object.content && object.brand && object.category && object.price) {
+        axios.post<{title: string, content: string, brand: string, category: string, price: string, img: string[]}>("http://localhost:3000/item/registItem", object).then((res) => {
+            console.log(res);
+        }).catch((error) => {
+            if (error.response) {
+                // 서버가 응답을 했지만 상태 코드가 2xx 범위를 벗어남
+                console.error('Error data:', error.response.data);
+                console.error('Error status:', error.response.status);
+                console.error('Error headers:', error.response.headers);
+              } else if (error.request) {
+                // 요청이 만들어졌지만 응답을 받지 못함
+                console.error('Error request:', error.request);
+              } else {
+                // 요청을 설정하는 도중에 에러가 발생함
+                console.error('Error message:', error.message);
+              }
+              console.error('Error config:', error.config);
+        });
+        console.log('성공')
+    }else {
+        console.log(object.img.length)
+        if(object.img.length === 0) {console.log("이미지 입력바람");}
+        if(!object.title) {console.log("제목 입력바람");}
+        if(!object.content) {console.log("내용 입력바람");}
+        if(!object.brand) {console.log("브랜드 입력바람");}
+        if(!object.category) {console.log("카테고리 입력바람");}
+        if(!object.price) {console.log("가격 입력바람");}
+    }
 }
