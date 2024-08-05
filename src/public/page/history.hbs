@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/topbottom.css">
+    <link rel="stylesheet" href="/css/history.css">
+</head>
+<body>
+    <div id="wrap">
+        {{>header}}
+        <div id="content">
+            <div class="content-wrap">
+                <h3> ORDER </h3>
+                <div class="history-boxes">
+                    <div class="history-ifo">
+                        <span>상품번호</span>
+                        <span>상품정보</span>
+                        <span>구매일</span>
+                        <span>구매 금액</span>
+                        <span>판매자</span>
+                    </div>
+                    {{#each data.dataValues.boughtItem}}
+                        <div class="history-box">
+                            <span>{{dataValues.id}}</span>
+                            <span>{{dataValues.title}}</span>
+                            <span>{{formDate dataValues.createdAt}}</span>
+                            <span>{{dataValues.price}}</span>
+                            <span>{{dataValues.fk_sellerId}}</span>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{>footer}}
+    </div>
+</body>
+<script src="/ts/header.js"></script>
+<script src="/ts/profile.js"></script>
+</html>

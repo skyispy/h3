@@ -1,0 +1,178 @@
+#wrap > #content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+#content > .sell-box {
+    width: 80%;
+    margin-top: 60px;
+}
+
+.sell-box > .add-img-box {
+    width: 50%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-img-box > h3 {
+    width: 60%;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.add-img-box > .img-box {
+    width: 60%;
+    aspect-ratio: 1 / 0.9; /* 1:1 비율을 설정합니다 */
+}
+
+.img-box > #preview {
+    width: 100%;
+    height: 100%;
+    border: 1px solid;
+}
+
+.img-box > .example-box {
+    width: 100%;
+    height: 100%;
+    border: 1px solid;
+}
+
+.add-img-box > .ex-box {
+    width: 60%;
+    aspect-ratio: 1 / 0.2;
+    display: flex;
+    margin-top: 14px;
+}
+
+.ex-box > .img-boxes {
+    width: 100%;
+    display: flex;
+}
+
+.ex-box > .img-boxes > .img-box {
+    width: 20%;
+    border: 1px solid rgb(179, 179, 179);
+    position: relative;
+    z-index: 2;
+    display: flex;
+}
+
+.ex-box > .img-boxes > .img-box > button {
+    position: absolute;
+    top: 0;
+    right: 12.4%;
+    width: 20px;
+    height: 20px;
+    font-size: 98%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    position: relative;
+    z-index: 1;
+}
+
+.img-box > img {
+    width: 100%;
+    height: 100%;
+}
+
+.add-img-box > .btns {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btns > input {
+    width: 40%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.btns > #addImgBtn {
+    width: 8%;
+    height: 20px;
+    margin-right: 22%;
+}
+
+.sell-box > .post-box {
+    float: right;
+    width: 50%;
+}
+
+.post-box > .input-box {
+    width: 80%;
+}
+
+.input-box > h3 {
+    font-size: 22px;
+}
+.input-box > h3:nth-child(2) {
+    margin-top: 10px;
+}
+
+.input-box > textarea {
+    width: 80%;
+    height: 32px;
+    resize: none;
+    margin: 8px 0px;
+    font-size: 98%;
+    padding: 6px 6px;
+    overflow: hidden;
+}
+
+.input-box > textarea:nth-child(4) {
+    height: 400px;
+}
+
+.post-box > .select-box {
+    width: 100%;
+}
+.select-box > .select-brand {
+    width: 100%;
+}
+
+.h3 {
+    font-size: 22px;
+}
+
+.select-box > .select-tag {
+    width: 100%;
+}
+
+.select-size {
+    width: 60%;
+    font-size: 30px;
+    margin: 10px 0px;
+}
+
+.select-box > .price-box {
+    width: 60%;
+}
+
+.price-box > textarea {
+    width: 100%;
+    height: 32px;
+    font-size: 98%;
+    overflow: hidden;
+    resize: none;
+    padding: 6px 6px;
+    margin-top: 10px;
+}
+
+#assignBtn {
+    width: 20%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    background-color: black;
+    margin-top: 50px;
+}
+
