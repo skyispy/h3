@@ -19,7 +19,7 @@ export class UserController {
 
   ///////////////////// RENDER 회원가입 창 //////////////////////
   @Get('signup')
-  @Render('signUp')
+  @Render('signup')
   signUpRender(@Param('true') compare: string) {
     return { compare };
   }
