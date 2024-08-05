@@ -20,9 +20,9 @@ import * as Handlebars from 'handlebars';
     dialect: 'mysql',
     host: "localhost",
     port: 3306,
-    username: "root",
+    username: "choco",
     password: "5835",
-    database: "h3",
+    database: "test",
     autoLoadModels: true,
     synchronize: true,
     sync: { force: false }
