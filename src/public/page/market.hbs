@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/topbottom.css">
+    <link rel="stylesheet" href="/css/market.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let text = "";
+        if(urlParams.has('category')) {
+            text = urlParams.get('category');
+        }
+        let text2 = "";
+        if(urlParams.has('search')) {
+            text2 = urlParams.get('search');
+        }
+        console.log(text, text2);
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        {{>header}}
+        <div id="content">
+            <ul class="tags">
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?search=" search}}>전체</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market">전체</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=상의&search=" search}}>상의</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=상의">상의</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=아우터&search=" search}}>아우터</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=아우터">아우터</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=하의&search=" search}}>하의</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=하의">하의</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=신발&search=" search}}>신발</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=신발">신발</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=가방&search=" search}}>가방</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=가방">가방</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=모자&search=" search}}>모자</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=모자">모자</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=엑세서리&search=" search}}>엑세서리</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=엑세서리">엑세서리</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=주얼리&search=" search}}>주얼리</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=주얼리">주얼리</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=치마&search=" search}}>치마</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=치마">치마</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=원피스&search=" search}}>원피스</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=원피스">원피스</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=향수&search=" search}}>향수</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=향수">향수</a>
+                    {{/unless}}
+                </li>
+                <li>
+                    {{#if search}}
+                    <a href={{concat "/item/market?category=기타&search=" search}}>기타</a>
+                    {{/if}}
+                    {{#unless search}}
+                    <a href="/item/market?category=기타">기타</a>
+                    {{/unless}}
+                </li>
+            </ul>
+            <div class="product-boxes">
+                {{#each data.rows}}
+                <a class="product-box" href={{concat "/item/" dataValues.id}}>
+                    <div class="img-box">
+                        {{#each dataValues.imgs}}
+                        {{#if @first}}
+                        <img src={{dataValues.imgPath}} alt="">
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                    <div class="ifo-box">
+                        <p>{{dataValues.brand}}</p>
+                        <p>{{dataValues.title}}</p>
+                        <p>{{priceComma dataValues.price}}</p>
+                    </div>
+                </a>
+                {{/each}}
+            </div>
+            <div class="page-controller">
+                {{!-- {{log data.rows}} --}}
+            </div>
+        </div>
+        {{>footer}}
+    </div>
+</body>
+<script src="/ts/header.js"></script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+            if(searchInput.value) {
+                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+            }
+        }
+    })
+</script>
+<script>
+    console.log(urlParams.has('category'));
+    const pageController = document.querySelector(".page-controller");
+    const preBtn = document.createElement("button")
+    const nextBtn = document.createElement("button")
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M3.646 12.354a.5.5 0 0 0 .708 0L8 8.707l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708zM3.646 8.354a.5.5 0 0 0 .708 0L8 4.707l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"/>
+                    </svg>`;
+    preBtn.innerHTML = svg;
+    preBtn.style.transform = 'rotate(-90deg)';
+    nextBtn.innerHTML = svg;
+    nextBtn.style.transform = 'rotate(90deg)';
+    preBtn.id = 'preBtn';
+    nextBtn.id = 'nextBtn';
+    const totalPage = {{data.totalPages}};
+    const currentPage = parseInt({{data.currentPage}});
+    pageController.append(preBtn);
+    const pageArr = [];
+    for (let i = 1; i <= totalPage; i++) {
+        pageArr.push(i);
+    }
+    if(pageArr.length < 5) {
+        for(let i = 0; i < pageArr.length; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.classList.add('page-btn');
+            pageButton.innerHTML = `${pageArr[i]}`
+            pageButton.onclick = () => {
+                if(urlParams.has('category')) {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                }else if(urlParams.has('search')) {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
+                }else if(urlParams.has('category') && urlParams.has('search')) {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                }else {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                }
+            }
+            if (pageArr[i] === currentPage) { pageButton.classList.add('current'); }
+            pageController.append(pageButton);
+        }
+    }else {
+        if(currentPage + 2 <= pageArr.length) {
+            if(currentPage - 2 > 0) {
+                // 23456
+                for(let i = currentPage - 3; i < currentPage + 2; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.classList.add('page-btn');
+                    pageButton.innerHTML = `${pageArr[i]}`;
+                    pageButton.onclick = () => {
+                        if(urlParams.has('category')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                        }else if(urlParams.has('search')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
+                        }else if(urlParams.has('category') && urlParams.has('search')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                        }else {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                        }
+                    }
+                    if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
+                    pageController.append(pageButton);
+                }
+            }else {
+                // 12345
+                for(let i = 0; i < 5; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.classList.add('page-btn');
+                    pageButton.innerHTML = `${pageArr[i]}`;
+                    pageButton.onclick = () => {
+                        if(urlParams.has('category')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                        }else if(urlParams.has('search')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
+                        }else if(urlParams.has('category') && urlParams.has('search')) {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                        }else {
+                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                        }
+                    }
+                    if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
+                    pageController.append(pageButton);
+                }
+                nextBtn.style.boxShadow = '';
+                preBtn.style.boxShadow = 'black';
+                preBtn.onclick = () => {}
+            }
+        }else {
+            // 끝
+            for(let i = pageArr.length-5; i < pageArr.length; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.classList.add('page-btn');
+                pageButton.innerHTML = `${pageArr[i]}`;
+                pageButton.onclick = () => {
+                    if(urlParams.has('category')) {
+                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                    }else if(urlParams.has('search')) {
+                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
+                    }else if(urlParams.has('category') && urlParams.has('search')) {
+                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                    }else {
+                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                    }
+                }
+                if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
+                pageController.append(pageButton);
+            }
+            nextBtn.style.textShadow = 'black';
+            nextBtn.onclick = () => {}
+            preBtn.onclick = () => {
+                if(urlParams.has('category')) {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
+                }else if(urlParams.has('search')) {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
+                }else if(urlParams.has('category') && urlParams.has('search')) {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                }else {
+                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                }
+            }
+        }
+    }
+
+    pageController.append(nextBtn);
+</script>
+</html>

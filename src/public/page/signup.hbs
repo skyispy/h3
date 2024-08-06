@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/topbottom.css">
+    <link rel="stylesheet" href="/css/signup.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        {{>header}}
+        <div id="content">
+            <div class="signup-box">
+                <h3>회원가입</h3>
+                <div class="input-boxes">
+                   <div class="input-box">
+                       {{#if signToken}}
+                       <input type="text" class="sucess" id="emailInput" value={{signToken}} hidden>
+                       {{/if}}
+                       {{#unless signToken}}
+                       <h4>이메일</h4>
+                       <input type="text" id="emailInput">
+                       <button id="duplicateCheckBtn">중복확인</button>
+                       {{/unless}}
+                   </div>
+                    <div class="input-box">
+                        <h4>비밀번호</h4>
+                        <input type="text" id="upwInput">
+                    </div>
+                    <div class="input-box">
+                        <h4>닉네임</h4>
+                        <input type="text" id="nickNameInput">
+                        <button id="duplicateCheckBtn2">중복확인</button>
+                    </div>
+               </div>
+                <div class="agree-box">
+                    <div>
+                        <h5 class="left">전체 동의하기</h5>
+                        <h5 class="right">
+                            <input type="checkbox" id="checkAll">
+                        </h5>
+                    </div>
+                    <ul>
+                        <li></li>
+                    </ul>
+                    <div>
+                        <h5 class="left">본인은 만 14세 이상입니다. (필수)</h5>
+                        <h5 class="right">
+                            <input type="checkbox" id="check">
+                        </h5>
+                    </div>
+                    <div>
+                        <h5 class="left">서비스 이용약관에 동의합니다. (필수)</h5>
+                        <h5 class="right">
+                            <input type="checkbox" id="check">
+                        </h5>
+                    </div>
+                    <div>
+                        <h5 class="left">개인정보 취급방침에 동의합니다. (필수)</h5>
+                        <h5 class="right">
+                            <input type="checkbox" id="check">
+                        </h5>
+                    </div>
+                    <div>
+                        <h5 class="left">혜택/이벤트 정보 수신에 동의합니다. (필수)</h5>
+                        <h5 class="right">
+                            <input type="checkbox" id="check">
+                        </h5>
+                    </div>
+                    <div id="signupBtn">회원가입</div>
+                </div>
+            </div>
+        </div>
+        {{>footer}}
+    </div>
+</body>
+<!-- <script src="../js/header.js"></script> -->
+<script src="/ts/signup.js"></script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+            if(searchInput.value) {
+                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+            }
+        }
+    })
+</script>
+</html>

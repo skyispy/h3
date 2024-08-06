@@ -1,0 +1,104 @@
+#wrap > #content {
+    width: 100%;
+}
+/* slide */
+#content > .content-box1 {
+    width: 100%;
+    height: 60vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.content-box1 > .slide-boxes {
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+}
+
+.slide-box {
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+        display: none;
+    }
+}
+
+.slide-box:nth-child(1) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_007.jpeg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.slide-box:nth-child(2) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_008.jpeg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#slide-1 > .slide-box:nth-child(1) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_008.jpeg); 
+}
+#slide-1 > .slide-box:nth-child(2) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_009.jpeg);
+}
+
+#slide-2 > .slide-box:nth-child(1) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_009.jpeg);
+}
+#slide-2 > .slide-box:nth-child(2) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_010.jpeg);
+}
+
+#slide-3 > .slide-box:nth-child(1) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_010.jpeg);
+}
+#slide-3 > .slide-box:nth-child(2) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_011.jpeg); 
+}
+
+#slide-4 > .slide-box:nth-child(1) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_011.jpeg);
+}
+#slide-4 > .slide-box:nth-child(2) {
+    background-image: url(../img/slide/KakaoTalk_Image_2024-08-06-14-06-30_012.jpeg); 
+}
+
+#slide-5 > .slide-box:nth-child(1) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-30_012.jpeg); 
+}
+#slide-5 > .slide-box:nth-child(2) {
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_007.jpeg);
+}
+
+.slide-animation {
+    animation-name: slide;
+    animation-duration: 2s;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
+}
+
+.content-box1 > .slide-controller {
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    top: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.slide-controller > span {
+    width: 14%;
+    height: 3%;
+    background-color: black;
+}

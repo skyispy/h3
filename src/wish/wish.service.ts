@@ -34,4 +34,9 @@ export class WishService {
             return false
         }
     }
+
+    async wishCount(fk_itemId): Promise<number> {
+        const count = await this.wishModel.findAll({where: {fk_itemId}});
+        return await count.length;
+    }
 }

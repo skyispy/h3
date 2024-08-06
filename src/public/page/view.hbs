@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/topbottom.css">
+    <link rel="stylesheet" href="/css/view.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        {{>header}}
+        <div id="content">
+            <div id="purchase-box">
+                <div>
+                    <div class="left">{{priceComma data.dataValues.price}} 원</div>
+                    <div class="right">결제</div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="product-box">
+                    <div class="left">
+                        <div class="img-box">
+                            {{#each data.dataValues.imgs}}
+                                {{#if @first}}
+                                    <img src={{dataValues.imgPath}} id="preview" alt="">
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                        <div class="small-img-boxes">
+                            {{#each data.dataValues.imgs}}
+                                    <div class="small-img-box">
+                                        <img src={{dataValues.imgPath}} alt="">
+                                    </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="brand-box">
+                            <h3>{{data.dataValues.brand}}</h3>
+                            <div class="img-box">
+                                <img src="/img/views/Unknown.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="title-box">{{data.dataValues.title}}</div>
+                        <textarea class="content-box" readonly>{{data.dataValues.content}}</textarea>
+                        <div class="category-box">
+                            <h4>{{data.dataValues.category}}</h4>
+                            <h4>{{formDate data.dataValues.createdAt}}</h4>
+                        </div>
+                        <h3>판매자 정보</h3>
+                        <div class="seller-ifo-box">
+                            <a href={{concat "/user/"data.dataValues.fk_sellerId}} class="img-box">
+                                <img src={{concat "/uploads/" data.dataValues.sellerId.dataValues.profileImg}} alt="">
+                            </a>
+                            <p>{{data.dataValues.sellerId.dataValues.nickname}}</p>
+                        </div>
+                        <div class="like-btn-box">
+                            {{#if like}}
+                            <span id="likeBtn" class="like-on" data-item={{data.dataValues.id}}>♥</span>
+                            {{/if}}
+                            {{#unless like}}
+                            <span id="likeBtn" class="like-off" data-item={{data.dataValues.id}}>♡</span>
+                            {{/unless}}
+                            <span class="wish-count">{{wishCount}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{>footer}}
+    </div>
+</body>
+<script src="/ts/header.js"></script>
+<script src="/ts/view.js"></script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+            if(searchInput.value) {
+                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+            }
+        }
+    })
+</script>
+<script>
+    let loginUserId = "";
+    {{#if loginUserId}}
+    loginUserId = {{loginUserId}}
+    {{/if}}
+    const likeBtn = document.getElementById("likeBtn");
+    const count = document.querySelector('.wish-count');
+    likeBtn.onclick = async () => {
+        if(loginUserId) {
+            const itemId = await likeBtn.getAttribute("data-item");
+            await console.log(itemId);
+            await axios.post(`http://localhost:3000/wish/regist/${itemId}`);
+            if(likeBtn.classList.contains('like-off')) {
+                likeBtn.classList.remove('like-off');
+                likeBtn.classList.add('like-on');
+                likeBtn.innerHTML = "♥";
+                count.innerHTML = `${parseInt(count.innerHTML)+1}`;
+            }else if(likeBtn.classList.contains('like-on')) {
+                likeBtn.classList.remove('like-on');
+                likeBtn.classList.add('like-off');
+                likeBtn.innerHTML = "♡";
+                count.innerHTML = `${parseInt(count.innerHTML)-1}`;
+            }
+        }else {
+            alert('로그인이 필요한 서비스입니다.');
+        }
+    };
+</script>
+</html>

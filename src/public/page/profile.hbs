@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/topbottom.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>const hi = "/img/uploads";</script>
+</head>
+<body>
+    <div id="wrap">
+        {{>header}}
+        <div id="content">
+            <div class="content-wrap">
+                <div class="profile-box">
+                    <img src="/img/views/Unknown.svg" alt="">
+                    <div class="img-box" style="border: 1px solid;">
+                        <img src={{concat "/uploads/" wishData.dataValues.profileImg}} alt="">
+                    </div>
+                    <div class="ifo-box">
+                        <h3 style="margin-left: 1%;">{{reviewData.dataValues.nickname}}</h3>
+                        <textarea name="" id="intro" style="resize: none;" readonly></textarea>
+                        <div class="textarea-box"></div>
+                    </div>
+                </div>
+                {{#if (compareUser reviewData.dataValues.id loginUserId)}}
+                <div class="user-btn-box">
+                    <a href={{concat "/user/history/" reviewData.dataValues.id}} id="historyBtn">구매내역</a>
+                    <div id="editBtn">편집</div>
+                </div>
+                {{/if}}
+                <div class="controller">
+                    <span>Shop
+                        <div class="line"></div>
+                    </span>
+                    <span>Wishlist
+                        <div class="line"></div>
+                    </span>
+                    <span>Reviews
+                        <div class="line"></div>
+                    </span>
+                </div>
+                <div class="shop-box">
+                    {{#each itemData.dataValues.sellingItem}}
+                        <div class="product-box">
+                            <div class="img-box">
+                                {{#each dataValues.imgs}}
+                                    {{#if @first}}
+                                        <img src={{dataValues.imgPath}} alt="">
+                                    {{/if}}
+                                {{/each}}
+                            </div>
+                            <div class="ifo-box">
+                                <p>{{dataValues.brand}}</p>
+                                <p>{{dataValues.title}}</p>
+                                <p>{{dataValues.price}}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+                <div class="wishlist-box" style="display: none;">
+                    {{#each wishData.dataValues.wishItems}}
+                        <a href={{concat "/item/" dataValues.itemId.dataValues.id}} class="product-box">
+                            <div class="img-box">
+                                {{#each dataValues.itemId.dataValues.imgs}}
+                                {{#if @first}}
+                                <img src={{dataValues.imgPath}} alt="">
+                                {{/if}}
+                                {{/each}}
+                            </div>
+                        </a>
+                    {{/each}}
+                </div>
+                <div class="review-box" style="display: none;">
+                    <div class="input-box">
+                        <select name="" id="">
+                            <option value="">별점 선택</option>
+                            <option value="1">★☆☆☆☆</option>
+                            <option value="2">★★☆☆☆</option>
+                            <option value="3">★★★☆☆</option>
+                            <option value="4">★★★★☆</option>
+                            <option value="4">★★★★★</option>
+                            <option value="5"></option>
+                        </select>
+                        <input type="text">
+                        <button>작성</button>
+                    </div>
+                    {{#each reviewData.dataValues.receiveReviews}}
+                        <div class="reply-box">
+                            <div class="left">
+                                <div class="reviewer-box">
+                                    <h6>
+                                        <img src={{concat "/uploads/" dataValues.writerId.dataValues.profileImg}} alt="">
+                                    </h6>
+                                    <h6>{{dataValues.writerId.dataValues}}</h6>
+                                </div>
+                                <div class="rating-box">
+                                    <div class="flex-box">
+                                        <h6>{{starCount dataValues.star}}</h6>
+                                        <h6>{{formDate dataValues.createdAt}}</h6>   
+                                    </div>
+                                    <h6>{{dataValues.reviewComment}}</h6>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="img-box">
+                                </div>
+                            </div>
+                        </div>
+                        {{#each dataValues.receiveReply}}
+                        <div class="under-reply-box">
+                            <div class="seller-ifo">
+                                <h6>↩︎</h6>
+                                <h6 >
+                                    <img src={{concat "/uploads/" sellerId.dataValues.profileImg}} alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                                <h6>{{formDate dataValues.createdAt}}</h6>
+                            </div>
+                            <p class="seller-content">
+                                {{dataValues.replyComment}}
+                            </p>
+                        {{/each}}
+                    </div>
+                    {{/each}}
+                    <div class="reply-box">
+                        <div class="left">
+                            <div class="reviewer-box">
+                                <h6>
+                                    <img src="../img/login/image.png" alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                            </div>
+                            <div class="rating-box">
+                                <div class="flex-box">
+                                    <h6>★☆★☆★</h6>
+                                    <h6>2024. 7. 16</h6>   
+                                </div>
+                                <h6>좋은 배송 감사합니다~</h6>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="img-box">
+                                <img src="../img/login/image.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="under-reply-box">
+                        <div class="seller-ifo">
+                            <h6>↩︎</h6>
+                            <h6 >
+                                <img src="../img/login/image.png" alt="">
+                            </h6>
+                            <h6>닉네임</h6>
+                            <h6>2024. 07. 16</h6>
+                        </div>
+                        <p class="seller-content">
+                            이용해주셔서 감사합니당
+                        </p>
+                    </div>
+                    <div class="reply-box">
+                        <div class="left">
+                            <div class="reviewer-box">
+                                <h6>
+                                    <img src="../img/login/image.png" alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                            </div>
+                            <div class="rating-box">
+                                <div class="flex-box">
+                                    <h6>★☆★☆★</h6>
+                                    <h6>2024. 7. 16</h6>   
+                                </div>
+                                <h6>좋은 배송 감사합니다~</h6>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="img-box">
+                                <img src="../img/login/image.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reply-box">
+                        <div class="left">
+                            <div class="reviewer-box">
+                                <h6>
+                                    <img src="../img/login/image.png" alt="">
+                                </h6>
+                                <h6>닉네임</h6>
+                            </div>
+                            <div class="rating-box">
+                                <div class="flex-box">
+                                    <h6>★☆★☆★</h6>
+                                    <h6>2024. 7. 16</h6>   
+                                </div>
+                                <h6>좋은 배송 감사합니다~</h6>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="img-box">
+                                <img src="../img/login/image.webp" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{>footer}}
+    </div>
+</body>
+<script src="/ts/header.js"></script>
+<script src="/ts/profile.js"></script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+            if(searchInput.value) {
+                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+            }
+        }
+    })
+</script>
+<script>
+    const editBtn = document.getElementById("editBtn");
+    editBtn.onclick = () => {
+        const introBox = document.getElementById("intro");
+        const imgBox = document.querySelector('.profile-box > .img-box');
+        const nickNameBox = document.querySelector('.ifo-box');
+        const nicknameValue = document.querySelector('.ifo-box > h3').innerHTML;
+        document.querySelector('.profile-box > .img-box > img')
+        const imgInput = document.createElement('input');
+        imgInput.type = "file"
+        imgBox.append(imgInput);
+        const input = document.createElement('input');
+        input.value = nicknameValue;
+        document.querySelector('.ifo-box > h3').remove()
+        nickNameBox.append(input, introBox);
+        introBox.readOnly = false;
+        editBtn.remove();
+        const form = new FormData();
+        form.append('introduce', introBox.value);
+        form.append('nickname', input.value);
+        form.append('profileImg', imgInput.files[0]);
+        console.log(form)
+        const completeBtn = document.createElement('div');
+        completeBtn.innerHTML = "완료";
+        completeBtn.id = "completeBtn";
+        completeBtn.onclick = () => {
+            if(imgInput.files[0] && input.value) {
+                const loginUserId = {{loginUserId}};
+                axios.put(`/user/mod/${loginUserId}`, form);
+                location.reload();
+            }else {
+                alert('닉네임 또는 이미지를 확인해주세요');
+            }
+        }
+        document.querySelector('.user-btn-box').append(completeBtn);
+    }
+</script>
+</html>
