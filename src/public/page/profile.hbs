@@ -16,12 +16,12 @@
             <div class="content-wrap">
                 <div class="profile-box">
                     <img src="/img/views/Unknown.svg" alt="">
-                    <div class="img-box" style="border: 1px solid;">
+                    <div class="img-box">
                         <img src={{concat "/uploads/" wishData.dataValues.profileImg}} alt="">
                     </div>
                     <div class="ifo-box">
                         <h3 style="margin-left: 1%;">{{reviewData.dataValues.nickname}}</h3>
-                        <textarea name="" id="intro" style="resize: none;" readonly></textarea>
+                        <textarea name="" id="intro" style="resize: none;" readonly>{{reviewData.dataValues.introduce}}</textarea>
                         <div class="textarea-box"></div>
                     </div>
                 </div>
@@ -217,15 +217,15 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
             }
         }
     })
 </script>
 <script>
     const editBtn = document.getElementById("editBtn");
+    const introBox = document.getElementById("intro");
     editBtn.onclick = () => {
-        const introBox = document.getElementById("intro");
         const imgBox = document.querySelector('.profile-box > .img-box');
         const nickNameBox = document.querySelector('.ifo-box');
         const nicknameValue = document.querySelector('.ifo-box > h3').innerHTML;
@@ -234,26 +234,34 @@
         imgInput.type = "file"
         imgBox.append(imgInput);
         const input = document.createElement('input');
+        input.style.width = "100%";
+        input.style.height = "30%";
+        input.style.fontSize = "88%";
+        input.style.padding = "3px 6px";
         input.value = nicknameValue;
         document.querySelector('.ifo-box > h3').remove()
         nickNameBox.append(input, introBox);
         introBox.readOnly = false;
         editBtn.remove();
-        const form = new FormData();
-        form.append('introduce', introBox.value);
-        form.append('nickname', input.value);
-        form.append('profileImg', imgInput.files[0]);
-        console.log(form)
         const completeBtn = document.createElement('div');
         completeBtn.innerHTML = "완료";
         completeBtn.id = "completeBtn";
-        completeBtn.onclick = () => {
+        completeBtn.onclick = async () => {
+            const form = await new FormData();
+            await form.append('introduce', introBox.value);
+            await form.append('nickname', input.value);
+            await form.append('profileImg', imgInput.files[0]);
+            await console.log(introBox.value, input.value, imgInput.files[0]);
             if(imgInput.files[0] && input.value) {
-                const loginUserId = {{loginUserId}};
-                axios.put(`/user/mod/${loginUserId}`, form);
-                location.reload();
+                const loginUserId = await {{loginUserId}};
+                await axios.put(`/user/mod/${loginUserId}`, form, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                await location.reload();
             }else {
-                alert('닉네임 또는 이미지를 확인해주세요');
+                await alert('닉네임 또는 이미지를 확인해주세요');
             }
         }
         document.querySelector('.user-btn-box').append(completeBtn);

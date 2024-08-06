@@ -8,18 +8,6 @@
     <link rel="stylesheet" href="/css/topbottom.css">
     <link rel="stylesheet" href="/css/market.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        let text = "";
-        if(urlParams.has('category')) {
-            text = urlParams.get('category');
-        }
-        let text2 = "";
-        if(urlParams.has('search')) {
-            text2 = urlParams.get('search');
-        }
-        console.log(text, text2);
-    </script>
 </head>
 
 <body>
@@ -163,12 +151,22 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
             }
         }
     })
 </script>
 <script>
+    const urlParams = new URLSearchParams(window.location.search);
+        let text = "";
+        if(urlParams.has('category')) {
+            text = urlParams.get('category');
+        }
+        let text2 = "";
+        if(urlParams.has('search')) {
+            text2 = urlParams.get('search');
+        }
+        console.log(text, text2);
     console.log(urlParams.has('category'));
     const pageController = document.querySelector(".page-controller");
     const preBtn = document.createElement("button")
@@ -195,14 +193,14 @@
             pageButton.classList.add('page-btn');
             pageButton.innerHTML = `${pageArr[i]}`
             pageButton.onclick = () => {
-                if(urlParams.has('category')) {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
-                }else if(urlParams.has('search')) {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
-                }else if(urlParams.has('category') && urlParams.has('search')) {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                if(text && text2) {
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                }else if(text) {
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                }else if(text2) {
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
                 }else {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
                 }
             }
             if (pageArr[i] === currentPage) { pageButton.classList.add('current'); }
@@ -217,14 +215,14 @@
                     pageButton.classList.add('page-btn');
                     pageButton.innerHTML = `${pageArr[i]}`;
                     pageButton.onclick = () => {
-                        if(urlParams.has('category')) {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
-                        }else if(urlParams.has('search')) {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
-                        }else if(urlParams.has('category') && urlParams.has('search')) {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                        if(text && text2) {
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                        }else if(text) {
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                        }else if(text2) {
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
                         }else {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
                         }
                     }
                     if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
@@ -237,14 +235,14 @@
                     pageButton.classList.add('page-btn');
                     pageButton.innerHTML = `${pageArr[i]}`;
                     pageButton.onclick = () => {
-                        if(urlParams.has('category')) {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
-                        }else if(urlParams.has('search')) {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
-                        }else if(urlParams.has('category') && urlParams.has('search')) {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                        if(text && text2) {
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                        }else if(text) {
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                        }else if(text2) {
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
                         }else {
-                            location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
                         }
                     }
                     if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
@@ -261,14 +259,14 @@
                 pageButton.classList.add('page-btn');
                 pageButton.innerHTML = `${pageArr[i]}`;
                 pageButton.onclick = () => {
-                    if(urlParams.has('category')) {
-                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
-                    }else if(urlParams.has('search')) {
-                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
-                    }else if(urlParams.has('category') && urlParams.has('search')) {
-                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                    if(text && text2) {
+                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                    }else if(text) {
+                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                    }else if(text2) {
+                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
                     }else {
-                        location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
                     }
                 }
                 if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
@@ -277,14 +275,14 @@
             nextBtn.style.textShadow = 'black';
             nextBtn.onclick = () => {}
             preBtn.onclick = () => {
-                if(urlParams.has('category')) {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}`;
-                }else if(urlParams.has('search')) {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&search=${text2}`;
-                }else if(urlParams.has('category') && urlParams.has('search')) {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                if(text && text2) {
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                }else if(text) {
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                }else if(text2) {
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
                 }else {
-                    location.href = `http://localhost:3000/item/market?page=${pageArr[i]}`;
+                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
                 }
             }
         }

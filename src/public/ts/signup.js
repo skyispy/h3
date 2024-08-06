@@ -10,10 +10,10 @@ signupBtn.onclick = () => {
             nickname: nickNameInput.value
         };
         console.log(object);
-        axios.post("http://localhost:3000/user/signUp", object)
+        axios.post("https://junhu.store/user/signUp", object)
             .then((res) => {
             console.log(res);
-            location.href = "http://localhost:3000/user/login";
+            location.href = "https://junhu.store/user/login";
         }).catch((error) => {
             if (error.response) {
                 console.error('Error data:', error.response.data);
@@ -57,7 +57,7 @@ checks.forEach((el) => {
 const duplicateCheckBtn = document.getElementById("duplicateCheckBtn");
 if (duplicateCheckBtn) {
     duplicateCheckBtn.onclick = (e) => {
-        axios.post("http://localhost:3000/user/duplicate", { email: document.getElementById("emailInput").value })
+        axios.post("https://junhu.store/user/duplicate", { email: document.getElementById("emailInput").value })
             .then((res) => {
             console.log(res.data);
             if (res.data) {
@@ -75,7 +75,7 @@ if (duplicateCheckBtn) {
 const duplicateCheckBtn2 = document.getElementById("duplicateCheckBtn2");
 if (duplicateCheckBtn2) {
     duplicateCheckBtn2.onclick = (e) => {
-        axios.post("http://localhost:3000/user/duplicate2", { nickname: document.getElementById("nickNameInput").value })
+        axios.post("https://junhu.store/user/duplicate2", { nickname: document.getElementById("nickNameInput").value })
             .then((res) => {
             console.log(res.data);
             if (res.data) {

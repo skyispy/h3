@@ -77,7 +77,7 @@ assignBtn.onclick = () => {
         img: imageArr
     };
     if (object.img.length !== 0 && object.title && object.content && object.brand && object.category && object.price) {
-        axios.post("http://localhost:3000/item/registItem", object).then((res) => {
+        axios.post("https://junhu.store/item/registItem", object).then((res) => {
             console.log(res);
         }).catch((error) => {
             if (error.response) {

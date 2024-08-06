@@ -98,7 +98,7 @@ export class UserController {
   @UseInterceptors(FileInterceptor("profileImg")) // 파일 인터셉터
   async updateUser(@Body() updateData: UpdateUserDTO, @Param("id") updateUserId: number, @UploadedFile() file: Express.Multer.File) {
     // console.log(updateData);
-    return this.userService.updateUser(updateData, updateUserId, file.filename);
+    return await this.userService.updateUser(updateData, updateUserId, file.filename);
   }
 
   ///////////////////// DELETE 회원 탈퇴(force) //////////////////////
