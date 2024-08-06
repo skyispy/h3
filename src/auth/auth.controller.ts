@@ -108,8 +108,9 @@ export class AuthController {
   @Get("/signSns") // 쿼리
   @Render('signup')
   async signSnsRender(@Query('signToken') signToken: string) {
-    // 렌더 하면서 쿼리에 signToken값 같이 줘야함
-    return {signToken}
+    console.log(signToken)
+    // 렌더 하면서 쿼리signToken값 전달
+    return { signToken }
   }
 
   /////////////////// POST 소셜 회원가입 완료 //////////////////////
