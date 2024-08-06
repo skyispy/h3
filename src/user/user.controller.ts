@@ -19,7 +19,7 @@ export class UserController {
 
   ///////////////////// RENDER 회원가입 창 //////////////////////
   @Get('signup')
-  @Render('signUp')
+  @Render('signup')
   signUpRender(@Param('true') compare: string) {
     return { compare };
   }
@@ -113,7 +113,7 @@ export class UserController {
   @Post('logout')
   logout(@Res() res: Response) {
     res.clearCookie('loginToken')
-    return res.redirect("/")
+    return // 메인페이지로 리다이렉트plz
   }
 
   // /// test 마이 스토어
@@ -126,6 +126,7 @@ export class UserController {
   @Post('duplicate')
   async checkDuplicate(@Body('email') email: string, @Res() res: Response) {
     const result = await this.userService.checkDuplicateEmail(email);
+
     // 중복이 false 아니면 true
     await console.log(result)
     return await res.send(result)

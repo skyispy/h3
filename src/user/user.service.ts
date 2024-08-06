@@ -114,7 +114,7 @@ export class UserService {
                 include: [{
                     model: User,
                     as: 'writerId', // 리뷰 단 댓글 작성자의 정보
-                    attributes: ['profileImg'] // 댓글 작성자 이미지
+                    attributes: ['profileImg', 'nickname'] // 댓글 작성자 이미지
                 }, {
                     model: SellerReply,
                     as: 'receiveReply',
