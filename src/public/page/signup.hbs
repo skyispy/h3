@@ -16,9 +16,14 @@
                 <h3>회원가입</h3>
                 <div class="input-boxes">
                    <div class="input-box">
+                       {{#if signToken}}
+                       <input type="text" class="sucess" id="emailInput" value={{signToken}} hidden>
+                       {{/if}}
+                       {{#unless signToken}}
                        <h4>이메일</h4>
                        <input type="text" id="emailInput">
                        <button id="duplicateCheckBtn">중복확인</button>
+                       {{/unless}}
                    </div>
                     <div class="input-box">
                         <h4>비밀번호</h4>
@@ -73,4 +78,14 @@
 </body>
 <!-- <script src="../js/header.js"></script> -->
 <script src="/ts/signup.js"></script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+            if(searchInput.value) {
+                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+            }
+        }
+    })
+</script>
 </html>

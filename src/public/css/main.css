@@ -35,50 +35,50 @@
 }
 
 .slide-box:nth-child(1) {
-    background-image: url(/img/a10685627.jpg); 
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_007.jpeg); 
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .slide-box:nth-child(2) {
-    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_008.jpeg); 
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 #slide-1 > .slide-box:nth-child(1) {
-    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_008.jpeg); 
 }
 #slide-1 > .slide-box:nth-child(2) {
-    background-image: url(/img/thumb_d_398D2558C2751C55DAB3094C7C67AE66.jpg);
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_009.jpeg);
 }
 
 #slide-2 > .slide-box:nth-child(1) {
-    background-image: url(/img/thumb_d_398D2558C2751C55DAB3094C7C67AE66.jpg);
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_009.jpeg);
 }
 #slide-2 > .slide-box:nth-child(2) {
-    background-image: url(/img/thumb_d_67889CC3785F8BF598E9C3F1FE04229E.jpg);
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_010.jpeg);
 }
 
 #slide-3 > .slide-box:nth-child(1) {
-    background-image: url(/img/thumb_d_67889CC3785F8BF598E9C3F1FE04229E.jpg);
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_010.jpeg);
 }
 #slide-3 > .slide-box:nth-child(2) {
-    background-image: url(/img/a10685627.jpg); 
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_011.jpeg); 
 }
 
 #slide-4 > .slide-box:nth-child(1) {
-    background-image: url(/img/a10685627.jpg);
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_011.jpeg);
 }
 #slide-4 > .slide-box:nth-child(2) {
-    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+    background-image: url(../img/slide/KakaoTalk_Image_2024-08-06-14-06-30_012.jpeg); 
 }
 
 #slide-5 > .slide-box:nth-child(1) {
-    background-image: url(/img/thumb_d_58F5B7E428D2C304FC1E44E17A8E12C0.jpg); 
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-30_012.jpeg); 
 }
 #slide-5 > .slide-box:nth-child(2) {
-    background-image: url(/img/thumb_d_398D2558C2751C55DAB3094C7C67AE66.jpg);
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_007.jpeg);
 }
 
 .slide-animation {

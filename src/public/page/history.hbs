@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/topbottom.css">
     <link rel="stylesheet" href="/css/history.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="wrap">
@@ -38,4 +39,14 @@
 </body>
 <script src="/ts/header.js"></script>
 <script src="/ts/profile.js"></script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter') {
+            if(searchInput.value) {
+                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+            }
+        }
+    })
+</script>
 </html>

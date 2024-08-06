@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Render, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
@@ -106,10 +106,10 @@ export class AuthController {
 
   /////////////////// RENDER 소셜 회원가입창 렌더 //////////////////////
   @Get("/signSns") // 쿼리
-  // @Render('')
+  @Render('signup')
   async signSnsRender(@Query('signToken') signToken: string) {
     // 렌더 하면서 쿼리에 signToken값 같이 줘야함
-    return
+    return {signToken}
   }
 
   /////////////////// POST 소셜 회원가입 완료 //////////////////////

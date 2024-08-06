@@ -7,4 +7,11 @@ document.addEventListener("scroll", () => {
         document.querySelector(".blank-box").style.display = "none";
     }
 });
+
+const logoutBtn = document.getElementById("logOut");
+logoutBtn.onclick = () => {
+    axios.post("http://localhost:3000/user/logout").then((res) => {
+        location.href = 'http://localhost:3000';
+    });
+}
 //# sourceMappingURL=header.js.map

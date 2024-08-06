@@ -30,13 +30,13 @@ export class ItemController {
     const token = req.cookies.loginToken
     const data = await this.itemService.readItemAll(page, limit, search, itemCategory)
     if (!token) {
-      return { data };
+      return { data, search };
     } else {
       try {
         const loginUserId = this.jwtService.verify(token).id
-        return { data, loginUserId }
+        return { data, loginUserId, search }
       } catch (error) {
-        return { data };
+        return { data, search };
       }
     }
 
@@ -69,9 +69,10 @@ export class ItemController {
       try {
         const loginUserId = await this.jwtService.verify(token).id
         const like = await this.wishService.checkWish(id, loginUserId)
+        const wishCount = await this.wishService.wishCount(id);
         // console.log(like) // 현재 위시 인지 아닌지
         // console.log(loginUserId); // 현재접속 유저 id
-        return { data, loginUserId, like };
+        return { data, loginUserId, like, wishCount };
       } catch (error) {
         return { data };
       }

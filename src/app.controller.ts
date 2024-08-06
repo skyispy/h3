@@ -19,7 +19,6 @@ export class AppController {
     } else {
       try {
         const loginUserId = this.jwtService.verify(token).id
-        console.log(loginUserId)
         return { loginUserId }
       } catch (error) {
         return

@@ -10,10 +10,10 @@ smallImgBoxes.forEach((el) => {
         preview.src = target.src;
     };
 });
-const likeBtn = document.getElementById("likeBtn");
-likeBtn.onclick = async () => {
-    const itemId = await likeBtn.getAttribute("data-item");
-    await console.log(itemId);
-    await axios.post(`http://localhost:3000/wish/regist/${itemId}`);
-};
+// const likeBtn = document.getElementById("likeBtn");
+// likeBtn.onclick = async () => {
+//     const itemId = await likeBtn.getAttribute("data-item");
+//     await console.log(itemId);
+//     await axios.post(`http://localhost:3000/wish/regist/${itemId}`);
+// };
 //# sourceMappingURL=view.js.map

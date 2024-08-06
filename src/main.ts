@@ -14,10 +14,11 @@ async function bootstrap() {
   
   app.useGlobalInterceptors(new LogInterceptor); // 인터셉터 전역 설정
 
-  app.setBaseViewsDir(join(__dirname, "public", "page"));
+  // app.setBaseViewsDir(join(__dirname, "public", "page"));
+  app.setBaseViewsDir(join(__dirname, '..', 'src', "public", "page"));
   app.setViewEngine('hbs');
 
-  hbs.registerPartials(join(__dirname, 'public', 'page', 'partials'));
+  hbs.registerPartials(join(__dirname, '..', 'src', 'public', 'page', 'partials'));
 
   hbs.registerHelper('concat', HbsHelpers.concat);
   hbs.registerHelper('formDate', HbsHelpers.formDate);
@@ -25,7 +26,7 @@ async function bootstrap() {
   hbs.registerHelper('compareUser', HbsHelpers.compareUser);
   hbs.registerHelper('priceComma', HbsHelpers.priceComma);
 
-  app.useStaticAssets(join(__dirname, 'public'))
+  app.useStaticAssets(join(__dirname, '..', 'src', 'public'))
 
   
   // swagger
