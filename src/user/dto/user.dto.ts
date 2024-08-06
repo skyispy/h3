@@ -8,7 +8,7 @@ export class SignInUserDTO {
 ///////////////////// 회원정보 수정 DTO //////////////////////
 export class UpdateUserDTO {
     nickname: string
-    upw: string
+    // upw: string
     profileImg: string
     introduce: string
 }
