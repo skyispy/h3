@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="/css/topbottom.css">
     <link rel="stylesheet" href="/css/assign.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+    function get () {
+        axios.get('https://junhu.store/item/sell').then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            alert('로그인이 필요합니다.')
+        })
+    }
+</script>
 </head>
 <body>
     <div id="wrap">
@@ -114,18 +123,10 @@
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = async () => {
-    await axios.post("/user/logout");
-    location.href = 'https://junhu.store';
+logoutBtn.onclick = () => {
+    axios.post("/user/logout").then((res) => {
+        location.href = 'https://junhu.store';
+    });
 }
-</script>
-<script>
-    function get () {
-        axios.get('https://junhu.store/item/sell').then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            alert('로그인이 필요합니다.')
-        })
-    }
 </script>
 </html>

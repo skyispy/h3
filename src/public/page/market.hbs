@@ -295,9 +295,10 @@
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = async () => {
-    await axios.post("/user/logout");
-    location.href = '/item/market';
+logoutBtn.onclick = () => {
+    axios.post("/user/logout").then((res) => {
+        location.href = '/item/market';
+    });
 }
 </script>
 </html>

@@ -29,6 +29,7 @@
                 <div class="user-btn-box">
                     <a href={{concat "/user/history/" reviewData.dataValues.id}} id="historyBtn">구매내역</a>
                     <div id="editBtn">편집</div>
+                    <div id="delUserBtn">탈퇴</div>
                 </div>
                 {{/if}}
                 <div class="controller">
@@ -293,9 +294,11 @@
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = async () => {
-    await axios.post("/user/logout");
-    location.href = {{concat '/user/' reviewData.dataValues.id}};
+logoutBtn.onclick = () => {
+    const get = {{reviewData.dataValues.id}}
+    axios.post("/user/logout").then((res) => {
+        location.href = `/user/${get}`;
+    });
 }
 </script>
 </html>
