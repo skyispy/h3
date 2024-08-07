@@ -115,7 +115,7 @@
     const logoutBtn = document.getElementById("logOut");
 logoutBtn.onclick = async () => {
     await axios.post("/user/logout");
-    await location.href = '/';
+    await location.href = '/item/market';
 }
 </script>
 </html>
