@@ -113,10 +113,10 @@
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = () => {
-    axios.post("/user/logout").then((res) => {
-        location.href = '/item/market';
-    });
+logoutBtn.onclick = async () => {
+    await console.log('버튼');
+    await axios.post("/user/logout");
+    await location.href = `https://junhu.store/item/market`;
 }
 </script>
 </html>
