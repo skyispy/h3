@@ -79,6 +79,7 @@ assignBtn.onclick = () => {
     if (object.img.length !== 0 && object.title && object.content && object.brand && object.category && object.price) {
         axios.post("https://junhu.store/item/registItem", object).then((res) => {
             console.log(res);
+            location.href = 'https://junhu.store/item/market';
         }).catch((error) => {
             if (error.response) {
                 console.error('Error data:', error.response.data);

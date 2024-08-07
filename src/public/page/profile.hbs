@@ -44,7 +44,7 @@
                 </div>
                 <div class="shop-box">
                     {{#each itemData.dataValues.sellingItem}}
-                        <div class="product-box">
+                        <a href={{concat "/item/" dataValues.id}} class="product-box">
                             <div class="img-box">
                                 {{#each dataValues.imgs}}
                                     {{#if @first}}
@@ -57,7 +57,7 @@
                                 <p>{{dataValues.title}}</p>
                                 <p>{{dataValues.price}}</p>
                             </div>
-                        </div>
+                        </a>
                     {{/each}}
                 </div>
                 <div class="wishlist-box" style="display: none;">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="review-box" style="display: none;">
                     <div class="input-box">
-                        <select name="" id="">
+                        <select name="" id="selectStar">
                             <option value="">별점 선택</option>
                             <option value="1">★☆☆☆☆</option>
                             <option value="2">★★☆☆☆</option>
@@ -84,8 +84,8 @@
                             <option value="4">★★★★★</option>
                             <option value="5"></option>
                         </select>
-                        <input type="text">
-                        <button>작성</button>
+                        <input type="text" id="reviewInput">
+                        <button id="reviewBtn">작성</button>
                     </div>
                     {{#each reviewData.dataValues.receiveReviews}}
                         <div class="reply-box">
@@ -94,12 +94,16 @@
                                     <h6>
                                         <img src={{concat "/uploads/" dataValues.writerId.dataValues.profileImg}} alt="">
                                     </h6>
-                                    <h6>{{dataValues.writerId.dataValues}}</h6>
+                                    <h6>{{dataValues.writerId.dataValues.nickname}}</h6>
                                 </div>
                                 <div class="rating-box">
                                     <div class="flex-box">
                                         <h6>{{starCount dataValues.star}}</h6>
                                         <h6>{{formDate dataValues.createdAt}}</h6>   
+                                    </div>
+                                    <div>
+                                        <span>답글</span>
+                                        <span>수정</span>
                                     </div>
                                     <h6>{{dataValues.reviewComment}}</h6>
                                 </div>
@@ -125,85 +129,6 @@
                         {{/each}}
                     </div>
                     {{/each}}
-                    <div class="reply-box">
-                        <div class="left">
-                            <div class="reviewer-box">
-                                <h6>
-                                    <img src="../img/login/image.png" alt="">
-                                </h6>
-                                <h6>닉네임</h6>
-                            </div>
-                            <div class="rating-box">
-                                <div class="flex-box">
-                                    <h6>★☆★☆★</h6>
-                                    <h6>2024. 7. 16</h6>   
-                                </div>
-                                <h6>좋은 배송 감사합니다~</h6>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="img-box">
-                                <img src="../img/login/image.webp" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="under-reply-box">
-                        <div class="seller-ifo">
-                            <h6>↩︎</h6>
-                            <h6 >
-                                <img src="../img/login/image.png" alt="">
-                            </h6>
-                            <h6>닉네임</h6>
-                            <h6>2024. 07. 16</h6>
-                        </div>
-                        <p class="seller-content">
-                            이용해주셔서 감사합니당
-                        </p>
-                    </div>
-                    <div class="reply-box">
-                        <div class="left">
-                            <div class="reviewer-box">
-                                <h6>
-                                    <img src="../img/login/image.png" alt="">
-                                </h6>
-                                <h6>닉네임</h6>
-                            </div>
-                            <div class="rating-box">
-                                <div class="flex-box">
-                                    <h6>★☆★☆★</h6>
-                                    <h6>2024. 7. 16</h6>   
-                                </div>
-                                <h6>좋은 배송 감사합니다~</h6>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="img-box">
-                                <img src="../img/login/image.webp" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply-box">
-                        <div class="left">
-                            <div class="reviewer-box">
-                                <h6>
-                                    <img src="../img/login/image.png" alt="">
-                                </h6>
-                                <h6>닉네임</h6>
-                            </div>
-                            <div class="rating-box">
-                                <div class="flex-box">
-                                    <h6>★☆★☆★</h6>
-                                    <h6>2024. 7. 16</h6>   
-                                </div>
-                                <h6>좋은 배송 감사합니다~</h6>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="img-box">
-                                <img src="../img/login/image.webp" alt="">
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -265,6 +190,18 @@
             }
         }
         document.querySelector('.user-btn-box').append(completeBtn);
+    }
+    reviewBtn.onclick = () => {
+        const loginUserId = {{loginUserId}}
+        if(loginUserId) {
+            axios.post('/review/registReview', {
+                reviewComment: reviewInput.value,
+                star: selectStar.value,
+                fk_sellerId: loginUserId
+            })
+        }else {
+            alert("로그인이 필요한 서비스입니다.");
+        }
     }
 </script>
 </html>

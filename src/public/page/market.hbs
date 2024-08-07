@@ -126,9 +126,12 @@
                     <div class="img-box">
                         {{#each dataValues.imgs}}
                         {{#if @first}}
-                        <img src={{dataValues.imgPath}} alt="">
+                        <img src={{dataValues.imgPath}} alt="" style="position: relative; z-index: 0;">
                         {{/if}}
                         {{/each}}
+                        {{#if dataValues.sold}}
+                        <img src="/img/views/images.png" alt="" style="z-index: 1; position: relative; opacity: 0.33;">
+                        {{/if}}
                     </div>
                     <div class="ifo-box">
                         <p>{{dataValues.brand}}</p>
