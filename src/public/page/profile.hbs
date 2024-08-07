@@ -102,7 +102,8 @@
                                         <h6>{{formDate dataValues.createdAt}}</h6>   
                                     </div>
                                     <div>
-                                        <span>답글</span>
+                                        <span id="">답글</span>
+                                        {{#if (compareUser dataValues.id)}}
                                         <span>수정</span>
                                     </div>
                                     <h6>{{dataValues.reviewComment}}</h6>
