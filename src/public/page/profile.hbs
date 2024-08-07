@@ -42,7 +42,7 @@
                         <div class="line"></div>
                     </span>
                 </div>
-                <div class="shop-box">
+                <div class="shop-box" style="display: none;">
                     {{#each itemData.dataValues.sellingItem}}
                         <a href={{concat "/item/" dataValues.id}} class="product-box">
                             <div class="img-box">
@@ -73,7 +73,7 @@
                         </a>
                     {{/each}}
                 </div>
-                <div class="review-box" style="display: none;">
+                <div class="review-box">
                     <div class="input-box">
                         <select name="" id="selectStar">
                             <option value="">별점 선택</option>
@@ -128,6 +128,11 @@
                                 <h6>{{sellerId.dataValues.nickname}}</h6>
                                 <h6>{{formDate dataValues.createdAt}}</h6>
                             </div>
+                            {{#if (compareUser reviewdata.dataValues.id loginUserId)}}
+                            <div>
+                                <span id="replydelBtn" style="margin-left: 20px;" data-reply={{dataValues.id}}>삭제</span>
+                            </div>
+                            {{/if}}
                             <p class="seller-content">
                                 {{dataValues.replyComment}}
                             </p>
@@ -205,6 +210,7 @@
                     star: selectStar.value,
                     fk_sellerId: loginUserId
                 })
+                location.reload();
             }else {
                 alert("별점과 내용을 모두 입력해주세요");
             }
@@ -230,6 +236,7 @@
                     fk_sellerId: {{reviewData.dataValues.id}},
                     fk_reviewId: get
                 })
+                location.reload();
             }
         }
     }
@@ -260,6 +267,7 @@
                     reviewComment: input.value,
                     star: selectBox.value
                 })
+                location.reload();
             }
             const div = document.createElement('div');
             selectBox.append(opt1, opt2, opt3, opt4, opt5);
@@ -271,6 +279,15 @@
         deleteBtn.onclick = () => {
             const get = deleteBtn.getAttribute('data-review');
             axios.delete(`/review/delReview/${get}`);
+            location.reload();
+        }
+    }
+    const replydelBtn = document.getElementById('replydelBtn');
+    if(replydelBtn) {
+        replydelBtn.onclick = () => {
+            const get = replydelBtn.getAttribute('data-reply');
+            axios.delete(`/review/delReply/${get}`);
+            location.reload();
         }
     }
 </script>
