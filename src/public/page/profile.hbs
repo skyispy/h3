@@ -262,7 +262,7 @@
     }
     if(deleteBtn) {
         deleteBtn.onclick = () => {
-            const get = deleteBtn.getAttribute('data-review')''
+            const get = deleteBtn.getAttribute('data-review');
             axios.delete(`/review/delReview/${get}`);
         }
     }
