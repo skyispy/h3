@@ -119,4 +119,13 @@ logoutBtn.onclick = async () => {
     await location.href = 'https://junhu.store';
 }
 </script>
+<script>
+    function get () {
+        axios.get('https://junhu.store/item/sell').then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            alert('로그인이 필요합니다.')
+        })
+    }
+</script>
 </html>
