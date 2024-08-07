@@ -51,10 +51,9 @@
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = () => {
-    axios.post("https://junhu.store/user/logout").then((res) => {
-        location.href = 'https://junhu.store';
-    });
+logoutBtn.onclick = async () => {
+    await axios.post("/user/logout");
+    await location.href = '/';
 }
 </script>
 </html>

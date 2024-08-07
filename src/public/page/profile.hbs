@@ -201,16 +201,16 @@
         }
         document.querySelector('.user-btn-box').append(completeBtn);
     }
-    reviewBtn.onclick = () => {
+    reviewBtn.onclick = async () => {
         const loginUserId = {{loginUserId}}
         if(loginUserId) {
             if(reviewInput.value && selectStar.value) {
-                axios.post('/review/registReview', {
+                await axios.post('/review/registReview', {
                     reviewComment: reviewInput.value,
                     star: selectStar.value,
                     fk_sellerId: loginUserId
                 })
-                location.reload();
+                await location.reload();
             }else {
                 alert("별점과 내용을 모두 입력해주세요");
             }
@@ -229,14 +229,14 @@
             button.innerHTML = "작성";
             div.append(input, button);
             document.querySelector('.rating-box').append(div);
-            button.onclick = () => {
-                const get = replyBtn.getAttribute('data-review');
-                axios.post('/review/registReply', {
+            button.onclick = async () => {
+                const get = await replyBtn.getAttribute('data-review');
+                await axios.post('/review/registReply', {
                     replyComment: input.value,
                     fk_sellerId: {{reviewData.dataValues.id}},
                     fk_reviewId: get
                 })
-                location.reload();
+                await location.reload();
             }
         }
     }
@@ -261,13 +261,13 @@
             const input = document.createElement('input');
             const button = document.createElement('button');
             button.innerHTML = "수정";
-            button.onclick = () => {
-                const get = modifyBtn.getAttribute('data-review');
-                axios.put(`/review/modReview/${get}`, {
+            button.onclick = async () => {
+                const get = await modifyBtn.getAttribute('data-review');
+                await axios.put(`/review/modReview/${get}`, {
                     reviewComment: input.value,
                     star: selectBox.value
                 })
-                location.reload();
+                await location.reload();
             }
             const div = document.createElement('div');
             selectBox.append(opt1, opt2, opt3, opt4, opt5);
@@ -276,27 +276,26 @@
         }
     }
     if(deleteBtn) {
-        deleteBtn.onclick = () => {
-            const get = deleteBtn.getAttribute('data-review');
-            axios.delete(`/review/delReview/${get}`);
-            location.reload();
+        deleteBtn.onclick = async () => {
+            const get = await deleteBtn.getAttribute('data-review');
+            await axios.delete(`/review/delReview/${get}`);
+            await location.reload();
         }
     }
     const replydelBtn = document.getElementById('replydelBtn');
     if(replydelBtn) {
-        replydelBtn.onclick = () => {
-            const get = replydelBtn.getAttribute('data-reply');
-            axios.delete(`/review/delReply/${get}`);
-            location.reload();
+        replydelBtn.onclick = async () => {
+            const get = await replydelBtn.getAttribute('data-reply');
+            await axios.delete(`/review/delReply/${get}`);
+            await location.reload();
         }
     }
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = () => {
-    axios.post("https://junhu.store/user/logout").then((res) => {
-        location.href = 'https://junhu.store';
-    });
+logoutBtn.onclick = async () => {
+    await axios.post("/user/logout");
+    await location.href = '/';
 }
 </script>
 </html>
