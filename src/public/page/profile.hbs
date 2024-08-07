@@ -101,11 +101,13 @@
                                         <h6>{{starCount dataValues.star}}</h6>
                                         <h6>{{formDate dataValues.createdAt}}</h6>   
                                     </div>
-                                    <div>
-                                        <span id="replyBtn">답글</span>
+                                    <div style="display: flex;">
                                         {{#if (compareUser dataValues.fk_writerId loginUserId)}}
-                                        <span id="modifyBtn">수정</span>
-                                        <span id="deleteBtn">삭제</span>
+                                        <span id="replyBtn" style="margin-right: 10px;" data-review={{dataValues.id}}>답글</span>
+                                        {{/if}}
+                                        {{#if (compareUser dataValues.fk_reviewId loginUserId)}}
+                                        <span id="modifyBtn" style="margin-right: 10px;" data-review={{dataValues.id}}>수정</span>
+                                        <span id="deleteBtn" data-review={{dataValues.id}}>삭제</span>
                                         {{/if}}
                                     </div>
                                     <h6>{{dataValues.reviewComment}}</h6>
@@ -123,7 +125,7 @@
                                 <h6 >
                                     <img src={{concat "/uploads/" sellerId.dataValues.profileImg}} alt="">
                                 </h6>
-                                <h6>{{dataValues.nickname}}</h6>
+                                <h6>{{sellerId.dataValues.nickname}}</h6>
                                 <h6>{{formDate dataValues.createdAt}}</h6>
                             </div>
                             <p class="seller-content">
@@ -204,6 +206,64 @@
             })
         }else {
             alert("로그인이 필요한 서비스입니다.");
+        }
+    }
+    if(replyBtn) {
+        replyBtn.onclick = () => {
+            const input = document.createElement('input');
+            const button = document.createElement('button');
+            const div = document.createElement('div');
+            button.innerHTML = "작성";
+            div.append(input, button);
+            document.querySelector('.rating-box').append(div);
+            button.onclick = () => {
+                const get = replyBtn.getAttribute('data-review');
+                axios.post('/review/registReply', {
+                    replyComment: input.value,
+                    fk_sellerId: reviewData.dataValues.id,
+                    fk_reviewId: get
+                })
+            }
+        }
+    }
+    if(modifyBtn) {
+        modifyBtn.onclick = () => {
+            const selectBox = document.createElement('select');
+            const opt1 = document.createElement('opt');
+            opt1.innerHTML = "★☆☆☆☆";
+            opt1.value = "1";
+            const opt2 = document.createElement('opt');
+            opt2.innerHTML = "★★☆☆☆";
+            opt2.value = "2";
+            const opt3 = document.createElement('opt');
+            opt3.innerHTML = "★★★☆☆";
+            opt3.value = "3";
+            const opt4 = document.createElement('opt');
+            opt4.innerHTML = "★★★★☆";
+            opt4.value = "4";
+            const opt5 = document.createElement('opt');
+            opt5.innerHTML = "★★★★★";
+            opt5.value = "5";
+            const input = document.createElement('input');
+            const button = document.createElement('button');
+            button.innerHTML = "수정";
+            button.onclick = () => {
+                const get = modifyBtn.getAttribute('data-review');
+                axios.put(`/review/modReview/${get}`, {
+                    reviewComment: input.value,
+                    star: selectBox.value
+                })
+            }
+            const div = document.createElement('div');
+            selectBox.append(opt1, opt2, opt3, opt4, opt5);
+            div.append(selectBox, input, button);
+            document.querySelector('.rating-box').append(div);
+        }
+    }
+    if(deleteBtn) {
+        deleteBtn.onclick = () => {
+            const get = deleteBtn.getAttribute('data-review')''
+            axios.delete(`/review/delReview/${get}`);
         }
     }
 </script>
