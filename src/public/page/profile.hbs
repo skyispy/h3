@@ -293,11 +293,12 @@
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = () => {
-    console.log('버튼');
-    const get = {{reviewData.dataValues.id}}
-    axios.post("/user/logout");
-    location.href = `https://junhu.store/user/${get}`;
-}
+    logoutBtn.onclick = async () => {
+        const get = {{reviewData.dataValues.id}}
+        const response = await axios.post("/user/logout");
+        if(response.status === 200) {
+            location.href = `https://junhu.store/user/${get}`;
+        }
+    }
 </script>
 </html>

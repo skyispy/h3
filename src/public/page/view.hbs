@@ -127,10 +127,12 @@
 </script>
 <script>
     const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = () => {
+logoutBtn.onclick = async () => {
     const get = {{data.dataValues.id}};
-    axios.post("/user/logout");
-    location.href = `/item/${get}`;
+    const response = await axios.post("/user/logout");
+    if(response.status === 200) {
+        location.href = `/item/${get}`;
+    }
 }
 </script>
 </html>

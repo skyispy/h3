@@ -104,15 +104,16 @@ export class UserController {
   ///////////////////// DELETE 회원 탈퇴(force) //////////////////////
   @ApiOperation({ summary: "회원 탈퇴(force)" })
   @Delete("del/:id")
-  deleteUser(@Param("id") DelId: number) {
-    return this.userService.deleteUser(DelId);
+  async deleteUser(@Param("id") DelId: number) {
+    return await this.userService.deleteUser(DelId);
   }
 
   ///////////////////// POST 로그 아웃 //////////////////////
   @ApiOperation({ summary: "로그아웃" })
   @Post('logout')
-  logout(@Res() res: Response) {
-    res.clearCookie('loginToken');
+  async logout(@Res() res: Response) {
+    await res.clearCookie('loginToken');
+    await res.status(200).send();
     // 메인페이지로 리다이렉트plz
   }
 
