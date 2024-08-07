@@ -66,12 +66,4 @@
         }
     })
 </script>
-<script>
-    const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = () => {
-    axios.post("/user/logout").then((res) => {
-        location.href = '/user/login';
-    });
-}
-</script>
 </html>
