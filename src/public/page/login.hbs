@@ -66,4 +66,12 @@
         }
     })
 </script>
+<script>
+    const logoutBtn = document.getElementById("logOut");
+logoutBtn.onclick = () => {
+    axios.post("https://junhu.store/user/logout").then((res) => {
+        location.href = 'https://junhu.store';
+    });
+}
+</script>
 </html>

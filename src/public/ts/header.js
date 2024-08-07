@@ -8,10 +8,10 @@ document.addEventListener("scroll", () => {
     }
 });
 
-const logoutBtn = document.getElementById("logOut");
-logoutBtn.onclick = () => {
-    axios.post("https://junhu.store/user/logout").then((res) => {
-        location.href = 'https://junhu.store';
-    });
-}
+// const logoutBtn = document.getElementById("logOut");
+// logoutBtn.onclick = () => {
+//     axios.post("https://junhu.store/user/logout").then((res) => {
+//         location.href = 'https://junhu.store';
+//     });
+// }
 //# sourceMappingURL=header.js.map

@@ -236,19 +236,19 @@
     if(modifyBtn) {
         modifyBtn.onclick = () => {
             const selectBox = document.createElement('select');
-            const opt1 = document.createElement('opt');
+            const opt1 = document.createElement('option');
             opt1.innerHTML = "★☆☆☆☆";
             opt1.value = "1";
-            const opt2 = document.createElement('opt');
+            const opt2 = document.createElement('option');
             opt2.innerHTML = "★★☆☆☆";
             opt2.value = "2";
-            const opt3 = document.createElement('opt');
+            const opt3 = document.createElement('option');
             opt3.innerHTML = "★★★☆☆";
             opt3.value = "3";
-            const opt4 = document.createElement('opt');
+            const opt4 = document.createElement('option');
             opt4.innerHTML = "★★★★☆";
             opt4.value = "4";
-            const opt5 = document.createElement('opt');
+            const opt5 = document.createElement('option');
             opt5.innerHTML = "★★★★★";
             opt5.value = "5";
             const input = document.createElement('input');
@@ -273,5 +273,13 @@
             axios.delete(`/review/delReview/${get}`);
         }
     }
+</script>
+<script>
+    const logoutBtn = document.getElementById("logOut");
+logoutBtn.onclick = () => {
+    axios.post("https://junhu.store/user/logout").then((res) => {
+        location.href = 'https://junhu.store';
+    });
+}
 </script>
 </html>
