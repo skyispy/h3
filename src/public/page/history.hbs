@@ -28,7 +28,7 @@
                             <span>{{dataValues.title}}</span>
                             <span>{{formDate dataValues.createdAt}}</span>
                             <span>{{dataValues.price}}</span>
-                            <span>{{dataValues.fk_sellerId}}</span>
+                            <span>{{dataValues.item.nickname}}</span>
                         </div>
                     {{/each}}
                 </div>
@@ -53,7 +53,7 @@
     const logoutBtn = document.getElementById("logOut");
 logoutBtn.onclick = async () => {
     await axios.post("/user/logout");
-    await location.href = 'https://junhu.store';
+    location.href = 'https://junhu.store';
 }
 </script>
 </html>

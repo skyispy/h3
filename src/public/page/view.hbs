@@ -129,7 +129,7 @@
     const logoutBtn = document.getElementById("logOut");
 logoutBtn.onclick = async () => {
     await axios.post("/user/logout");
-    await location.href ={{concat '/item/' data.dataValues.id}};
+    location.href ={{concat '/item/' data.dataValues.id}};
 }
 </script>
 </html>
