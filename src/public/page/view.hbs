@@ -130,7 +130,7 @@
 logoutBtn.onclick = async () => {
     const get = await {{data.dataValues.id}};
     await axios.post("/user/logout");
-    await location.href = `/item/${get}`;
+    location.href = await `/item/${get}`;
 }
 </script>
 </html>

@@ -116,7 +116,7 @@
 logoutBtn.onclick = async () => {
     await console.log('버튼');
     await axios.post("/user/logout");
-    await location.href = `https://junhu.store/item/market`;
+    location.href = await `https://junhu.store/item/market`;
 }
 </script>
 </html>

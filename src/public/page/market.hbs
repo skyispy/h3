@@ -297,7 +297,7 @@
     const logoutBtn = document.getElementById("logOut");
 logoutBtn.onclick = async () => {
     await axios.post("/user/logout");
-    await location.href = 'https://junhu.store/item/market';
+    location.href = await 'https://junhu.store/item/market';
 }
 </script>
 </html>

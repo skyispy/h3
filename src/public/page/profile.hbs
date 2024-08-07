@@ -296,7 +296,7 @@
 logoutBtn.onclick = async () => {
     const get = await {{reviewData.dataValues.id}}
     await axios.post("/user/logout");
-    await location.href = `https://junhu.store/user/${get}`;
+    location.href = await `https://junhu.store/user/${get}`;
 }
 </script>
 </html>
