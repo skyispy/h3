@@ -227,7 +227,7 @@
                 const get = replyBtn.getAttribute('data-review');
                 axios.post('/review/registReply', {
                     replyComment: input.value,
-                    fk_sellerId: reviewData.dataValues.id,
+                    fk_sellerId: {{reviewData.dataValues.id}},
                     fk_reviewId: get
                 })
             }
