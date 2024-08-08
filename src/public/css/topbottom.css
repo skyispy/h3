@@ -15,7 +15,7 @@ a {
 }
 
 #wrap {
-    width: 1905px;
+    width: 100vw;
 }
 
 #wrap > header {
