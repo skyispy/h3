@@ -28,7 +28,7 @@
                 <div class="user-btn-box">
                     <a href={{concat "/user/history/" reviewData.dataValues.id}} id="historyBtn">구매내역</a>
                     <div id="editBtn">편집</div>
-                    <div id="delUserBtn">탈퇴</div>
+                    {{!-- <div id="delUserBtn">탈퇴</div> --}}
                 </div>
                 {{/if}}
                 <div class="controller">
@@ -303,11 +303,10 @@
 </script>
 <script>
     sellBtn.onclick = async () =>  {
-        const response = await axios.get('https://junhu.store/item/sell');
-        if(response.status === 401) {
-            alert('로그인 필요해요');
-        }else {
-            location.href = 'https://junhu.store/item/sell'
+        try {
+            const response = await axios.get('https://junhu.store/item/sell');
+        }catch {
+            alert('로그인이 필요해요.')
         }
     }
 </script>
