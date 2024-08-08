@@ -112,9 +112,11 @@ signupBtn.onclick = () => {
         {{#if signToken}}
         const token = {{signToken}}
         {{/if}}
-        if(token) {
-            axios.post('/auth/signSns', object);
-        }else {
+        try{
+            if(token) {
+                axios.post('/auth/signSns', object);
+            }
+        }catch {
             axios.post("https://junhu.store/user/signUp", object)
                 .then((res) => {
                 console.log(res);
