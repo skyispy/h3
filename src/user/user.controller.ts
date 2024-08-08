@@ -98,22 +98,23 @@ export class UserController {
   @UseInterceptors(FileInterceptor("profileImg")) // 파일 인터셉터
   async updateUser(@Body() updateData: UpdateUserDTO, @Param("id") updateUserId: number, @UploadedFile() file: Express.Multer.File) {
     // console.log(updateData);
-    return this.userService.updateUser(updateData, updateUserId, file.filename);
+    return await this.userService.updateUser(updateData, updateUserId, file.filename);
   }
 
   ///////////////////// DELETE 회원 탈퇴(force) //////////////////////
   @ApiOperation({ summary: "회원 탈퇴(force)" })
   @Delete("del/:id")
-  deleteUser(@Param("id") DelId: number) {
-    return this.userService.deleteUser(DelId);
+  async deleteUser(@Param("id") DelId: number) {
+    return await this.userService.deleteUser(DelId);
   }
 
   ///////////////////// POST 로그 아웃 //////////////////////
   @ApiOperation({ summary: "로그아웃" })
   @Post('logout')
-  logout(@Res() res: Response) {
-    res.clearCookie('loginToken')
-    return // 메인페이지로 리다이렉트plz
+  async logout(@Res() res: Response) {
+    await res.clearCookie('loginToken');
+    await res.status(200).send();
+    // 메인페이지로 리다이렉트plz
   }
 
   // /// test 마이 스토어

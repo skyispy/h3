@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/css/topbottom.css">
     <link rel="stylesheet" href="/css/profile.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>const hi = "/img/uploads";</script>
 </head>
 <body>
     <div id="wrap">
@@ -16,12 +15,12 @@
             <div class="content-wrap">
                 <div class="profile-box">
                     <img src="/img/views/Unknown.svg" alt="">
-                    <div class="img-box" style="border: 1px solid;">
+                    <div class="img-box">
                         <img src={{concat "/uploads/" wishData.dataValues.profileImg}} alt="">
                     </div>
                     <div class="ifo-box">
                         <h3 style="margin-left: 1%;">{{reviewData.dataValues.nickname}}</h3>
-                        <textarea name="" id="intro" style="resize: none;" readonly></textarea>
+                        <textarea name="" id="intro" style="resize: none;" readonly>{{reviewData.dataValues.introduce}}</textarea>
                         <div class="textarea-box"></div>
                     </div>
                 </div>
@@ -42,9 +41,9 @@
                         <div class="line"></div>
                     </span>
                 </div>
-                <div class="shop-box">
+                <div class="shop-box" style="display: none;">
                     {{#each itemData.dataValues.sellingItem}}
-                        <div class="product-box">
+                        <a href={{concat "/item/" dataValues.id}} class="product-box">
                             <div class="img-box">
                                 {{#each dataValues.imgs}}
                                     {{#if @first}}
@@ -57,7 +56,7 @@
                                 <p>{{dataValues.title}}</p>
                                 <p>{{dataValues.price}}</p>
                             </div>
-                        </div>
+                        </a>
                     {{/each}}
                 </div>
                 <div class="wishlist-box" style="display: none;">
@@ -73,9 +72,9 @@
                         </a>
                     {{/each}}
                 </div>
-                <div class="review-box" style="display: none;">
+                <div class="review-box">
                     <div class="input-box">
-                        <select name="" id="">
+                        <select name="" id="selectStar">
                             <option value="">별점 선택</option>
                             <option value="1">★☆☆☆☆</option>
                             <option value="2">★★☆☆☆</option>
@@ -84,8 +83,8 @@
                             <option value="4">★★★★★</option>
                             <option value="5"></option>
                         </select>
-                        <input type="text">
-                        <button>작성</button>
+                        <input type="text" id="reviewInput">
+                        <button id="reviewBtn">작성</button>
                     </div>
                     {{#each reviewData.dataValues.receiveReviews}}
                         <div class="reply-box">
@@ -94,13 +93,22 @@
                                     <h6>
                                         <img src={{concat "/uploads/" dataValues.writerId.dataValues.profileImg}} alt="">
                                     </h6>
-                                    <h6>{{dataValues.writerId.dataValues}}</h6>
+                                    <h6>{{dataValues.writerId.dataValues.nickname}}</h6>
                                 </div>
                                 <div class="rating-box">
                                     <div class="flex-box">
                                         {{log dataValues.fk_writerId}}
                                         <h6>{{starCount dataValues.star}}</h6>
                                         <h6>{{formDate dataValues.createdAt}}</h6>   
+                                    </div>
+                                    <div style="display: flex;">
+                                        {{#if (compareUser reviewData.dataValues.id loginUserId)}}
+                                        <span id="replyBtn" style="margin-right: 10px;" data-review={{dataValues.id}}>답글</span>
+                                        {{/if}}
+                                        {{#if (compareUser dataValues.fk_reviewId loginUserId)}}
+                                        <span id="modifyBtn" style="margin-right: 10px;" data-review={{dataValues.id}}>수정</span>
+                                        <span id="deleteBtn" data-review={{dataValues.id}}>삭제</span>
+                                        {{/if}}
                                     </div>
                                     <h6>{{dataValues.reviewComment}}</h6>
                                 </div>
@@ -117,94 +125,20 @@
                                 <h6 >
                                     <img src={{concat "/uploads/" sellerId.dataValues.profileImg}} alt="">
                                 </h6>
-                                <h6>닉네임</h6>
+                                <h6>{{sellerId.dataValues.nickname}}</h6>
                                 <h6>{{formDate dataValues.createdAt}}</h6>
                             </div>
+                            {{#if (compareUser reviewdata.dataValues.id loginUserId)}}
+                            <div>
+                                <span id="replydelBtn" style="margin-left: 20px;" data-reply={{dataValues.id}}>삭제</span>
+                            </div>
+                            {{/if}}
                             <p class="seller-content">
                                 {{dataValues.replyComment}}
                             </p>
                         {{/each}}
                     </div>
                     {{/each}}
-                    <div class="reply-box">
-                        <div class="left">
-                            <div class="reviewer-box">
-                                <h6>
-                                    <img src="../img/login/image.png" alt="">
-                                </h6>
-                                <h6>닉네임</h6>
-                            </div>
-                            <div class="rating-box">
-                                <div class="flex-box">
-                                    <h6>★☆★☆★</h6>
-                                    <h6>2024. 7. 16</h6>   
-                                </div>
-                                <h6>좋은 배송 감사합니다~</h6>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="img-box">
-                                <img src="../img/login/image.webp" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="under-reply-box">
-                        <div class="seller-ifo">
-                            <h6>↩︎</h6>
-                            <h6 >
-                                <img src="../img/login/image.png" alt="">
-                            </h6>
-                            <h6>닉네임</h6>
-                            <h6>2024. 07. 16</h6>
-                        </div>
-                        <p class="seller-content">
-                            이용해주셔서 감사합니당
-                        </p>
-                    </div>
-                    <div class="reply-box">
-                        <div class="left">
-                            <div class="reviewer-box">
-                                <h6>
-                                    <img src="../img/login/image.png" alt="">
-                                </h6>
-                                <h6>닉네임</h6>
-                            </div>
-                            <div class="rating-box">
-                                <div class="flex-box">
-                                    <h6>★☆★☆★</h6>
-                                    <h6>2024. 7. 16</h6>   
-                                </div>
-                                <h6>좋은 배송 감사합니다~</h6>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="img-box">
-                                <img src="../img/login/image.webp" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply-box">
-                        <div class="left">
-                            <div class="reviewer-box">
-                                <h6>
-                                    <img src="../img/login/image.png" alt="">
-                                </h6>
-                                <h6>닉네임</h6>
-                            </div>
-                            <div class="rating-box">
-                                <div class="flex-box">
-                                    <h6>★☆★☆★</h6>
-                                    <h6>2024. 7. 16</h6>   
-                                </div>
-                                <h6>좋은 배송 감사합니다~</h6>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="img-box">
-                                <img src="../img/login/image.webp" alt="">
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -218,15 +152,15 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
             }
         }
     })
 </script>
 <script>
     const editBtn = document.getElementById("editBtn");
+    const introBox = document.getElementById("intro");
     editBtn.onclick = () => {
-        const introBox = document.getElementById("intro");
         const imgBox = document.querySelector('.profile-box > .img-box');
         const nickNameBox = document.querySelector('.ifo-box');
         const nicknameValue = document.querySelector('.ifo-box > h3').innerHTML;
@@ -235,29 +169,151 @@
         imgInput.type = "file"
         imgBox.append(imgInput);
         const input = document.createElement('input');
+        input.style.width = "100%";
+        input.style.height = "30%";
+        input.style.fontSize = "88%";
+        input.style.padding = "3px 6px";
         input.value = nicknameValue;
-        document.querySelector('.ifo-box > h3').remove()
-        nickNameBox.append(input, introBox);
+        document.querySelector('.ifo-box > h3').remove();
+        const del = document.createElement('button');
+        del.onclick = async () => {
+            const userId = {{loginUserId}}
+            const response = await axios.post(`/user/del/${userId}`);
+        }
+        del.innerHTML = "회원탈퇴";
+        nickNameBox.append(input, introBox, del);
         introBox.readOnly = false;
         editBtn.remove();
-        const form = new FormData();
-        form.append('introduce', introBox.value);
-        form.append('nickname', input.value);
-        form.append('profileImg', imgInput.files[0]);
-        console.log(form)
         const completeBtn = document.createElement('div');
         completeBtn.innerHTML = "완료";
         completeBtn.id = "completeBtn";
-        completeBtn.onclick = () => {
+        completeBtn.onclick = async () => {
+            const form = await new FormData();
+            await form.append('introduce', introBox.value);
+            await form.append('nickname', input.value);
+            await form.append('profileImg', imgInput.files[0]);
+            await console.log(introBox.value, input.value, imgInput.files[0]);
             if(imgInput.files[0] && input.value) {
-                const loginUserId = {{loginUserId}};
-                axios.put(`/user/mod/${loginUserId}`, form);
-                location.reload();
+                const loginUserId = await {{loginUserId}};
+                await axios.put(`/user/mod/${loginUserId}`, form, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                await location.reload();
             }else {
-                alert('닉네임 또는 이미지를 확인해주세요');
+                await alert('닉네임 또는 이미지를 확인해주세요');
             }
         }
         document.querySelector('.user-btn-box').append(completeBtn);
+    }
+    reviewBtn.onclick = async () => {
+        const loginUserId = {{loginUserId}}
+        if(loginUserId) {
+            if(reviewInput.value && selectStar.value) {
+                await axios.post('/review/registReview', {
+                    reviewComment: reviewInput.value,
+                    star: selectStar.value,
+                    fk_sellerId: loginUserId
+                })
+                await location.reload();
+            }else {
+                alert("별점과 내용을 모두 입력해주세요");
+            }
+        }else {
+            alert("로그인이 필요한 서비스입니다.");
+        }
+    }
+    const replyBtn = document.getElementById('replyBtn');
+    const modifyBtn = document.getElementById('modifyBtn');
+    const deleteBtn = document.getElementById('deleteBtn');
+    if(replyBtn) {
+        replyBtn.onclick = () => {
+            const input = document.createElement('input');
+            const button = document.createElement('button');
+            const div = document.createElement('div');
+            button.innerHTML = "작성";
+            div.append(input, button);
+            document.querySelector('.rating-box').append(div);
+            button.onclick = async () => {
+                const get = await replyBtn.getAttribute('data-review');
+                await axios.post('/review/registReply', {
+                    replyComment: input.value,
+                    fk_sellerId: {{reviewData.dataValues.id}},
+                    fk_reviewId: get
+                })
+                await location.reload();
+            }
+        }
+    }
+    if(modifyBtn) {
+        modifyBtn.onclick = () => {
+            const selectBox = document.createElement('select');
+            const opt1 = document.createElement('option');
+            opt1.innerHTML = "★☆☆☆☆";
+            opt1.value = "1";
+            const opt2 = document.createElement('option');
+            opt2.innerHTML = "★★☆☆☆";
+            opt2.value = "2";
+            const opt3 = document.createElement('option');
+            opt3.innerHTML = "★★★☆☆";
+            opt3.value = "3";
+            const opt4 = document.createElement('option');
+            opt4.innerHTML = "★★★★☆";
+            opt4.value = "4";
+            const opt5 = document.createElement('option');
+            opt5.innerHTML = "★★★★★";
+            opt5.value = "5";
+            const input = document.createElement('input');
+            const button = document.createElement('button');
+            button.innerHTML = "수정";
+            button.onclick = async () => {
+                const get = await modifyBtn.getAttribute('data-review');
+                await axios.put(`/review/modReview/${get}`, {
+                    reviewComment: input.value,
+                    star: selectBox.value
+                })
+                await location.reload();
+            }
+            const div = document.createElement('div');
+            selectBox.append(opt1, opt2, opt3, opt4, opt5);
+            div.append(selectBox, input, button);
+            document.querySelector('.rating-box').append(div);
+        }
+    }
+    if(deleteBtn) {
+        deleteBtn.onclick = async () => {
+            const get = await deleteBtn.getAttribute('data-review');
+            await axios.delete(`/review/delReview/${get}`);
+            await location.reload();
+        }
+    }
+    const replydelBtn = document.getElementById('replydelBtn');
+    if(replydelBtn) {
+        replydelBtn.onclick = async () => {
+            const get = await replydelBtn.getAttribute('data-reply');
+            await axios.delete(`/review/delReply/${get}`);
+            await location.reload();
+        }
+    }
+</script>
+<script>
+    const logoutBtn = document.getElementById("logOut");
+    logoutBtn.onclick = async () => {
+        const get = {{reviewData.dataValues.id}}
+        const response = await axios.post("/user/logout");
+        if(response.status === 200) {
+            location.href = `https://junhu.store/user/${get}`;
+        }
+    }
+</script>
+<script>
+    sellBtn.onclick = async () =>  {
+        try {
+            const response = await axios.get('https://junhu.store/item/sell');
+        }catch {
+            alert('로그인이 필요해요.')
+        }
     }
 </script>
 </html>

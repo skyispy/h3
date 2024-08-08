@@ -106,9 +106,27 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `http://localhost:3000/item/market?search=${searchInput.value}`;
+                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
             }
         }
     })
+</script>
+<script>
+    const logoutBtn = document.getElementById("logOut");
+logoutBtn.onclick = async () => {
+    const response = await axios.post("/user/logout");
+    if(response.status === 200) {
+        location.href = `https://junhu.store/item/market`;
+    }
+}
+</script>
+<script>
+    sellBtn.onclick = async () =>  {
+        try {
+            const response = await axios.get('https://junhu.store/item/sell');
+        }catch {
+            alert('로그인이 필요해요.')
+        }
+    }
 </script>
 </html>

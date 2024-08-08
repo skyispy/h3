@@ -4,19 +4,19 @@
         </a>
         <div class="search-box">
             <img src="/img/topbottom/search-icon.png" alt="search-icon">
-            <input id="searchInput" type="text" style="line-height: -1px;" placeholder="상품, 브랜드 및 유저 검색">
+            <input id="searchInput" type="text" style="line-height: -1px;" placeholder="상품 이름 검색">
         </div>
         <ul>
             <li><a href="/">홈</a></li>
             <li><a href="/item/market">마켓</a></li>
-            <li><a href="/item/sell">판매</a></li>
+            <li id="sellBtn">판매</li>
             {{#unless loginUserId}}
             <li><a href="/user/signup">회원가입</a></li>
             <li><a href="/user/login">로그인</a></li>
             {{/unless}}
             {{#if loginUserId}}
             <li><a href={{concat "/user/" loginUserId}}>내 스토어</a></li>
-            <li><a id="logOut">로그아웃</a></li>
+            <li><div id="logOut">로그아웃</div></li>
             {{/if}}
         </ul>
 </header>

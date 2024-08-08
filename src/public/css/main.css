@@ -71,7 +71,7 @@
     background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-29_011.jpeg);
 }
 #slide-4 > .slide-box:nth-child(2) {
-    background-image: url(../img/slide/KakaoTalk_Image_2024-08-06-14-06-30_012.jpeg); 
+    background-image: url(/img/slide/KakaoTalk_Image_2024-08-06-14-06-30_012.jpeg); 
 }
 
 #slide-5 > .slide-box:nth-child(1) {
@@ -92,13 +92,14 @@
     width: 10%;
     height: 10%;
     position: absolute;
-    top: 80%;
+    top: 96%;
     display: flex;
     justify-content: space-between;
 }
 
 .slide-controller > span {
     width: 14%;
-    height: 3%;
+    height: 5%;
+    border-radius: 8px;
     background-color: black;
 }

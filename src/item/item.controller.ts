@@ -66,15 +66,15 @@ export class ItemController {
     if (!token) {
       return { data } // 상품정보,+ 셀러 정보 + 이미지 정보 배열[]
     } else {
+      const wishCount = await this.wishService.wishCount(id);
       try {
         const loginUserId = await this.jwtService.verify(token).id
         const like = await this.wishService.checkWish(id, loginUserId)
-        const wishCount = await this.wishService.wishCount(id);
         // console.log(like) // 현재 위시 인지 아닌지
         // console.log(loginUserId); // 현재접속 유저 id
         return { data, loginUserId, like, wishCount };
       } catch (error) {
-        return { data };
+        return { data, wishCount};
       }
     }
   }
