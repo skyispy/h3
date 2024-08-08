@@ -176,9 +176,9 @@
         input.value = nicknameValue;
         document.querySelector('.ifo-box > h3').remove();
         const del = document.createElement('button');
-        del.onclick = async () => {
+        del.onclick = () => {
             const userId = {{loginUserId}}
-            const response = await axios.post(`/user/del/${userId}`);
+            axios.post(`/user/del/${userId}`);
         }
         del.innerHTML = "회원탈퇴";
         nickNameBox.append(input, introBox, del);
