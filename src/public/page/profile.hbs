@@ -28,7 +28,6 @@
                 <div class="user-btn-box">
                     <a href={{concat "/user/history/" reviewData.dataValues.id}} id="historyBtn">구매내역</a>
                     <div id="editBtn">편집</div>
-                    {{!-- <div id="delUserBtn">탈퇴</div> --}}
                 </div>
                 {{/if}}
                 <div class="controller">
@@ -174,8 +173,14 @@
         input.style.fontSize = "88%";
         input.style.padding = "3px 6px";
         input.value = nicknameValue;
-        document.querySelector('.ifo-box > h3').remove()
-        nickNameBox.append(input, introBox);
+        document.querySelector('.ifo-box > h3').remove();
+        const del = document.createElement('button');
+        del.onclick = async () => {
+            const userId = {{loginUserId}}
+            const response = await axios.post(`/user/del/${userId}`);
+        }
+        del.innerHTML = "회원탈퇴";
+        nickNameBox.append(input, introBox, del);
         introBox.readOnly = false;
         editBtn.remove();
         const completeBtn = document.createElement('div');
