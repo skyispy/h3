@@ -178,7 +178,8 @@
         const del = document.createElement('button');
         del.onclick = async () => {
             const userId = await {{loginUserId}}
-            await axios.post(`/user/del/${userId}`);
+            console.log(userId);
+            const response = await axios.delete(`https://junhu.store/user/del/${userId}`);
         }
         del.innerHTML = "회원탈퇴";
         nickNameBox.append(input, introBox, del);
