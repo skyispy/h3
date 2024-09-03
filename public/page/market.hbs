@@ -154,7 +154,7 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
+                location.href = `/item/market?search=${searchInput.value}`;
             }
         }
     })
@@ -197,13 +197,13 @@
             pageButton.innerHTML = `${pageArr[i]}`
             pageButton.onclick = () => {
                 if(text && text2) {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                    location.href = `/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
                 }else if(text) {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                    location.href = `/item/market?page=${pageArr[i]}&category=${text}`;
                 }else if(text2) {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
+                    location.href = `/item/market?page=${pageArr[i]}&search=${text2}`;
                 }else {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
+                    location.href = `/item/market?page=${pageArr[i]}`;
                 }
             }
             if (pageArr[i] === currentPage) { pageButton.classList.add('current'); }
@@ -219,13 +219,13 @@
                     pageButton.innerHTML = `${pageArr[i]}`;
                     pageButton.onclick = () => {
                         if(text && text2) {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                            location.href = `/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
                         }else if(text) {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                            location.href = `/item/market?page=${pageArr[i]}&category=${text}`;
                         }else if(text2) {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
+                            location.href = `/item/market?page=${pageArr[i]}&search=${text2}`;
                         }else {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
+                            location.href = `/item/market?page=${pageArr[i]}`;
                         }
                     }
                     if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
@@ -239,13 +239,13 @@
                     pageButton.innerHTML = `${pageArr[i]}`;
                     pageButton.onclick = () => {
                         if(text && text2) {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                            location.href = `/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
                         }else if(text) {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                            location.href = `/item/market?page=${pageArr[i]}&category=${text}`;
                         }else if(text2) {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
+                            location.href = `/item/market?page=${pageArr[i]}&search=${text2}`;
                         }else {
-                            location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
+                            location.href = `/item/market?page=${pageArr[i]}`;
                         }
                     }
                     if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
@@ -263,13 +263,13 @@
                 pageButton.innerHTML = `${pageArr[i]}`;
                 pageButton.onclick = () => {
                     if(text && text2) {
-                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                        location.href = `/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
                     }else if(text) {
-                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                        location.href = `/item/market?page=${pageArr[i]}&category=${text}`;
                     }else if(text2) {
-                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
+                        location.href = `/item/market?page=${pageArr[i]}&search=${text2}`;
                     }else {
-                        location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
+                        location.href = `/item/market?page=${pageArr[i]}`;
                     }
                 }
                 if(pageArr[i] === currentPage) {pageButton.classList.add('current');}
@@ -279,13 +279,13 @@
             nextBtn.onclick = () => {}
             preBtn.onclick = () => {
                 if(text && text2) {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
+                    location.href = `/item/market?page=${pageArr[i]}&category=${text}&search=${text2}`;
                 }else if(text) {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&category=${text}`;
+                    location.href = `/item/market?page=${pageArr[i]}&category=${text}`;
                 }else if(text2) {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}&search=${text2}`;
+                    location.href = `/item/market?page=${pageArr[i]}&search=${text2}`;
                 }else {
-                    location.href = `https://junhu.store/item/market?page=${pageArr[i]}`;
+                    location.href = `/item/market?page=${pageArr[i]}`;
                 }
             }
         }
@@ -298,15 +298,15 @@
 logoutBtn.onclick = async () => {
     const response = await axios.post("/user/logout");
     if(response.status === 200) {
-        location.href = `https://junhu.store/item/market`;
+        location.href = `/item/market`;
     }
 }
 </script>
 <script>
     sellBtn.onclick = async () =>  {
         try {
-            const response = await axios.get('https://junhu.store/item/sell');
-            location.href = 'https://junhu.store/item/sell';
+            const response = await axios.get('/item/sell');
+            location.href = '/item/sell';
         }catch {
             alert('로그인이 필요해요.')
         }

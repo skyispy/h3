@@ -67,6 +67,7 @@
                                 <option value="BALENCIAGA">BALENCIAGA</option>
                                 <option value="COMME_DES_GARCONS">COMME_DES_GARCONS</option>
                                 <option value="HYSTERIC_GLAMOUR">HYSTERIC_GLAMOUR</option>
+                                <option value="NOBRAND">NOBRAND</option>
                             </select>
                         </div>
                         <div class="select-tag">
@@ -106,7 +107,7 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
+                location.href = `/item/market?search=${searchInput.value}`;
             }
         }
     })
@@ -116,15 +117,15 @@
 logoutBtn.onclick = async () => {
     const response = await axios.post("/user/logout");
     if(response.status === 200) {
-        location.href = `https://junhu.store/item/market`;
+        location.href = `/`;
     }
 }
 </script>
 <script>
     sellBtn.onclick = async () =>  {
         try {
-            const response = await axios.get('https://junhu.store/item/sell');
-            location.href = 'https://junhu.store/item/sell';
+            const response = await axios.get('/item/sell');
+            location.href = '/item/sell';
         }catch {
             alert('로그인이 필요해요.')
         }

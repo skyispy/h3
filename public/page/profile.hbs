@@ -152,7 +152,7 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
+                location.href = `/item/market?search=${searchInput.value}`;
             }
         }
     })
@@ -179,7 +179,7 @@
         del.onclick = async () => {
             const userId = await {{loginUserId}}
             console.log(userId);
-            const response = await axios.delete(`https://junhu.store/user/del/${userId}`);
+            const response = await axios.delete(`/user/del/${userId}`);
         }
         del.innerHTML = "회원탈퇴";
         nickNameBox.append(input, introBox, del);
@@ -304,14 +304,14 @@
         const get = {{reviewData.dataValues.id}}
         const response = await axios.post("/user/logout");
         if(response.status === 200) {
-            location.href = `https://junhu.store/user/${get}`;
+            location.href = `/user/${get}`;
         }
     }
 </script>
 <script>
     sellBtn.onclick = async () =>  {
         try {
-            const response = await axios.get('https://junhu.store/item/sell');
+            const response = await axios.get('/item/sell');
         }catch {
             alert('로그인이 필요해요.')
         }

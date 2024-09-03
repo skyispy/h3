@@ -61,7 +61,7 @@
     searchInput.addEventListener('keydown', (event) => {
         if(event.key === 'Enter') {
             if(searchInput.value) {
-                location.href = `https://junhu.store/item/market?search=${searchInput.value}`;
+                location.href = `/item/market?search=${searchInput.value}`;
             }
         }
     })
@@ -71,15 +71,15 @@
 logoutBtn.onclick = async () => {
     const response = await axios.post("/user/logout");
     if(response.status === 200) {
-        location.href = `https://junhu.store/`;
+        location.href = `/`;
     }
 }
 </script>
 <script>
     sellBtn.onclick = async () =>  {
         try {
-            const response = await axios.get('https://junhu.store/item/sell');
-            location.href = 'https://junhu.store/item/sell';
+            const response = await axios.get('/item/sell');
+            location.href = '/item/sell';
         }catch {
             alert('로그인이 필요해요.')
         }
